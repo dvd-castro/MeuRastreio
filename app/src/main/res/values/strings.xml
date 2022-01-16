@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Meu Rastreio</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Tabs -->
+    <string name="tab_item_em_andamento">Em andamento</string>
+    <string name="tab_item_concluidos">Concluídos</string>
+
+    <!-- Descriptions -->
+    <string name="description_fab">Clicar para adicionar uma nova encomenda a ser rastreada</string>
+
+    <!-- Status rastreio -->
+    <string name="status_postato_apos_horario_limite">Objeto postado após o horário limite da unidade</string>
+    <string name="status_encaminhado">Objeto encaminhado</string>
+    <string name="status_entregue">Objeto entregue ao destinatário</string>
+    <string name="status_saiu_para_entrega">Objeto saiu para entrega ao destinatário</string>
+
+    <!-- Hints -->
+    <string name="hint_nome">Nome</string>
+    <string name="hint_codigo">Código de rastreio</string>
+
+    <!-- Erros -->
+    <string name="error_server">Deu ruim, algum problema na conexão, tente novamente mais tarde!</string>
+    <string name="error_rastreio_nao_encontrado">Código de rastreio não encontrado, verifique e tente novamente!</string>
+    <string name="error_rastreio_ja_inserido">Código de rastreio já foi inserido anteriormente</string>
+    <string name="error_rastreio_nao_possivel_consultar_ainda">Ainda é muito cedo para consultar esse rastreio pois foi postado recentemente, por favor tente novamente mais tarde!</string>
+
+    <!--Actions -->
+    <string name="action_delete">Apagar</string>
+    <string name="action_to_add">Adicionar</string>
+    <string name="action_to_cancel">Cancelar</string>
+    
+    <!-- Titles-->
+    <string name="title_add_a_new_tracking">Adicionar um novo rastreio</string>
+
+</resources>

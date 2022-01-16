@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    FONTES    -->
+    <dimen name="headline_4">34sp</dimen>
+    <dimen name="headline_3">24sp</dimen>
+    <dimen name="headline_5">24sp</dimen>
+    <dimen name="headline_6">20sp</dimen>
+
+    <dimen name="normal">18sp</dimen>
+
+    <dimen name="subtitle_1">16sp</dimen>
+    <dimen name="subtitle_2">14sp</dimen>
+
+    <dimen name="caption">12sp</dimen>
+
+    <dimen name="overline">10sp</dimen>
+
+    <!--    Alturas    -->
+    <dimen name="height_38dp">38dp</dimen>
+    <dimen name="height_46dp">46dp</dimen>
+    <dimen name="height_56dp">56dp</dimen>
+    <dimen name="height_250dp">250dp</dimen>
+
+    <!--    Paddings    -->
+    <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_24">24dp</dimen>
+
+    <!--    Radius    -->
+    <dimen name="radius_10">10dp</dimen>
+
+</resources>
