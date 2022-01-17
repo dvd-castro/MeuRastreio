@@ -10,8 +10,8 @@ open class DatabaseDataSource(context: Context){
 
     private val dao = AppDatabase.getDatabase(context).rastreioDao
 
-    fun inserirRastreio(rastreioModel: RastreioModel) {
-        dao.insert(rastreioModel.toRastreioEntity())
+    fun inserirRastreio(rastreio: RastreioModel) {
+        dao.insert(rastreio.toRastreioEntity())
     }
 
     fun getRastreio(codigo: String): RastreioModel {

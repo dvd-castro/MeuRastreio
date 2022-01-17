@@ -10,8 +10,8 @@ class RastreioRepository(context: Context) {
     private val databaseDataSource = DatabaseDataSource(context)
     private val networkApi = Api()
 
-    suspend fun insertTracking(rastreioModel: RastreioModel) {
-        databaseDataSource.inserirRastreio(rastreioModel)
+    suspend fun insertTracking(rastreio: RastreioModel) {
+        databaseDataSource.inserirRastreio(rastreio)
     }
 
     suspend fun getAllTracking(): List<RastreioModel> {
