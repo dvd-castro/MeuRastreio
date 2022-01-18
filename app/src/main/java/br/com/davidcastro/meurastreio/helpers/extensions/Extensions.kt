@@ -32,7 +32,7 @@ fun RastreioEntity.toRastreioModel() : RastreioModel {
 fun RastreioModel.toRastreioEntity() : RastreioEntity {
 
     return RastreioEntity(
-        nome = this.nome?: "Encomenda",
+        nome = if(!this.nome.isNullOrBlank()) this.nome else "Encomenda",
         codigo = this.codigo,
         eventos = this.eventos.toJsonString()
     )

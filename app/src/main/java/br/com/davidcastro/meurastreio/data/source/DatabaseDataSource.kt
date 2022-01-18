@@ -10,17 +10,22 @@ open class DatabaseDataSource(context: Context){
 
     private val dao = AppDatabase.getDatabase(context).rastreioDao
 
-    fun inserirRastreio(rastreio: RastreioModel) {
+    fun insert(rastreio: RastreioModel) {
         dao.insert(rastreio.toRastreioEntity())
     }
 
-    fun getRastreio(codigo: String): RastreioModel {
-        return dao.getRastreio(codigo).toRastreioModel()
+    fun get(codigo: String): RastreioModel {
+        return dao.get(codigo).toRastreioModel()
     }
 
-    fun deleteRastreio(codigo: String) {
+    fun delete(codigo: String) {
         dao.delete(codigo)
     }
+
+    fun contains(codigo: String): Boolean {
+        return dao.contains(codigo)
+    }
+
     fun getAll(): List<RastreioModel> {
         val data = dao.getAll()
 

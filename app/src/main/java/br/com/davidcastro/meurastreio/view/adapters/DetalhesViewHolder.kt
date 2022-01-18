@@ -2,26 +2,39 @@ package br.com.davidcastro.meurastreio.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.davidcastro.meurastreio.R
-import br.com.davidcastro.meurastreio.databinding.ListItemDetalhesBinding
 import br.com.davidcastro.meurastreio.data.model.EventosModel
+import br.com.davidcastro.meurastreio.databinding.ListItemDetalhesBinding
 
 class DetalhesViewHolder(private val binding: ListItemDetalhesBinding) : RecyclerView.ViewHolder(binding.root) {
+
     lateinit var context: Context
 
     companion object {
-        internal fun inflateViewBinding(parent: ViewGroup, viewType: Int): ListItemDetalhesBinding {
+        internal fun inflateViewBinding(parent: ViewGroup): ListItemDetalhesBinding {
             return ListItemDetalhesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         }
     }
 
     fun bind(item: EventosModel){
-        binding.model = item
         context = binding.root.context
 
+        setData(item)
         verificarStatus(item)
+    }
+
+    private fun setData(item: EventosModel){
+        binding.model = item
+
+        val subStatus = item.subStatus
+        if(subStatus.isNotEmpty()){
+            binding.substatus.text = subStatus.first()
+        }else{
+            binding.substatus.visibility = View.GONE
+        }
     }
 
     private fun verificarStatus(item : EventosModel){

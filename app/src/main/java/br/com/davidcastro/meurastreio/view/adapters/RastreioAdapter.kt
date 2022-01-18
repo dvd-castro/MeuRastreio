@@ -1,6 +1,5 @@
 package br.com.davidcastro.meurastreio.view.adapters
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,7 +11,7 @@ class RastreioAdapter(
 ): ListAdapter<RastreioModel, RastreioViewHolder>(RastreioDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RastreioViewHolder {
-        val binding = RastreioViewHolder.inflateViewBinding(parent, viewType)
+        val binding = RastreioViewHolder.inflateViewBinding(parent)
 
         return RastreioViewHolder(binding, listener)
     }
@@ -27,12 +26,10 @@ class RastreioAdapter(
 object RastreioDiffCallback: DiffUtil.ItemCallback<RastreioModel>() {
 
     override fun areItemsTheSame(oldItem: RastreioModel, newItem: RastreioModel): Boolean {
-        Log.d("### areItemsTheSame", "${oldItem.codigo == newItem.codigo}")
         return oldItem.codigo == newItem.codigo
     }
 
     override fun areContentsTheSame(oldItem: RastreioModel, newItem: RastreioModel): Boolean {
-        Log.d("### areContentsTheSame", "${ oldItem == newItem}")
         return oldItem == newItem
     }
 }

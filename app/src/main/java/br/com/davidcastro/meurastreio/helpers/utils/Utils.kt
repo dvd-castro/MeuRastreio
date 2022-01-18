@@ -3,7 +3,6 @@ package br.com.davidcastro.meurastreio.helpers.utils
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
-import java.util.*
 
 fun getDaysBetweenDatesStrings(startDate: String, endDate: String): Int{
     val formatter = SimpleDateFormat("dd/MM/yyyy")

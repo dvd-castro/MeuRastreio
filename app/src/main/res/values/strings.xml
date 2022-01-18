@@ -30,8 +30,9 @@
     <string name="action_delete">Apagar</string>
     <string name="action_to_add">Adicionar</string>
     <string name="action_to_cancel">Cancelar</string>
-    
+
     <!-- Titles-->
-    <string name="title_add_a_new_tracking">Adicionar um novo rastreio</string>
+    <string name="title_adicionar_novo_rastreio">Adicionar um novo rastreio</string>
+    <string name="title_encomenda">Encomenda</string>
 
 </resources>

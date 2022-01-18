@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.davidcastro.meurastreio.R
-import br.com.davidcastro.meurastreio.databinding.ListItemRastreioBinding
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
+import br.com.davidcastro.meurastreio.databinding.ListItemRastreioBinding
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 
 class RastreioViewHolder(private val binding : ListItemRastreioBinding, private val listener: ClickListener) : RecyclerView.ViewHolder(binding.root) {
@@ -14,7 +14,7 @@ class RastreioViewHolder(private val binding : ListItemRastreioBinding, private 
     lateinit var context: Context
 
     companion object {
-        internal fun inflateViewBinding(parent: ViewGroup, viewType: Int): ListItemRastreioBinding {
+        internal fun inflateViewBinding(parent: ViewGroup): ListItemRastreioBinding {
             return ListItemRastreioBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         }
     }
