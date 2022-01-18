@@ -30,9 +30,14 @@
     <string name="action_delete">Apagar</string>
     <string name="action_to_add">Adicionar</string>
     <string name="action_to_cancel">Cancelar</string>
+    <string name="action_to_confirm">Confirmar</string>
 
     <!-- Titles-->
     <string name="title_adicionar_novo_rastreio">Adicionar um novo rastreio</string>
     <string name="title_encomenda">Encomenda</string>
+    <string name="title_map_pin">Última localização da encomenda</string>
+    <string name="title_atencao">Atenção!</string>
+
+    <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
 
 </resources>

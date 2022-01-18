@@ -12,8 +12,13 @@ import kotlinx.coroutines.launch
 class DetalhesViewModel (private val repository: RastreioRepository) : ViewModel() {
 
     private var _getResult = MutableLiveData<RastreioModel>()
-    val getResult : LiveData<RastreioModel>
+    val getResult: LiveData<RastreioModel>
         get() = _getResult
+
+    private var _deleteIsCompleted = MutableLiveData<Boolean>()
+    val deleteOnComplete: LiveData<Boolean>
+        get() = _deleteIsCompleted
+
 
     //Pega um rastreio armazenado localmente
     fun getTracking(codigo: String) = viewModelScope.launch {
@@ -30,7 +35,9 @@ class DetalhesViewModel (private val repository: RastreioRepository) : ViewModel
     fun deleteTracking(codigo: String) = viewModelScope.launch {
         try {
             repository.deleteTracking(codigo)
+            _deleteIsCompleted.postValue(true)
         } catch (ex: Exception) {
+            _deleteIsCompleted.postValue(false)
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR", localizedMessage)
             }

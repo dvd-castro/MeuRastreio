@@ -70,10 +70,18 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun initObservers(){
         viewModel.getResult.observe(this, ::whenGetResult)
+        viewModel.deleteOnComplete.observe(this, ::whenDeleteIsComplete)
     }
 
     private fun initUi(){
         configDialog()
+        setListeners()
+    }
+
+    private fun setListeners(){
+        binding.tvApagar.setOnClickListener {
+            alertDialog.show()
+        }
     }
 
     private fun configRecyclerView(data: List<EventosModel>){
@@ -90,12 +98,14 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             val builder = AlertDialog.Builder(requireContext())
 
             builder.apply {
-                setTitle("Atenção!")
-                setMessage("Excluir o item?")
-                setPositiveButton("Confirmar") { dialog, id ->
+                setTitle(resources.getString(R.string.title_atencao))
+                setMessage(resources.getString(R.string.message_deseja_excluir_o_item))
+
+                setPositiveButton(resources.getString(R.string.action_to_confirm)) { dialog, id ->
                     deleteTracking()
                 }
-                setNegativeButton("Cancelar") { dialog, id ->
+
+                setNegativeButton(resources.getString(R.string.action_to_cancel)) { dialog, id ->
                     dialog.cancel()
                 }
             }
@@ -108,7 +118,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
         latLng?.let{
             val location = LatLng(it.latitude, it.longitude)
-            mMap.addMarker(MarkerOptions().position(location).title("Última localização da encomenda"))
+            mMap.addMarker(MarkerOptions().position(location).title(resources.getString(R.string.title_map_pin)))
             mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
         }
     }
@@ -136,6 +146,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
     private fun initMap(){
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.mapsContainer) as SupportMapFragment
+
         mapFragment.getMapAsync(this)
     }
 
@@ -145,6 +156,14 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun deleteTracking(){
         codigo?.let { viewModel.deleteTracking(it) }
+    }
+
+    private fun whenDeleteIsComplete(isDeleted: Boolean){
+        if(isDeleted){
+            dismiss()
+        }else{
+            //TODO mensagem de erro
+        }
     }
 
     private fun whenGetResult(tracking: RastreioModel){

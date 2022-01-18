@@ -12,15 +12,15 @@ import kotlinx.coroutines.launch
 class MainViewModel (private val repository: RastreioRepository): ViewModel() {
 
     private var _databaseList = MutableLiveData<MutableList<RastreioModel>>()
-    val databaseList : LiveData<MutableList<RastreioModel>>
+    val databaseList: LiveData<MutableList<RastreioModel>>
         get() = _databaseList
 
     private var _findResult = MutableLiveData<RastreioModel>()
-    val findResult : LiveData<RastreioModel>
+    val findResult: LiveData<RastreioModel>
         get() = _findResult
 
     private var _ifTrackingExists = MutableLiveData<Boolean>()
-    val ifTrackingExists : LiveData<Boolean>
+    val ifTrackingExists: LiveData<Boolean>
         get() = _ifTrackingExists
 
     private var _insertSucess = MutableLiveData<Boolean>()
