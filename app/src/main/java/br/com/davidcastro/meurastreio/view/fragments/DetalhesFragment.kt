@@ -3,6 +3,9 @@ package br.com.davidcastro.meurastreio.view.fragments
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,9 +56,14 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getTracking()
         initUi()
         initObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getTracking()
     }
 
     companion object {
@@ -123,24 +131,32 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         }
     }
 
-    private fun determineLatLngFromAddress(strAddress: String): LatLng? {
+    private fun setAddressOnMap(strAddress: String) {
 
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         var geoResults: List<Address>? = null
+
         try {
             geoResults = geocoder.getFromLocationName(strAddress, 1)
+
             while (geoResults!!.isEmpty()) {
                 geoResults = geocoder.getFromLocationName(strAddress, 1)
             }
+
             if (geoResults.isNotEmpty()) {
                 val addr = geoResults[0]
                 latLng = LatLng(addr.latitude, addr.longitude)
                 initMap()
+            }else{
+                //TODO mensagem de endereço não encontrado
             }
-        } catch (e: Exception) {
-            print(e.message)
+
+        } catch (ex: Exception) {
+            ex.localizedMessage?.let { localizedMessage ->
+                Log.e("ERROR -> OnShowMap", localizedMessage)
+            }
         }
-        return latLng
+
     }
 
     private fun initMap(){
@@ -168,8 +184,12 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun whenGetResult(tracking: RastreioModel){
         binding.model = tracking
+
         configRecyclerView(tracking.eventos)
-        determineLatLngFromAddress(tracking.eventos.first().local)
+
+        Handler(Looper.getMainLooper()).postDelayed(
+            { setAddressOnMap(tracking.eventos.first().local) },
+            1000)
     }
 
 }
