@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun configFab() {
         binding.fab.setOnClickListener {
             alertDialog.show()
+            setDialogTextActionColor()
         }
     }
 
@@ -105,6 +106,11 @@ class MainActivity : AppCompatActivity() {
 
             builder.create()
         }
+    }
+
+    private fun setDialogTextActionColor(){
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.red))
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.green))
     }
 
     private fun verifyIfTrackingExists (codigo: String) {

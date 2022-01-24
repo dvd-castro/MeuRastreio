@@ -18,8 +18,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_8"
-        app:cardCornerRadius="@dimen/radius_10"
+        app:cardCornerRadius="0dp"
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
