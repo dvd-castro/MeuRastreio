@@ -44,6 +44,7 @@ class ConcluidosFragment : Fragment(), ClickListener {
 
     private fun initUi() {
         configRecyclerView()
+        configSwipeRefresh()
     }
 
     private fun configRecyclerView() {
@@ -53,6 +54,14 @@ class ConcluidosFragment : Fragment(), ClickListener {
             this.layoutManager = LinearLayoutManager(requireContext())
             this.adapter = rastreioAdapter
             this.setHasFixedSize(false)
+        }
+    }
+
+    private fun configSwipeRefresh(){
+        binding.swipe.setOnRefreshListener {
+            viewModel.reload().invokeOnCompletion {
+                binding.swipe.isRefreshing = false
+            }
         }
     }
 

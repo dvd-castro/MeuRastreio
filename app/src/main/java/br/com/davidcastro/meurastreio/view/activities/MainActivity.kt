@@ -127,7 +127,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAllTracking(){
-        viewModel.getAllTracking()
+        viewModel.getAllTracking().invokeOnCompletion {
+            reload()
+        }
+    }
+
+    private fun reload(){
+        viewModel.reload()
     }
 
     private fun whenFindResult(tracking: RastreioModel){

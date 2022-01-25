@@ -10,7 +10,8 @@ import org.koin.dsl.module
 val module = module {
     viewModel {
         MainViewModel(
-            repository = RastreioRepository(androidContext())
+            repository = RastreioRepository(androidContext()),
+            context = androidContext()
         )
     }
     viewModel {

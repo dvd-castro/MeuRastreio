@@ -1,15 +1,18 @@
 package br.com.davidcastro.meurastreio.viewModel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.davidcastro.meurastreio.BaseApplication
+import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel (private val repository: RastreioRepository): ViewModel() {
+class MainViewModel (private val repository: RastreioRepository, private val context: Context): ViewModel() {
 
     private var _databaseList = MutableLiveData<MutableList<RastreioModel>>()
     val databaseList: LiveData<MutableList<RastreioModel>>
@@ -66,6 +69,22 @@ class MainViewModel (private val repository: RastreioRepository): ViewModel() {
         try {
             val exists = repository.containsTracking(codigo)
             _ifTrackingExists.postValue(exists)
+        } catch (ex: Exception) {
+            ex.localizedMessage?.let { localizedMessage ->
+                Log.e("ERROR -> Verify If Tracking Exists", localizedMessage)
+            }
+        }
+    }
+
+    fun reload() = viewModelScope.launch{
+        try {
+            val all = repository.getAllTracking()
+            all.forEach { rastreio ->
+                if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)){
+                    findTracking(rastreio.codigo)
+                }
+            }
+
         } catch (ex: Exception) {
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR -> Verify If Tracking Exists", localizedMessage)
