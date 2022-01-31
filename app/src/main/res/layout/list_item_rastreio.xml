@@ -21,7 +21,7 @@
         app:cardCornerRadius="@dimen/radius_10"
         android:layout_marginTop="@dimen/spacing_16"
         android:layout_marginHorizontal="@dimen/spacing_16"
-        android:background="@color/white">
+        android:backgroundTint="@color/secondary_dark_gray_background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_16"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/subtitle_1"
                 android:text="@{model.nome}"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_16"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/subtitle_1"
                 android:layout_marginTop="@dimen/spacing_4"
                 android:text="@{model.codigo}"

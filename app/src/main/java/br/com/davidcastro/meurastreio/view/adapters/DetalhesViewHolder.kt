@@ -1,9 +1,11 @@
 package br.com.davidcastro.meurastreio.view.adapters
 
 import android.content.Context
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.EventosModel
@@ -31,9 +33,16 @@ class DetalhesViewHolder(private val binding: ListItemDetalhesBinding) : Recycle
 
         val subStatus = item.subStatus
         if(subStatus.isNotEmpty()){
-            binding.substatus.text = subStatus.first()
+            configIfHaveHtmlText(subStatus.first())
         }else{
             binding.substatus.visibility = View.GONE
+        }
+    }
+
+    private fun configIfHaveHtmlText(subStatus: String) {
+        if(subStatus.contains(">Minhas Importações<")){
+            binding.substatus.text = HtmlCompat.fromHtml(context.getString(R.string.message_acessar_importacoes), HtmlCompat.FROM_HTML_MODE_LEGACY)
+            binding.substatus.movementMethod = LinkMovementMethod.getInstance()
         }
     }
 

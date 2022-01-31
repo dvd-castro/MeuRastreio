@@ -39,5 +39,6 @@
     <string name="title_atencao">Atenção!</string>
 
     <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
+    <string name="message_acessar_importacoes"><![CDATA[<span class="minhasImportacoes">Acesse o ambiente: <a href="https://apps.correios.com.br/portalimportador/pages/pesquisarRemessaImportador/pesquisarRemessaImportador.jsf" target="_blank">Minhas Importações</a></span>]]></string>
 
 </resources>

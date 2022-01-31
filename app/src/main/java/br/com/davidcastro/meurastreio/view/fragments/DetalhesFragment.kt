@@ -177,7 +177,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
     private fun whenDeleteIsComplete(isDeleted: Boolean){
         if(isDeleted){
             dismiss()
-        }else{
+        }else {
             //TODO mensagem de erro
         }
     }
