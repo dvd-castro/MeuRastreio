@@ -34,9 +34,6 @@ Meu Rastreio
 - [ViewPager + TabLyout](https://developer.android.com/guide/navigation/navigation-swipe-view?hl=pt) - Para navegação deslizável entre Fragments que utilizam Abas
 - [BottomSheetDialog](https://medium.com/android-dev-br/android-ui-bottom-sheet-4709cad826d2) - Para mostrar uma fragment com estilo de bottom dialog.
 
-### 🏠 Arquitetura utilizada
-- Foi aplicado um pouco do que aprendi da arquitetura MVVM, onde separo as chamadas de dados da View e utilizo ViewModel para fazer essa ponte entre regra de negócio e camada de interação com o usuário.
----
 <div align="center">
 <p><i>Developed by <a href="https://www.linkedin.com/in/dvdcastro/">David Castro</i></p>
 </div>
