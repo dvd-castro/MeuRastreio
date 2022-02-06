@@ -3,15 +3,18 @@ package br.com.davidcastro.meurastreio.view.activities
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.*
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.EventosModel
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.ActivityMainBinding
 import br.com.davidcastro.meurastreio.databinding.DialogAdicionarCodigoBinding
+import br.com.davidcastro.meurastreio.helpers.utils.UpdateWorker
 import br.com.davidcastro.meurastreio.view.adapters.ViewPagerAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +49,25 @@ class MainActivity : AppCompatActivity() {
         configFab()
         configViewPager()
         configDialog()
+        startUpdateWorker()
+    }
+
+    private fun startUpdateWorker(){
+
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(false)
+            .setRequiresBatteryNotLow(false)
+            .build()
+
+        val work = PeriodicWorkRequestBuilder<UpdateWorker>(15, TimeUnit.MINUTES)
+            .setConstraints(constraints)
+            .build()
+
+        val workManager = WorkManager.getInstance(this)
+        workManager.enqueueUniquePeriodicWork(
+            "TESTE_MAN",
+            ExistingPeriodicWorkPolicy.KEEP,
+            work)
     }
 
     private fun configFab() {
