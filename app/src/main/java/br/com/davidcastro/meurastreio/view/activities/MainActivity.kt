@@ -1,6 +1,11 @@
 package br.com.davidcastro.meurastreio.view.activities
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import br.com.davidcastro.meurastreio.R
@@ -8,6 +13,7 @@ import br.com.davidcastro.meurastreio.data.model.EventosModel
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.ActivityMainBinding
 import br.com.davidcastro.meurastreio.databinding.DialogAdicionarCodigoBinding
+import br.com.davidcastro.meurastreio.helpers.utils.AlarmReceiver
 import br.com.davidcastro.meurastreio.view.adapters.ViewPagerAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,6 +26,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var alertDialog : AlertDialog
     private var nome: String = ""
     private var codigo: String = ""
+
+    private var alarmManager: AlarmManager? = null
+    private lateinit var alarmIntent: PendingIntent
 
     val viewModel: MainViewModel by viewModel()
 
@@ -34,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         getAllTracking()
         initUi()
         initObservers()
+        initAlarmManager(this)
     }
 
     private fun initObservers() {
@@ -53,6 +63,25 @@ class MainActivity : AppCompatActivity() {
             alertDialog.show()
             setDialogTextActionColor()
         }
+    }
+
+    private fun initAlarmManager(context: Context){
+
+        alarmManager =
+            context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+
+        alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
+            PendingIntent.getBroadcast(context, 0, intent, 0)
+        }
+
+        //TODO MUDAR VALOR DE INTERVALO DE ALARME APÓS TESTES
+
+        alarmManager?.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(),
+            1000 * 60,
+            alarmIntent
+        )
     }
 
     private fun configViewPager() {
