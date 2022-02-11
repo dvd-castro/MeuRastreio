@@ -6,9 +6,7 @@ import br.com.davidcastro.meurastreio.data.source.DatabaseDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class RastreioRepository(private val databaseDataSource: DatabaseDataSource ) {
-
-    private val networkApi = Api()
+class RastreioRepository(private val databaseDataSource: DatabaseDataSource, private val networkApi: Api) {
 
     suspend fun insertTracking(rastreio: RastreioModel) = withContext(Dispatchers.IO) {
         databaseDataSource.insert(rastreio)
