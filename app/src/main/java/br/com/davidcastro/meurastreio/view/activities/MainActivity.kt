@@ -74,12 +74,10 @@ class MainActivity : AppCompatActivity() {
             PendingIntent.getBroadcast(context, 0, intent, 0)
         }
 
-        //TODO MUDAR VALOR DE INTERVALO DE ALARME APÓS TESTES
-
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(),
-            1000 * 60,
+            1000 * 60 * 30,
             alarmIntent
         )
     }

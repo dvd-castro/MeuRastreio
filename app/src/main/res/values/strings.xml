@@ -41,4 +41,7 @@
     <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
     <string name="message_acessar_importacoes"><![CDATA[<span class="minhasImportacoes">Acesse o ambiente: <a href="https://apps.correios.com.br/portalimportador/pages/pesquisarRemessaImportador/pesquisarRemessaImportador.jsf" target="_blank">Minhas Importações</a></span>]]></string>
 
+    <string name="notification_channel_id">40028922</string>
+    <string name="notification_channel_name">meu_rastreio</string>
+    <string name="notification_channel_description">Notificações de atualizações de encomendas</string>
 </resources>

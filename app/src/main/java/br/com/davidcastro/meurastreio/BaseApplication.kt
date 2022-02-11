@@ -1,8 +1,12 @@
 package br.com.davidcastro.meurastreio
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ComponentName
+import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import br.com.davidcastro.meurastreio.data.di.modules.module
 import br.com.davidcastro.meurastreio.helpers.utils.AlarmReceiver
 import org.koin.android.ext.koin.androidContext
@@ -19,6 +23,7 @@ class BaseApplication: Application() {
         }
 
         setReceiverSettings()
+        setNotificationsChannel()
     }
 
     private fun setReceiverSettings(){
@@ -29,5 +34,21 @@ class BaseApplication: Application() {
             PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
             PackageManager.DONT_KILL_APP
         )
+    }
+
+    private fun setNotificationsChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.notification_channel_name)
+            val descriptionText = getString(R.string.notification_channel_description)
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(getString(R.string.notification_channel_id), name, importance).apply {
+                description = descriptionText
+                setShowBadge(true)
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 }
