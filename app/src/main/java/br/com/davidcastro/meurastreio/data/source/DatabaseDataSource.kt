@@ -28,7 +28,6 @@ open class DatabaseDataSource(context: Context){
 
     fun getAll(): List<RastreioModel> {
         val data = dao.getAll()
-
         val list = arrayListOf<RastreioModel>()
 
         data.forEach {
@@ -37,5 +36,4 @@ open class DatabaseDataSource(context: Context){
 
         return list
     }
-
 }
