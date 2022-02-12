@@ -1,17 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.MeuRastreio" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_dark_gray_background</item>
-        <item name="colorPrimaryVariant">@color/dark_gray</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/primary_dark_gray_background</item>
+
+        <item name="colorAccent">@color/white</item>
+
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary_dark_gray_background</item>
-        <item name="colorSecondaryVariant">@color/dark_gray</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/primary_dark_gray_background</item>
+
         <!-- Customize your theme here. -->
-        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="android:colorBackground">@color/primary_dark_gray_background</item>
+        <item name="android:textColor">@color/white</item>
+
+        <item name="bottomSheetDialogTheme">@style/Theme.MeuRastreio.BottomSheetDialog</item>
+        <item name="materialCardViewStyle">@style/Theme.MeuRastreio.MaterialCardView.Dark</item>
     </style>
 </resources>

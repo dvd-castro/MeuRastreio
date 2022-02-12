@@ -19,7 +19,7 @@
             android:id="@+id/frameLayout"
             android:layout_width="50dp"
             android:layout_height="3dp"
-            android:background="@color/white"
+            android:background="@color/gray"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/spacing_8"
@@ -45,7 +45,6 @@
                 android:layout_marginStart="@dimen/spacing_16"
                 android:textStyle="bold"
                 android:textSize="@dimen/normal"
-                android:textColor="@color/white"
                 tools:text="@string/app_name"
                 android:text="@{model.nome}"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +59,6 @@
                 android:text="@{model.codigo}"
                 tools:text="@string/app_name"
                 android:textIsSelectable="true"
-                android:textColor="@color/white"
                 android:textSize="@dimen/subtitle_1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvNome" />
@@ -74,6 +72,7 @@
                 android:clickable="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:textColor="@color/red"
+                android:textStyle="bold"
                 android:textSize="@dimen/subtitle_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -100,7 +99,6 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark_gray_background"
             tools:listitem="@layout/list_item_detalhes" />
 
     </LinearLayout>

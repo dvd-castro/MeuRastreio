@@ -18,9 +18,8 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/secondary_dark_gray_background"
-        app:cardCornerRadius="0dp"
-        android:background="@color/white">
+        android:backgroundTint="?attr/colorPrimaryVariant"
+        app:cardCornerRadius="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
