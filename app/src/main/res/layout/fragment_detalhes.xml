@@ -15,28 +15,42 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="50dp"
-            android:layout_height="3dp"
-            android:background="@color/gray"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/spacing_8"
-            android:layout_marginBottom="@dimen/spacing_16"/>
-
-        <fragment
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/mapsContainer"
-            android:layout_height="200dp"
-            android:layout_width="match_parent"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            map:cameraZoom="13" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/spacing_16">
+
+            <LinearLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="50dp"
+                android:layout_height="3dp"
+                android:layout_gravity="center"
+                android:background="@color/gray"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <fragment
+                android:id="@+id/mapsContainer"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/spacing_16"
+                app:cameraZoom="13"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+            <ProgressBar
+                android:id="@+id/loader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/mapsContainer"
+                app:layout_constraintEnd_toEndOf="@+id/mapsContainer"
+                app:layout_constraintStart_toStartOf="@id/mapsContainer"
+                app:layout_constraintTop_toTopOf="@+id/mapsContainer" />
 
             <TextView
                 android:id="@+id/tvNome"
@@ -47,8 +61,9 @@
                 android:textSize="@dimen/normal"
                 tools:text="@string/app_name"
                 android:text="@{model.nome}"
+                android:layout_marginTop="@dimen/spacing_16"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/mapsContainer" />
 
             <TextView
                 android:id="@+id/tvCodigo"
@@ -74,8 +89,9 @@
                 android:textColor="@color/red"
                 android:textStyle="bold"
                 android:textSize="@dimen/subtitle_1"
+                android:layout_marginTop="@dimen/spacing_16"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mapsContainer"
                 android:focusable="true" />
 
             <TextView

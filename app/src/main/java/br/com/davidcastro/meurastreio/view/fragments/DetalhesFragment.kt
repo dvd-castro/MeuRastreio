@@ -10,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.EventosModel
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.FragmentDetalhesBinding
+import br.com.davidcastro.meurastreio.helpers.utils.showSnackbar
 import br.com.davidcastro.meurastreio.view.adapters.DetalhesAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,6 +26,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -138,6 +141,8 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun setAddressOnMap(strAddress: String) {
 
+        onLoader(true)
+
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
         var geoResults: List<Address>? = null
 
@@ -152,11 +157,14 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
                 val addr = geoResults[0]
                 latLng = LatLng(addr.latitude, addr.longitude)
                 initMap()
-            }else{
-                //TODO mensagem de endereço não encontrado
+            } else {
+                showSnackbar(binding.root, getString(R.string.error_endereco))
             }
 
+            onLoader(false)
+
         } catch (ex: Exception) {
+            onLoader(false)
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR -> OnShowMap", localizedMessage)
             }
@@ -169,6 +177,13 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             .findFragmentById(R.id.mapsContainer) as SupportMapFragment
 
         mapFragment.getMapAsync(this)
+    }
+
+    private fun onLoader(boolean: Boolean){
+        if (boolean)
+            binding.loader.isVisible = boolean
+        else
+            binding.loader.isVisible = boolean
     }
 
     private fun getTracking(){
@@ -184,7 +199,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             dismiss()
             viewModel.getAllTracking()
         }else {
-            //TODO mensagem de erro
+            showSnackbar(binding.root, getString(R.string.error_deletar))
         }
     }
 

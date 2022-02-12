@@ -8,14 +8,18 @@ import android.os.Bundle
 import android.os.SystemClock
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.data.model.ErrorEnum
 import br.com.davidcastro.meurastreio.data.model.EventosModel
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.ActivityMainBinding
 import br.com.davidcastro.meurastreio.databinding.DialogAdicionarCodigoBinding
 import br.com.davidcastro.meurastreio.helpers.utils.AlarmReceiver
+import br.com.davidcastro.meurastreio.helpers.utils.showSnackbar
 import br.com.davidcastro.meurastreio.view.adapters.ViewPagerAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -50,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.ifTrackingExists.observe(this, ::whenVerifyIfTrackingExists)
         viewModel.findResult.observe(this, ::whenFindResult)
         viewModel.insertSucess.observe(this, ::whenInsertSucess)
+        viewModel.error.observe(this, ::onError)
+        viewModel.loader.observe(this, ::onLoader )
     }
 
     private fun initUi() {
@@ -62,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener {
             alertDialog.show()
             setDialogTextActionColor()
+            setDialogCancelListener()
         }
     }
 
@@ -114,30 +121,44 @@ class MainActivity : AppCompatActivity() {
                     if(codigo.isNotEmpty() || codigo.isNotBlank()) {
                         verifyIfTrackingExists(codigo)
                     } else {
-                        //TODO mostrar mensagem de campo vazio
+                        showSnackbar(binding.root, getString(R.string.error_campo_vazio))
                     }
-
-                    dialog.cancel()
                 }
 
                 setNegativeButton(getString(R.string.action_to_cancel)) { dialog, _ ->
                     dialog.cancel()
                 }
-
-            }
-
-            builder.setOnCancelListener {
-                bindingDialog.nome.setText("")
-                bindingDialog.codigo.setText("")
             }
 
             builder.create()
         }
     }
 
+    private fun setDialogCancelListener() {
+        alertDialog.setOnCancelListener {
+            bindingDialog.nome.setText("")
+            bindingDialog.codigo.setText("")
+        }
+    }
+
     private fun setDialogTextActionColor() {
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.red))
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.green))
+    }
+
+    private fun onLoader(boolean: Boolean){
+        if (boolean)
+            binding.loader.root.isVisible = boolean
+        else
+            binding.loader.root.isVisible = boolean
+    }
+
+    private fun onError(int: Int) {
+        when(int) {
+            ErrorEnum.ERROR_NAO_ENCONTRADO.id -> showSnackbar(binding.root, getString(R.string.error_rastreio_nao_encontrado))
+            ErrorEnum.ERROR_INSERIDO.id -> showSnackbar(binding.root, getString(R.string.error_rastreio_ja_inserido))
+            else -> showSnackbar(binding.root, getString(R.string.error_server))
+        }
     }
 
     private fun verifyIfTrackingExists (codigo: String) {
@@ -170,8 +191,7 @@ class MainActivity : AppCompatActivity() {
     private fun whenInsertSucess(isSucess: Boolean) {
         if(isSucess) {
             getAllTracking()
-        } else {
-            // TODO mensagem de erro ao inserir
+            resetSavedFieldValues()
         }
     }
 
@@ -179,7 +199,7 @@ class MainActivity : AppCompatActivity() {
         if (!exists) {
             findTracking(codigo)
         } else {
-            // TODO mostrar mensagem de que já existe
+            onError(ErrorEnum.ERROR_INSERIDO.id)
             resetSavedFieldValues()
         }
     }

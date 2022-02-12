@@ -7,9 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.data.model.ErrorEnum
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
 import kotlinx.coroutines.launch
+import java.lang.Error
 
 class MainViewModel (private val repository: RastreioRepository, private val context: Context): ViewModel() {
 
@@ -37,6 +39,15 @@ class MainViewModel (private val repository: RastreioRepository, private val con
     val deleteOnComplete: LiveData<Boolean>
         get() = _deleteIsCompleted
 
+    private var _error = MutableLiveData<Int>()
+    val error : LiveData<Int>
+        get() = _error
+
+    private var _loader= MutableLiveData(false)
+    val loader : LiveData<Boolean>
+        get() = _loader
+
+
     fun getAllTracking() = viewModelScope.launch {
         try {
             val all = repository.getAllTracking()
@@ -50,10 +61,18 @@ class MainViewModel (private val repository: RastreioRepository, private val con
 
     //Procura um rastreio na api
     fun findTracking(codigo: String) = viewModelScope.launch {
+        _loader.postValue(true)
         try {
             val tracking = repository.findTracking(codigo)
-            _findResult.postValue(tracking)
+            if (tracking.eventos.isNotEmpty()) {
+                _findResult.postValue(tracking)
+            } else {
+                _error.postValue(ErrorEnum.ERROR_NAO_ENCONTRADO.id)
+            }
+            _loader.postValue(false)
         } catch (ex: Exception) {
+            _loader.postValue(false)
+            _error.postValue(ErrorEnum.ERROR_SERVER.id)
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR -> Find Tracking ", localizedMessage)
             }
@@ -75,9 +94,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
     fun deleteTracking(codigo: String) = viewModelScope.launch {
         try {
             repository.deleteTracking(codigo)
-            _deleteIsCompleted.postValue(true)
         } catch (ex: Exception) {
-            _deleteIsCompleted.postValue(false)
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR", localizedMessage)
             }
@@ -89,7 +106,6 @@ class MainViewModel (private val repository: RastreioRepository, private val con
             repository.insertTracking(rastreio)
             _insertSucess.postValue(true)
         } catch (ex: Exception) {
-            _insertSucess.postValue(false)
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR -> Insert Tracking ", localizedMessage)
             }
@@ -108,6 +124,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
     }
 
     fun reload() = viewModelScope.launch {
+        _loader.postValue(true)
         try {
             val all = repository.getAllTracking()
             all.forEach { rastreio ->
@@ -115,8 +132,9 @@ class MainViewModel (private val repository: RastreioRepository, private val con
                     findTracking(rastreio.codigo)
                 }
             }
-
+            _loader.postValue(false)
         } catch (ex: Exception) {
+            _loader.postValue(false)
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR -> Reload ", localizedMessage)
             }

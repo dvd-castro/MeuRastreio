@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Meu Rastreio</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Tabs -->
@@ -21,10 +21,12 @@
     <string name="hint_codigo">Código de rastreio</string>
 
     <!-- Erros -->
-    <string name="error_server">Deu ruim, algum problema na conexão, tente novamente mais tarde!</string>
-    <string name="error_rastreio_nao_encontrado">Código de rastreio não encontrado, verifique e tente novamente!</string>
-    <string name="error_rastreio_ja_inserido">Código de rastreio já foi inserido anteriormente</string>
-    <string name="error_rastreio_nao_possivel_consultar_ainda">Ainda é muito cedo para consultar esse rastreio pois foi postado recentemente, por favor tente novamente mais tarde!</string>
+    <string name="error_server">Deu ruim, algum problema na busca, ou código inválido, tente novamente mais tarde!</string>
+    <string name="error_rastreio_nao_encontrado">Ops,código de rastreio não encontrado, verifique e tente novamente!</string>
+    <string name="error_rastreio_ja_inserido">Código de rastreio já foi inserido anteriormente!</string>
+    <string name="error_campo_vazio">Insira o código de rastreio!</string>
+    <string name="error_deletar">Ocorreu um erro ao deletar, por favor tente novamente!</string>
+    <string name="error_endereco">Não foi possível carregar no mapa o endereço!</string>
 
     <!--Actions -->
     <string name="action_delete">Apagar</string>
@@ -40,6 +42,7 @@
 
     <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
     <string name="message_acessar_importacoes"><![CDATA[<span class="minhasImportacoes">Acesse o ambiente: <a href="https://apps.correios.com.br/portalimportador/pages/pesquisarRemessaImportador/pesquisarRemessaImportador.jsf" target="_blank">Minhas Importações</a></span>]]></string>
+    <string name="message_inserido_com_sucesso">Rastreio inserido com sucesso!</string>
 
     <string name="notification_channel_id">40028922</string>
     <string name="notification_channel_name">meu_rastreio</string>
