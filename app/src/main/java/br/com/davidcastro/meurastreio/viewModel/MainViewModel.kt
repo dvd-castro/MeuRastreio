@@ -29,6 +29,14 @@ class MainViewModel (private val repository: RastreioRepository, private val con
     val insertSucess: LiveData<Boolean>
         get() = _insertSucess
 
+    private var _getOfflineResult = MutableLiveData<RastreioModel>()
+    val getOfflineResult: LiveData<RastreioModel>
+        get() = _getOfflineResult
+
+    private var _deleteIsCompleted = MutableLiveData<Boolean>()
+    val deleteOnComplete: LiveData<Boolean>
+        get() = _deleteIsCompleted
+
     fun getAllTracking() = viewModelScope.launch {
         try {
             val all = repository.getAllTracking()
@@ -48,6 +56,30 @@ class MainViewModel (private val repository: RastreioRepository, private val con
         } catch (ex: Exception) {
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR -> Find Tracking ", localizedMessage)
+            }
+        }
+    }
+
+    //Pega um rastreio armazenado localmente
+    fun getTracking(codigo: String) = viewModelScope.launch {
+        try {
+            val tracking = repository.getTracking(codigo)
+            _getOfflineResult.postValue(tracking)
+        } catch (ex: Exception) {
+            ex.localizedMessage?.let { localizedMessage ->
+                Log.e("ERROR", localizedMessage)
+            }
+        }
+    }
+
+    fun deleteTracking(codigo: String) = viewModelScope.launch {
+        try {
+            repository.deleteTracking(codigo)
+            _deleteIsCompleted.postValue(true)
+        } catch (ex: Exception) {
+            _deleteIsCompleted.postValue(false)
+            ex.localizedMessage?.let { localizedMessage ->
+                Log.e("ERROR", localizedMessage)
             }
         }
     }

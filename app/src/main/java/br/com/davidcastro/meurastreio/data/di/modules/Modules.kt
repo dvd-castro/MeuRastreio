@@ -6,7 +6,6 @@ import br.com.davidcastro.meurastreio.data.api.Constansts
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
 import br.com.davidcastro.meurastreio.data.source.DatabaseDataSource
 import br.com.davidcastro.meurastreio.helpers.utils.NetworkUtils
-import br.com.davidcastro.meurastreio.viewModel.DetalhesViewModel
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -30,11 +29,6 @@ val module = module {
         MainViewModel(
             repository = get(),
             context = androidContext()
-        )
-    }
-    viewModel {
-        DetalhesViewModel(
-            repository = get()
         )
     }
 }

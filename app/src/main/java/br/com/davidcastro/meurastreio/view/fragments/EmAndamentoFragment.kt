@@ -9,25 +9,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.FragmentListTemplateBinding
-import br.com.davidcastro.meurastreio.view.activities.MainActivity
 import br.com.davidcastro.meurastreio.view.adapters.RastreioAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EmAndamentoFragment : Fragment(), ClickListener {
 
+    private val viewModel: MainViewModel by sharedViewModel()
+
     private lateinit var binding: FragmentListTemplateBinding
-    private lateinit var viewModel: MainViewModel
     private lateinit var rastreioAdapter: RastreioAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentListTemplateBinding.inflate(layoutInflater, container, false)
-        viewModel = (this.requireActivity() as MainActivity).viewModel
-
         return binding.root
     }
 
@@ -67,7 +65,7 @@ class EmAndamentoFragment : Fragment(), ClickListener {
 
     private fun whenGetDatabaseList (listOfTracking: MutableList<RastreioModel>) {
         val filteredList = listOfTracking.filter { rastreio ->
-            rastreio.eventos[0].status != getString(R.string.status_entregue)
+            rastreio.eventos.first().status != getString(R.string.status_entregue)
         }
 
         rastreioAdapter.submitList(filteredList)

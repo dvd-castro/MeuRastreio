@@ -16,7 +16,7 @@ import br.com.davidcastro.meurastreio.data.model.EventosModel
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.FragmentDetalhesBinding
 import br.com.davidcastro.meurastreio.view.adapters.DetalhesAdapter
-import br.com.davidcastro.meurastreio.viewModel.DetalhesViewModel
+import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,16 +24,16 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
 private const val CODIGO_RASTREIO = "codigo"
 
 class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
-    private lateinit var binding: FragmentDetalhesBinding
-    private val viewModel: DetalhesViewModel by viewModel()
+    private val viewModel: MainViewModel by sharedViewModel()
 
+    private lateinit var binding: FragmentDetalhesBinding
     private lateinit var alertDialog : AlertDialog
     private lateinit var mMap: GoogleMap
     private var codigo: String? = null
@@ -77,7 +77,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
     }
 
     private fun initObservers(){
-        viewModel.getResult.observe(this, ::whenGetResult)
+        viewModel.getOfflineResult.observe(this, ::whenGetResult)
         viewModel.deleteOnComplete.observe(this, ::whenDeleteIsComplete)
     }
 
@@ -119,6 +119,10 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             }
             builder.create()
         }
+    }
+
+    private fun setDialogTextActionColor(){
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.red))
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -177,6 +181,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
     private fun whenDeleteIsComplete(isDeleted: Boolean){
         if(isDeleted){
             dismiss()
+            viewModel.getAllTracking()
         }else {
             //TODO mensagem de erro
         }
