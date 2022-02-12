@@ -88,8 +88,8 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun setListeners() {
         binding.tvApagar.setOnClickListener {
-            setDialogTextActionColor()
             alertDialog.show()
+            setDialogTextActionColor()
         }
     }
 

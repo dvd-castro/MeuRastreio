@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun configFab() {
         binding.fab.setOnClickListener {
-            setDialogTextActionColor()
             alertDialog.show()
+            setDialogTextActionColor()
         }
     }
 
