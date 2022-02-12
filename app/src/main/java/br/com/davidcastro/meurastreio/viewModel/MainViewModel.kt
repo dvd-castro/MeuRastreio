@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.davidcastro.meurastreio.BaseApplication
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
@@ -36,7 +35,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
             _databaseList.postValue(all.toMutableList())
         } catch (ex: Exception) {
             ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> Get All Tracking", localizedMessage)
+                Log.e("ERROR -> Get All Tracking ", localizedMessage)
             }
         }
     }
@@ -48,7 +47,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
             _findResult.postValue(tracking)
         } catch (ex: Exception) {
             ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> Find Tracking", localizedMessage)
+                Log.e("ERROR -> Find Tracking ", localizedMessage)
             }
         }
     }
@@ -60,7 +59,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
         } catch (ex: Exception) {
             _insertSucess.postValue(false)
             ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> Insert Tracking", localizedMessage)
+                Log.e("ERROR -> Insert Tracking ", localizedMessage)
             }
         }
     }
@@ -71,7 +70,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
             _ifTrackingExists.postValue(exists)
         } catch (ex: Exception) {
             ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> Verify If Tracking Exists", localizedMessage)
+                Log.e("ERROR -> Verify If Tracking Exists ", localizedMessage)
             }
         }
     }
@@ -87,7 +86,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
 
         } catch (ex: Exception) {
             ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> Verify If Tracking Exists", localizedMessage)
+                Log.e("ERROR -> Reload ", localizedMessage)
             }
         }
     }
