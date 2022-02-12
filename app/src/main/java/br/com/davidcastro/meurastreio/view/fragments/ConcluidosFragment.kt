@@ -39,7 +39,7 @@ class ConcluidosFragment : Fragment(), ClickListener {
     }
 
     private fun initObservers() {
-        viewModel.databaseList.observe(this, ::whenGetDatabaseList)
+        viewModel.databaseList.observe(viewLifecycleOwner, ::whenGetDatabaseList)
     }
 
     private fun initUi() {
