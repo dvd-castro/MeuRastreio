@@ -26,7 +26,7 @@ class BaseApplication: Application() {
         setNotificationsChannel()
     }
 
-    private fun setReceiverSettings(){
+    private fun setReceiverSettings() {
         val receiver = ComponentName(this, AlarmReceiver::class.java)
 
         packageManager.setComponentEnabledSetting(
@@ -36,7 +36,7 @@ class BaseApplication: Application() {
         )
     }
 
-    private fun setNotificationsChannel(){
+    private fun setNotificationsChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.notification_channel_name)
             val descriptionText = getString(R.string.notification_channel_description)

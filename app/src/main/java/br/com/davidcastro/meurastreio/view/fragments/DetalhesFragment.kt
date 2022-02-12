@@ -76,23 +76,24 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             }
     }
 
-    private fun initObservers(){
+    private fun initObservers() {
         viewModel.getOfflineResult.observe(this, ::whenGetResult)
         viewModel.deleteOnComplete.observe(this, ::whenDeleteIsComplete)
     }
 
-    private fun initUi(){
+    private fun initUi() {
         configDialog()
         setListeners()
     }
 
-    private fun setListeners(){
+    private fun setListeners() {
         binding.tvApagar.setOnClickListener {
+            setDialogTextActionColor()
             alertDialog.show()
         }
     }
 
-    private fun configRecyclerView(data: List<EventosModel>){
+    private fun configRecyclerView(data: List<EventosModel>) {
         binding.recyclerView.apply {
             this.layoutManager = LinearLayoutManager(requireContext())
             this.adapter = DetalhesAdapter(data)
@@ -100,7 +101,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         }
     }
 
-    private fun configDialog(){
+    private fun configDialog() {
         alertDialog = this.let {
 
             val builder = AlertDialog.Builder(requireContext())
@@ -121,7 +122,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setDialogTextActionColor(){
+    private fun setDialogTextActionColor() {
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.red))
     }
 

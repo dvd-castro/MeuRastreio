@@ -21,34 +21,34 @@ class DetalhesViewHolder(private val binding: ListItemDetalhesBinding) : Recycle
         }
     }
 
-    fun bind(item: EventosModel){
+    fun bind(item: EventosModel) {
         context = binding.root.context
 
         setData(item)
         verificarStatus(item)
     }
 
-    private fun setData(item: EventosModel){
+    private fun setData(item: EventosModel) {
         binding.model = item
 
         val subStatus = item.subStatus
-        if(subStatus.isNotEmpty()){
+        if(subStatus.isNotEmpty()) {
             configIfHaveHtmlText(subStatus.first())
-        }else{
+        } else {
             binding.substatus.visibility = View.GONE
         }
     }
 
     private fun configIfHaveHtmlText(subStatus: String) {
-        if(subStatus.contains(">Minhas Importações<")){
+        if(subStatus.contains(">Minhas Importações<")) {
             binding.substatus.text = HtmlCompat.fromHtml(context.getString(R.string.message_acessar_importacoes), HtmlCompat.FROM_HTML_MODE_LEGACY)
             binding.substatus.movementMethod = LinkMovementMethod.getInstance()
         }
     }
 
-    private fun verificarStatus(item : EventosModel){
+    private fun verificarStatus(item : EventosModel) {
 
-        when(item.status){
+        when(item.status) {
 
             context.getString(R.string.status_postato_apos_horario_limite) -> {
                 binding.status.setTextColor(context.getColor(R.color.red))

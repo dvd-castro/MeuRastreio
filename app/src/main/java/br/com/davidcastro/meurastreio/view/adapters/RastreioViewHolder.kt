@@ -19,7 +19,7 @@ class RastreioViewHolder(private val binding : ListItemRastreioBinding, private 
         }
     }
 
-    fun bind(item: RastreioModel){
+    fun bind(item: RastreioModel) {
         binding.model = item
         context = binding.root.context
 
@@ -30,10 +30,10 @@ class RastreioViewHolder(private val binding : ListItemRastreioBinding, private 
         verificarStatus(item)
     }
 
-    private fun verificarStatus(item : RastreioModel){
+    private fun verificarStatus(item : RastreioModel) {
         val eventos = item.eventos
 
-        when(eventos[0].status){
+        when(eventos[0].status) {
 
             context.getString(R.string.status_postato_apos_horario_limite) -> {
                 binding.status.setTextColor(context.getColor(R.color.red))

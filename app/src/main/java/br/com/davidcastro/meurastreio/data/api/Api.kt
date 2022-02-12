@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 
 class Api(private val retrofitClient: ApiService) {
 
-    suspend fun getData(codigo: String) = withContext(Dispatchers.IO){
+    suspend fun getData(codigo: String) = withContext(Dispatchers.IO) {
         return@withContext retrofitClient.getRastreio(email = USER, token = TOKEN, codigo = codigo)
     }
 }

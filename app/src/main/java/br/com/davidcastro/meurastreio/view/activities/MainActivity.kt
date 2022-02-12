@@ -60,12 +60,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun configFab() {
         binding.fab.setOnClickListener {
-            alertDialog.show()
             setDialogTextActionColor()
+            alertDialog.show()
         }
     }
 
-    private fun initAlarmManager(context: Context){
+    private fun initAlarmManager(context: Context) {
 
         alarmManager =
             context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
-    private fun configDialog(){
+    private fun configDialog() {
         alertDialog = this.let {
 
             val builder = AlertDialog.Builder(it)
@@ -111,9 +111,9 @@ class MainActivity : AppCompatActivity() {
                     codigo = bindingDialog.codigo.text.toString()
                     nome = bindingDialog.nome.text.toString()
 
-                    if(codigo.isNotEmpty() || codigo.isNotBlank()){
+                    if(codigo.isNotEmpty() || codigo.isNotBlank()) {
                         verifyIfTrackingExists(codigo)
-                    } else{
+                    } else {
                         //TODO mostrar mensagem de campo vazio
                     }
 
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setDialogTextActionColor(){
+    private fun setDialogTextActionColor() {
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.red))
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.green))
     }
@@ -163,7 +163,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.reload()
     }
 
-    private fun whenFindResult(tracking: RastreioModel){
+    private fun whenFindResult(tracking: RastreioModel) {
         insertTracking(nome, tracking.codigo, tracking.eventos)
     }
 
@@ -184,7 +184,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun resetSavedFieldValues(){
+    private fun resetSavedFieldValues() {
         codigo = ""
         nome = ""
     }

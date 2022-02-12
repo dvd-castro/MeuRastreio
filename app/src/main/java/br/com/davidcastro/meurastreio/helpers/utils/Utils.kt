@@ -13,7 +13,7 @@ fun getDaysBetweenDatesStrings(startDate: String, endDate: String): Int{
     return duration.toInt()
 }
 
-class NetworkUtils{
+class NetworkUtils {
     companion object {
 
         fun <S> getRetrofitInstance(serviceClass: Class<S>, path: String) : S {

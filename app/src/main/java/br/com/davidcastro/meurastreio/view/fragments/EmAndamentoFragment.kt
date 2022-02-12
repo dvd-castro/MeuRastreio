@@ -55,7 +55,7 @@ class EmAndamentoFragment : Fragment(), ClickListener {
         }
     }
 
-    private fun configSwipeRefresh(){
+    private fun configSwipeRefresh() {
         binding.swipe.setOnRefreshListener {
             viewModel.reload().invokeOnCompletion {
                 binding.swipe.isRefreshing = false
@@ -63,7 +63,7 @@ class EmAndamentoFragment : Fragment(), ClickListener {
         }
     }
 
-    private fun whenGetDatabaseList (listOfTracking: MutableList<RastreioModel>) {
+    private fun whenGetDatabaseList(listOfTracking: MutableList<RastreioModel>) {
         val filteredList = listOfTracking.filter { rastreio ->
             rastreio.eventos.first().status != getString(R.string.status_entregue)
         }

@@ -55,7 +55,7 @@ class ConcluidosFragment : Fragment(), ClickListener {
         }
     }
 
-    private fun configSwipeRefresh(){
+    private fun configSwipeRefresh() {
         binding.swipe.setOnRefreshListener {
             viewModel.reload().invokeOnCompletion {
                 binding.swipe.isRefreshing = false

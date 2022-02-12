@@ -33,7 +33,7 @@ class AlarmReceiver : BroadcastReceiver() {
     private suspend fun checkIfHaveUpdates(context: Context) {
         try {
             val all = repository.getAllTracking()
-            if(all.isNotEmpty()){
+            if(all.isNotEmpty()) {
                 all.forEach { rastreio ->
                     if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
                         val rastreioVerificado = repository.findTracking(rastreio.codigo)

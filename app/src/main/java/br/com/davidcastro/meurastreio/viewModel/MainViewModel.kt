@@ -107,7 +107,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
         }
     }
 
-    fun reload() = viewModelScope.launch{
+    fun reload() = viewModelScope.launch {
         try {
             val all = repository.getAllTracking()
             all.forEach { rastreio ->

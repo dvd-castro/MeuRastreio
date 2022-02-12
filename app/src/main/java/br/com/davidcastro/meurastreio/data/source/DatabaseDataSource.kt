@@ -6,7 +6,7 @@ import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.helpers.extensions.toRastreioEntity
 import br.com.davidcastro.meurastreio.helpers.extensions.toRastreioModel
 
-open class DatabaseDataSource(context: Context){
+open class DatabaseDataSource(context: Context) {
 
     private val dao = AppDatabase.getDatabase(context).rastreioDao
 
