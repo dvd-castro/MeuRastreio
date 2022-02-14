@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MeuRastreio" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MeuRastreio" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
@@ -9,13 +9,13 @@
         <item name="colorAccent">@color/white</item>
 
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/white</item>
+        <item name="colorSecondary">@color/primary_dark_gray_background</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/primary_dark_gray_background</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
 
         <!-- Customize your theme here. -->
-        <item name="android:colorBackground">@color/primary_dark_gray_background</item>
+        <item name="android:colorBackground">@color/dark_gray</item>
         <item name="android:textColor">@color/white</item>
 
         <item name="bottomSheetDialogTheme">@style/Theme.MeuRastreio.BottomSheetDialog</item>
