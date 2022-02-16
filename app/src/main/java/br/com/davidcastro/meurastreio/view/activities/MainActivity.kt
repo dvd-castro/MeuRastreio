@@ -193,6 +193,7 @@ class MainActivity : AppCompatActivity() {
         if(isSucess) {
             getAllTracking()
             resetSavedFieldValues()
+            showSnackbar(binding.root, getString(R.string.message_inserido_com_sucesso))
         }
     }
 
