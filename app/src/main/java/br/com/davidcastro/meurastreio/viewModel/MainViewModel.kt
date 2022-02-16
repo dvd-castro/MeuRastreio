@@ -6,10 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.davidcastro.meurastreio.BaseApplication
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.ErrorEnum
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
+import br.com.davidcastro.meurastreio.helpers.utils.NetworkUtils
+import br.com.davidcastro.meurastreio.helpers.utils.showSnackbar
 import kotlinx.coroutines.launch
 import java.lang.Error
 
@@ -61,21 +64,25 @@ class MainViewModel (private val repository: RastreioRepository, private val con
 
     //Procura um rastreio na api
     fun findTracking(codigo: String) = viewModelScope.launch {
-        _loader.postValue(true)
-        try {
-            val tracking = repository.findTracking(codigo)
-            if (tracking.eventos.isNotEmpty()) {
-                _findResult.postValue(tracking)
-            } else {
+        if(NetworkUtils.hasConnectionActive(context)) {
+            _loader.postValue(true)
+            try {
+                val tracking = repository.findTracking(codigo)
+                if (tracking.eventos.isNotEmpty()) {
+                    _findResult.postValue(tracking)
+                } else {
+                    _error.postValue(ErrorEnum.ERROR_NAO_ENCONTRADO.id)
+                }
+                _loader.postValue(false)
+            } catch (ex: Exception) {
+                _loader.postValue(false)
                 _error.postValue(ErrorEnum.ERROR_NAO_ENCONTRADO.id)
+                ex.localizedMessage?.let { localizedMessage ->
+                    Log.e("ERROR -> Find Tracking ", localizedMessage)
+                }
             }
-            _loader.postValue(false)
-        } catch (ex: Exception) {
-            _loader.postValue(false)
-            _error.postValue(ErrorEnum.ERROR_SERVER.id)
-            ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> Find Tracking ", localizedMessage)
-            }
+        } else {
+            _error.postValue(ErrorEnum.ERROR_NETWORK.id)
         }
     }
 
@@ -124,20 +131,24 @@ class MainViewModel (private val repository: RastreioRepository, private val con
     }
 
     fun reload() = viewModelScope.launch {
-        _loader.postValue(true)
-        try {
-            val all = repository.getAllTracking()
-            all.forEach { rastreio ->
-                if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)){
-                    findTracking(rastreio.codigo)
+        if(NetworkUtils.hasConnectionActive(context)) {
+            _loader.postValue(true)
+            try {
+                val all = repository.getAllTracking()
+                all.forEach { rastreio ->
+                    if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)){
+                        findTracking(rastreio.codigo)
+                    }
+                }
+                _loader.postValue(false)
+            } catch (ex: Exception) {
+                _loader.postValue(false)
+                ex.localizedMessage?.let { localizedMessage ->
+                    Log.e("ERROR -> Reload ", localizedMessage)
                 }
             }
-            _loader.postValue(false)
-        } catch (ex: Exception) {
-            _loader.postValue(false)
-            ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> Reload ", localizedMessage)
-            }
+        } else {
+            _error.postValue(ErrorEnum.ERROR_NETWORK.id)
         }
     }
 

@@ -26,7 +26,8 @@
     <string name="error_rastreio_ja_inserido">Código de rastreio já foi inserido anteriormente!</string>
     <string name="error_campo_vazio">Insira o código de rastreio!</string>
     <string name="error_deletar">Ocorreu um erro ao deletar, por favor tente novamente!</string>
-    <string name="error_endereco">Não foi possível carregar no mapa o endereço!</string>
+    <string name="error_endereco">Não foi possível carregar o mapa!</string>
+    <string name="error_network">Sem conexão com a internet!</string>
 
     <!--Actions -->
     <string name="action_delete">Apagar</string>

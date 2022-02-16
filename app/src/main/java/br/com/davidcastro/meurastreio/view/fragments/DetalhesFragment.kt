@@ -16,6 +16,7 @@ import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.EventosModel
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.FragmentDetalhesBinding
+import br.com.davidcastro.meurastreio.helpers.utils.NetworkUtils
 import br.com.davidcastro.meurastreio.helpers.utils.showSnackbar
 import br.com.davidcastro.meurastreio.view.adapters.DetalhesAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
@@ -208,9 +209,14 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
         configRecyclerView(tracking.eventos)
 
-        Handler(Looper.getMainLooper()).postDelayed(
-            { setAddressOnMap(tracking.eventos.first().local) },
-            1000)
+        if(NetworkUtils.hasConnectionActive(requireContext())) {
+            Handler(Looper.getMainLooper()).postDelayed(
+                { setAddressOnMap(tracking.eventos.first().local) },
+                1000)
+        } else {
+            binding.wifiError.visibility = View.VISIBLE
+            onLoader(false)
+        }
     }
 
 }

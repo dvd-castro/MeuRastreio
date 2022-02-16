@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import br.com.davidcastro.meurastreio.BaseApplication
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
@@ -31,23 +32,25 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private suspend fun checkIfHaveUpdates(context: Context) {
-        try {
-            val all = repository.getAllTracking()
-            if(all.isNotEmpty()) {
-                all.forEach { rastreio ->
-                    if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
-                        val rastreioVerificado = repository.findTracking(rastreio.codigo)
-                        if(rastreio.eventos.first() != rastreioVerificado.eventos.first()) {
-                            repository.insertTracking(rastreioVerificado)
-                            notifyUpdates(context, rastreioVerificado)
+        if(NetworkUtils.hasConnectionActive(context)){
+            try {
+                val all = repository.getAllTracking()
+                if(all.isNotEmpty()) {
+                    all.forEach { rastreio ->
+                        if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
+                            val rastreioVerificado = repository.findTracking(rastreio.codigo)
+                            if(rastreio.eventos.first() != rastreioVerificado.eventos.first()) {
+                                repository.insertTracking(rastreioVerificado)
+                                notifyUpdates(context, rastreioVerificado)
+                            }
                         }
                     }
                 }
-            }
 
-        } catch (ex: Exception) {
-            ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> get update trancking: ", localizedMessage)
+            } catch (ex: Exception) {
+                ex.localizedMessage?.let { localizedMessage ->
+                    Log.e("ERROR -> get update trancking: ", localizedMessage)
+                }
             }
         }
     }

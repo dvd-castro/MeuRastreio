@@ -157,6 +157,7 @@ class MainActivity : AppCompatActivity() {
         when(int) {
             ErrorEnum.ERROR_NAO_ENCONTRADO.id -> showSnackbar(binding.root, getString(R.string.error_rastreio_nao_encontrado))
             ErrorEnum.ERROR_INSERIDO.id -> showSnackbar(binding.root, getString(R.string.error_rastreio_ja_inserido))
+            ErrorEnum.ERROR_NETWORK.id -> showSnackbar(binding.root, getString(R.string.error_network))
             else -> showSnackbar(binding.root, getString(R.string.error_server))
         }
     }
