@@ -101,7 +101,9 @@ class MainViewModel (private val repository: RastreioRepository, private val con
     fun deleteTracking(codigo: String) = viewModelScope.launch {
         try {
             repository.deleteTracking(codigo)
+            _deleteIsCompleted.postValue(true)
         } catch (ex: Exception) {
+            _deleteIsCompleted.postValue(false)
             ex.localizedMessage?.let { localizedMessage ->
                 Log.e("ERROR", localizedMessage)
             }
