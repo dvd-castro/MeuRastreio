@@ -209,5 +209,7 @@ class MainActivity : AppCompatActivity() {
     private fun resetSavedFieldValues() {
         codigo = ""
         nome = ""
+        bindingDialog.codigo.setText("")
+        bindingDialog.nome.setText("")
     }
 }
