@@ -50,7 +50,7 @@ class DetalhesViewHolder(private val binding: ListItemDetalhesBinding) : Recycle
 
         when(item.status) {
 
-            context.getString(R.string.status_postato_apos_horario_limite) -> {
+            context.getString(R.string.status_postado_apos_horario_limite) -> {
                 binding.status.setTextColor(context.getColor(R.color.red))
                 binding.imageView.setBackgroundResource(R.drawable.outline_info)
             }

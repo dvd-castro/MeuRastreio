@@ -11,7 +11,7 @@
     <string name="description_fab">Clicar para adicionar uma nova encomenda a ser rastreada</string>
 
     <!-- Status rastreio -->
-    <string name="status_postato_apos_horario_limite">Objeto postado após o horário limite da unidade</string>
+    <string name="status_postado_apos_horario_limite">Objeto postado após o horário limite da unidade</string>
     <string name="status_encaminhado">Objeto encaminhado</string>
     <string name="status_entregue">Objeto entregue ao destinatário</string>
     <string name="status_saiu_para_entrega">Objeto saiu para entrega ao destinatário</string>

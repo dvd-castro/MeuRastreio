@@ -27,7 +27,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.firebase.ktx.Firebase
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -142,15 +141,13 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun setAddressOnMap(strAddress: String) {
 
-        onLoader(true)
-
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        var geoResults: List<Address>? = null
+        var geoResults: List<Address>
 
         try {
             geoResults = geocoder.getFromLocationName(strAddress, 1)
 
-            while (geoResults!!.isEmpty()) {
+            while (geoResults.isEmpty()) {
                 geoResults = geocoder.getFromLocationName(strAddress, 1)
             }
 
@@ -182,25 +179,22 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun onLoader(boolean: Boolean){
         if (boolean)
-            binding.loader.isVisible = boolean
+            binding.loader.visibility = View.VISIBLE
         else
-            binding.loader.isVisible = boolean
+            binding.loader.visibility = View.GONE
     }
 
     private fun getTracking(){
-        codigo?.let { viewModel.getTracking(it) }
+        codigo?.let { viewModel.getTrackingOnDb(it) }
     }
 
     private fun deleteTracking(){
-        codigo?.let { viewModel.deleteTracking(it) }
+        codigo?.let { viewModel.deleteTrackingOnDB(it) }
     }
 
     private fun whenDeleteIsComplete(isDeleted: Boolean){
         if(isDeleted){
             dismiss()
-            viewModel.getAllTracking()
-        }else {
-            showSnackbar(binding.root, getString(R.string.error_deletar))
         }
     }
 
