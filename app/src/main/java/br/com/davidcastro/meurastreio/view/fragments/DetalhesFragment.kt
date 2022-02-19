@@ -202,9 +202,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         configRecyclerView(tracking.eventos)
 
         if(NetworkUtils.hasConnectionActive(requireContext())) {
-            Handler(Looper.getMainLooper()).postDelayed(
-                { setAddressOnMap(tracking.eventos.first().local) },
-                1000)
+            setAddressOnMap(tracking.eventos.first().local)
         } else {
             binding.wifiError.visibility = View.VISIBLE
             onLoader(false)
