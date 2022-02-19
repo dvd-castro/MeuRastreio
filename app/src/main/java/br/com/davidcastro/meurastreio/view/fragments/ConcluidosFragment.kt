@@ -68,7 +68,19 @@ class ConcluidosFragment : Fragment(), ClickListener {
             rastreio.eventos.first().status == getString(R.string.status_entregue)
         }
 
-        rastreioAdapter.submitList(filteredList)
+        showRecycler(filteredList)
+    }
+
+    private fun showRecycler(trackingList: List<RastreioModel>){
+        if(trackingList.isNotEmpty()) {
+            rastreioAdapter.submitList(trackingList)
+            binding.recyclerView.visibility = View.VISIBLE
+            binding.warningText.visibility = View.GONE
+        } else {
+            binding.recyclerView.visibility = View.GONE
+            binding.warningText.visibility = View.VISIBLE
+            binding.warningText.text = getString(R.string.message_nao_ha_encomendas_concluidas)
+        }
     }
 
     override fun onItemClick(codigo: String) {

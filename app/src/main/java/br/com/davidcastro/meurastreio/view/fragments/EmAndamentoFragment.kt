@@ -67,8 +67,19 @@ class EmAndamentoFragment : Fragment(), ClickListener {
         val filteredList = listOfTracking.filter { rastreio ->
             rastreio.eventos.first().status != getString(R.string.status_entregue)
         }
+        showRecycler(filteredList)
+    }
 
-        rastreioAdapter.submitList(filteredList)
+    private fun showRecycler(trackingList: List<RastreioModel>){
+        if(trackingList.isNotEmpty()) {
+            rastreioAdapter.submitList(trackingList)
+            binding.recyclerView.visibility = View.VISIBLE
+            binding.warningText.visibility = View.GONE
+        } else {
+            binding.recyclerView.visibility = View.GONE
+            binding.warningText.visibility = View.VISIBLE
+            binding.warningText.text = getString(R.string.message_nao_ha_encomendas_em_andamento)
+        }
     }
 
     override fun onItemClick(codigo: String) {
