@@ -16,8 +16,7 @@ Meu Rastreio
 </a>
 </p>
   
-<img  width="40%"  src="https://i.imgur.com/ZkebzKR.png">
-<img  width="40%"  src="https://i.imgur.com/GBOKvdS.png">
+<img  width="90%"  src="https://i.imgur.com/N6sUEFd.png">
 </div>
 
 ---
@@ -26,13 +25,15 @@ Meu Rastreio
 - [Kotlin](https://kotlinlang.org) - Linguagem utilizada
 - [Android](https://developer.android.com) - Plataforma
 - [Koin](https://insert-koin.io) - Injeção de dependências
+- [Room](https://developer.android.com/training/data-storage/room) - Banco de dados local
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Componente de arquitetura android
 - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Componente de arquitetura android
-- [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started) - Navegação entre telas
 - [Coroutines](https://developer.android.com/kotlin/coroutines) - Execução de tarefas assíncronas
 - [Retrofit](https://square.github.io/retrofit) - Integração com API
-- [ViewPager + TabLyout](https://developer.android.com/guide/navigation/navigation-swipe-view?hl=pt) - Para navegação deslizável entre Fragments que utilizam Abas
+- [ViewPager + TabLyout](https://developer.android.com/guide/navigation/navigation-swipe-view?hl=pt) - Para navegação deslizável entre Fragments que utilizam Abas.
 - [BottomSheetDialog](https://medium.com/android-dev-br/android-ui-bottom-sheet-4709cad826d2) - Para mostrar uma fragment com estilo de bottom dialog.
+- [Alarm Manager](https://developer.android.com/training/scheduling/alarms) - Para que a cada certo período de tempo o app busque uma atualização das encomendas.
+- [Android Notification](https://developer.android.com/training/notify-user/build-notification) - Emitir notificações
 
 <div align="center">
 <p><i>Developed by <a href="https://www.linkedin.com/in/dvdcastro/">David Castro</i></p>
