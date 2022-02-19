@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.EventosModel
@@ -189,7 +188,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
     }
 
     private fun deleteTracking(){
-        codigo?.let { viewModel.deleteTrackingOnDB(it) }
+        codigo?.let { viewModel.deleteTrackingOnDb(it) }
     }
 
     private fun whenDeleteIsComplete(isDeleted: Boolean){

@@ -24,6 +24,10 @@ class RastreioRepository(private val databaseDataSource: DatabaseDataSource, pri
         databaseDataSource.delete(codigo)
     }
 
+    suspend fun updateTracking(codigo: String, eventos: String) = withContext(Dispatchers.IO) {
+        databaseDataSource.update(codigo, eventos)
+    }
+
     suspend fun containsTracking(codigo: String): Boolean = withContext(Dispatchers.IO) {
         return@withContext databaseDataSource.contains(codigo)
     }

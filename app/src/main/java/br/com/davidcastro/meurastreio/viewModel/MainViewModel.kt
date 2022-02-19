@@ -10,6 +10,7 @@ import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.MessageEnum
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
+import br.com.davidcastro.meurastreio.helpers.extensions.toRastreioEntity
 import br.com.davidcastro.meurastreio.helpers.utils.NetworkUtils
 import kotlinx.coroutines.launch
 
@@ -58,7 +59,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
 
                 if (tracking.eventos.isNotEmpty()) {
                     val trackingWithName = RastreioModel(nome, codigo, tracking.eventos)
-                    insertTrackingOnDB(trackingWithName)
+                    insertTrackingOnDb(trackingWithName)
                 } else {
                     _message.postValue(MessageEnum.NOT_FOUND.id)
                 }
@@ -80,20 +81,15 @@ class MainViewModel (private val repository: RastreioRepository, private val con
     }
 
     //Procura um rastreio na api e atualiza no banco local
-    fun findTrackingUpdate(codigo: String) = viewModelScope.launch {
+    fun findTrackingUpdate(rastreio: RastreioModel) = viewModelScope.launch {
         if(NetworkUtils.hasConnectionActive(context)) {
             try {
-                val tracking = repository.findTracking(codigo)
+                val tracking = repository.findTracking(rastreio.codigo)
 
-                if (tracking.eventos.isNotEmpty()) {
-                    insertTrackingOnDB(tracking)
-                } else {
-                    _message.postValue(MessageEnum.NOT_FOUND.id)
+                if (tracking.eventos.isNotEmpty() && rastreio.eventos.count() > tracking.eventos.count()) {
+                    updateTrackingOnDb(tracking)
                 }
-
             } catch (ex: Exception) {
-                _message.postValue(MessageEnum.NOT_FOUND.id)
-
                 ex.localizedMessage?.let { localizedMessage ->
                     Log.e("ERROR -> Find Tracking ", localizedMessage)
                 }
@@ -115,7 +111,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
         }
     }
 
-    fun deleteTrackingOnDB(codigo: String) = viewModelScope.launch {
+    fun deleteTrackingOnDb(codigo: String) = viewModelScope.launch {
         try {
             repository.deleteTracking(codigo)
             _deleteIsCompleted.postValue(true)
@@ -129,7 +125,19 @@ class MainViewModel (private val repository: RastreioRepository, private val con
         }
     }
 
-    fun insertTrackingOnDB(rastreio: RastreioModel) = viewModelScope.launch {
+    fun updateTrackingOnDb(rastreio: RastreioModel) = viewModelScope.launch {
+        try {
+            val entity = rastreio.toRastreioEntity()
+            repository.updateTracking(entity.codigo, entity.eventos)
+            getAllTracking()
+        } catch (ex: Exception) {
+            ex.localizedMessage?.let { localizedMessage ->
+                Log.e("ERROR -> Update Tracking ", localizedMessage)
+            }
+        }
+    }
+
+    fun insertTrackingOnDb(rastreio: RastreioModel) = viewModelScope.launch {
         try {
             repository.insertTracking(rastreio)
             _message.postValue(MessageEnum.INSERTED_WITH_SUCESS.id)
@@ -164,7 +172,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
                 val all = repository.getAllTracking()
                 all.forEach { rastreio ->
                     if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
-                        findTrackingUpdate(rastreio.codigo)
+                        findTrackingUpdate(rastreio)
                     }
                 }
                 _loader.postValue(false)

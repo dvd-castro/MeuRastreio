@@ -11,6 +11,7 @@ import br.com.davidcastro.meurastreio.BaseApplication
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
+import br.com.davidcastro.meurastreio.helpers.extensions.toRastreioEntity
 import br.com.davidcastro.meurastreio.view.activities.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,8 +40,10 @@ class AlarmReceiver : BroadcastReceiver() {
                     all.forEach { rastreio ->
                         if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
                             val rastreioVerificado = repository.findTracking(rastreio.codigo)
+
                             if(rastreio.eventos.first() != rastreioVerificado.eventos.first()) {
-                                repository.insertTracking(rastreioVerificado)
+                                val rastreioEntity = rastreioVerificado.toRastreioEntity()
+                                repository.updateTracking(rastreioEntity.codigo, rastreioEntity.eventos)
                                 notifyUpdates(context, rastreioVerificado)
                             }
                         }

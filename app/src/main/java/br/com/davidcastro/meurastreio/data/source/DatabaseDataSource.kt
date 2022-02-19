@@ -22,6 +22,10 @@ open class DatabaseDataSource(context: Context) {
         dao.delete(codigo)
     }
 
+    fun update(codigo: String, eventos: String) {
+        dao.update(codigo, eventos)
+    }
+
     fun contains(codigo: String): Boolean {
         return dao.contains(codigo)
     }
