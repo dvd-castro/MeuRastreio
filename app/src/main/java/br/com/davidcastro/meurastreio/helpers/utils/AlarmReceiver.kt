@@ -7,7 +7,6 @@ import android.content.Intent
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import br.com.davidcastro.meurastreio.BaseApplication
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.repository.RastreioRepository
@@ -66,7 +65,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
         val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id) )
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(rastreio.codigo)
             .setContentText(rastreio.eventos.first().status)
             .setContentIntent(pendingIntent)
