@@ -76,6 +76,34 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/warning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:padding="@dimen/spacing_16"
+                app:layout_constraintBottom_toBottomOf="@+id/mapsContainer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_warning" />
+
+                <TextView
+                    android:id="@+id/warning_text"
+                    android:layout_marginTop="@dimen/spacing_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/error_rastreio_internacional" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tvNome"
                 android:layout_width="wrap_content"

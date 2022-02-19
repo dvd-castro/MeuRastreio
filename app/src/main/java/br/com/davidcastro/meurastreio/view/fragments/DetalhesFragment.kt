@@ -16,7 +16,6 @@ import br.com.davidcastro.meurastreio.data.model.EventosModel
 import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.databinding.FragmentDetalhesBinding
 import br.com.davidcastro.meurastreio.helpers.utils.NetworkUtils
-import br.com.davidcastro.meurastreio.helpers.utils.showSnackbar
 import br.com.davidcastro.meurastreio.view.adapters.DetalhesAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -140,31 +139,31 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun setAddressOnMap(strAddress: String) {
 
-        val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        var geoResults: List<Address>
+        if(strAddress != "País//") {
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
-        try {
-            geoResults = geocoder.getFromLocationName(strAddress, 1)
+            try {
+                val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
 
-            while (geoResults.isEmpty()) {
-                geoResults = geocoder.getFromLocationName(strAddress, 1)
+                if (!geoResults.isNullOrEmpty()) {
+                    val addr = geoResults[0]
+                    latLng = LatLng(addr.latitude, addr.longitude)
+                    initMap()
+                } else {
+                    showAlertView(getString(R.string.error_endereco))
+                }
+
+                onLoader(false)
+
+            } catch (ex: Exception) {
+                onLoader(false)
+                ex.localizedMessage?.let { localizedMessage ->
+                    Log.e("ERROR -> OnShowMap", localizedMessage)
+                }
             }
-
-            if (geoResults.isNotEmpty()) {
-                val addr = geoResults[0]
-                latLng = LatLng(addr.latitude, addr.longitude)
-                initMap()
-            } else {
-                showSnackbar(binding.root, getString(R.string.error_endereco))
-            }
-
+        }else {
             onLoader(false)
-
-        } catch (ex: Exception) {
-            onLoader(false)
-            ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> OnShowMap", localizedMessage)
-            }
+            showAlertView(getString(R.string.error_rastreio_internacional))
         }
 
     }
@@ -210,6 +209,11 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             binding.wifiError.visibility = View.VISIBLE
             onLoader(false)
         }
+    }
+
+    private fun showAlertView(message: String){
+        binding.warning.visibility = View.VISIBLE
+        binding.warningText.text = message
     }
 
 }
