@@ -43,6 +43,8 @@ class DetalhesViewHolder(private val binding: ListItemDetalhesBinding) : Recycle
         if(subStatus.contains(">Minhas Importações<")) {
             binding.substatus.text = HtmlCompat.fromHtml(context.getString(R.string.message_acessar_importacoes), HtmlCompat.FROM_HTML_MODE_LEGACY)
             binding.substatus.movementMethod = LinkMovementMethod.getInstance()
+        } else {
+            binding.substatus.text = subStatus
         }
     }
 
