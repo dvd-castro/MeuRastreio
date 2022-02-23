@@ -10,12 +10,17 @@ Meu Rastreio
   </p>
 <p>
 <!-- Image Shields -->
-<img  alt="Languages Count"  src="https://img.shields.io/github/languages/count/dvd-castro/MeuRastreio">
-<img  alt="Last Commit"  src="https://img.shields.io/github/last-commit/dvd-castro/MeuRastreio">
-<img  alt="Repo Size"  src="https://img.shields.io/github/repo-size/dvd-castro/MeuRastreio">
-</a>
+  <img  alt="Languages Count"  src="https://img.shields.io/github/languages/count/dvd-castro/MeuRastreio">
+  <img  alt="Last Commit"  src="https://img.shields.io/github/last-commit/dvd-castro/MeuRastreio">
+  <img  alt="Repo Size"  src="https://img.shields.io/github/repo-size/dvd-castro/MeuRastreio">
 </p>
-  
+
+<p>
+  <a href="https://play.google.com/store/apps/details?id=br.com.davidcastro.meurastreio">
+    <img  width="20%" src="https://i.imgur.com/ZgjXOoq.png"/>
+  </a>
+</p>
+
 <img  width="90%"  src="https://i.imgur.com/N6sUEFd.png">
 </div>
 
