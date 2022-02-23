@@ -1,12 +1,12 @@
 package br.com.davidcastro.meurastreio
 
-import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
+import android.app.*
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.SystemClock
 import br.com.davidcastro.meurastreio.data.di.modules.module
 import br.com.davidcastro.meurastreio.helpers.utils.AlarmReceiver
 import org.koin.android.ext.koin.androidContext
@@ -22,8 +22,9 @@ class BaseApplication: Application() {
             modules(module)
         }
 
-        setReceiverSettings()
         setNotificationsChannel()
+        setReceiverSettings()
+        initAlarmManager()
     }
 
     private fun setReceiverSettings() {
@@ -50,5 +51,22 @@ class BaseApplication: Application() {
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    private fun initAlarmManager() {
+
+        val alarmManager =
+            getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+
+        val alarmIntent = Intent(this, AlarmReceiver::class.java).let { intent ->
+            PendingIntent.getBroadcast(this, 0, intent, 0)
+        }
+
+        alarmManager?.setRepeating(
+            AlarmManager.ELAPSED_REALTIME_WAKEUP,
+            SystemClock.elapsedRealtime(),
+            1000 * 60,
+            alarmIntent
+        )
     }
 }

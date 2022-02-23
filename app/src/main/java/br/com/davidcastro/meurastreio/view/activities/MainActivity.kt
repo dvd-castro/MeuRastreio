@@ -1,11 +1,6 @@
 package br.com.davidcastro.meurastreio.view.activities
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -13,7 +8,6 @@ import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.data.model.MessageEnum
 import br.com.davidcastro.meurastreio.databinding.ActivityMainBinding
 import br.com.davidcastro.meurastreio.databinding.DialogAdicionarCodigoBinding
-import br.com.davidcastro.meurastreio.helpers.utils.AlarmReceiver
 import br.com.davidcastro.meurastreio.helpers.utils.showSnackbar
 import br.com.davidcastro.meurastreio.view.adapters.ViewPagerAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
@@ -25,9 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bindingDialog : DialogAdicionarCodigoBinding
     private lateinit var alertDialog : AlertDialog
-
-    private var alarmManager: AlarmManager? = null
-    private lateinit var alarmIntent: PendingIntent
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -42,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         getAllTracking()
         initUi()
         initObservers()
-        initAlarmManager(this)
     }
 
     private fun initObservers() {
@@ -62,23 +52,6 @@ class MainActivity : AppCompatActivity() {
             setDialogTextActionColor()
             setDialogCancelListener()
         }
-    }
-
-    private fun initAlarmManager(context: Context) {
-
-        alarmManager =
-            context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-
-        alarmIntent = Intent(context, AlarmReceiver::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, 0, intent, 0)
-        }
-
-        alarmManager?.setRepeating(
-            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime(),
-            1000 * 60 * 30,
-            alarmIntent
-        )
     }
 
     private fun configViewPager() {

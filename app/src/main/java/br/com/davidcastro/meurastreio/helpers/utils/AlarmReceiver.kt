@@ -22,7 +22,6 @@ import org.koin.java.KoinJavaComponent.inject
 class AlarmReceiver : BroadcastReceiver() {
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-
     private val repository: RastreioRepository by inject(RastreioRepository::class.java)
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -36,14 +35,14 @@ class AlarmReceiver : BroadcastReceiver() {
             try {
                 val all = repository.getAllTracking()
                 if(all.isNotEmpty()) {
-                    all.forEach { rastreio ->
+                    all.forEachIndexed { index, rastreio ->
                         if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
                             val rastreioVerificado = repository.findTracking(rastreio.codigo)
 
                             if(rastreio.eventos.first() != rastreioVerificado.eventos.first()) {
                                 val rastreioEntity = rastreioVerificado.toRastreioEntity()
                                 repository.updateTracking(rastreioEntity.codigo, rastreioEntity.eventos)
-                                notifyUpdates(context, rastreioVerificado)
+                                notifyUpdates(context, rastreioVerificado, index)
                             }
                         }
                     }
@@ -57,7 +56,7 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun notifyUpdates(context: Context, rastreio: RastreioModel) {
+    private fun notifyUpdates(context: Context, rastreio: RastreioModel, index: Int) {
 
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -72,7 +71,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
         with(NotificationManagerCompat.from(context)) {
-            notify(0, builder.build())
+            notify(index, builder.build())
         }
     }
 }
