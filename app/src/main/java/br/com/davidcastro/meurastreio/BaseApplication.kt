@@ -64,7 +64,7 @@ class BaseApplication: Application() {
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(),
-            1000 * 60,
+            1000 * 60 * 30,
             alarmIntent
         )
     }
