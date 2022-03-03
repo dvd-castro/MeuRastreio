@@ -33,6 +33,7 @@
     <!--Actions -->
     <string name="action_delete">Apagar</string>
     <string name="action_to_add">Adicionar</string>
+    <string name="action_to_config">Configurações</string>
     <string name="action_to_cancel">Cancelar</string>
     <string name="action_to_confirm">Confirmar</string>
 
@@ -41,12 +42,14 @@
     <string name="title_encomenda">Encomenda</string>
     <string name="title_map_pin">Última localização da encomenda</string>
     <string name="title_atencao">Atenção!</string>
+    <string name="title_permissao_iniciar">Permissão de início automático necessária!</string>
 
     <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
     <string name="message_acessar_importacoes"><![CDATA[<span class="minhasImportacoes">Acesse o ambiente: <a href="https://apps.correios.com.br/portalimportador/pages/pesquisarRemessaImportador/pesquisarRemessaImportador.jsf" target="_blank">Minhas Importações</a></span>]]></string>
     <string name="message_inserido_com_sucesso">Rastreio inserido com sucesso!</string>
     <string name="message_nao_ha_encomendas_concluidas">No momento não há encomendas concluídas!</string>
     <string name="message_nao_ha_encomendas_em_andamento">No momento não há encomendas em andamento!</string>
+    <string name="message_permissao_iniciar">Em dispositivos Xiaomi, precisamos dessa permissão para buscar atualizações em segundo plano, por favor ativar!</string>
 
     <string name="notification_channel_id">40028922</string>
     <string name="notification_channel_name">meu_rastreio</string>

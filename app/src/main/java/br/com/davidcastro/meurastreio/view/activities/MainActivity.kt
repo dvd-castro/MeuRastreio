@@ -1,10 +1,16 @@
 package br.com.davidcastro.meurastreio.view.activities
 
+import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.data.api.Constansts
 import br.com.davidcastro.meurastreio.data.model.MessageEnum
 import br.com.davidcastro.meurastreio.databinding.ActivityMainBinding
 import br.com.davidcastro.meurastreio.databinding.DialogAdicionarCodigoBinding
@@ -14,11 +20,15 @@ import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bindingDialog : DialogAdicionarCodigoBinding
-    private lateinit var alertDialog : AlertDialog
+    private lateinit var alertDialogInsert : AlertDialog
+    private lateinit var alertDialogRequest : AlertDialog
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -27,12 +37,26 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         bindingDialog = DialogAdicionarCodigoBinding.inflate(layoutInflater)
+        preferences = getSharedPreferences("user_preferences", MODE_PRIVATE)
+        editor = preferences.edit()
 
         setContentView(binding.root)
 
         getAllTracking()
         initUi()
         initObservers()
+        enableAutoStartIfXiaomiDevice()
+    }
+
+    private fun enableAutoStartIfXiaomiDevice() {
+        if(Build.MANUFACTURER == "Xiaomi" && !preferences.contains(Constansts.AUTO_START_REQUESTED)) {
+            alertDialogRequest.show()
+        }
+    }
+
+    private fun requestStartOnBoot() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName"))
+        startActivity(intent)
     }
 
     private fun initObservers() {
@@ -44,11 +68,12 @@ class MainActivity : AppCompatActivity() {
         configFab()
         configViewPager()
         configDialog()
+        configDialogStartOnBootRequest()
     }
 
     private fun configFab() {
         binding.fab.setOnClickListener {
-            alertDialog.show()
+            alertDialogInsert.show()
             setDialogTextActionColor()
             setDialogCancelListener()
         }
@@ -68,8 +93,34 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
+    private fun configDialogStartOnBootRequest() {
+        alertDialogRequest = this.let {
+
+            val builder = AlertDialog.Builder(it)
+
+            builder.apply {
+
+                setTitle(getString(R.string.title_permissao_iniciar))
+                setMessage(R.string.message_permissao_iniciar)
+                setView(R.layout.dialog_permissao_iniciar)
+
+                setPositiveButton(getString(R.string.action_to_config)) { dialog, _ ->
+                    requestStartOnBoot()
+                    editor.putBoolean(Constansts.AUTO_START_REQUESTED, true).commit()
+                }
+
+                setNegativeButton(getString(R.string.action_to_cancel)) { dialog, _ ->
+                    dialog.cancel()
+                    editor.putBoolean(Constansts.AUTO_START_REQUESTED, true).commit()
+                }
+            }
+
+            builder.create()
+        }
+    }
+
     private fun configDialog() {
-        alertDialog = this.let {
+        alertDialogInsert = this.let {
 
             val builder = AlertDialog.Builder(it)
 
@@ -103,15 +154,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setDialogCancelListener() {
-        alertDialog.setOnCancelListener {
+        alertDialogInsert.setOnCancelListener {
             bindingDialog.name.setText("")
             bindingDialog.code.setText("")
         }
     }
 
     private fun setDialogTextActionColor() {
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.red))
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.green))
+        alertDialogInsert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.red))
+        alertDialogInsert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.green))
     }
 
     private fun onLoader(boolean: Boolean){
