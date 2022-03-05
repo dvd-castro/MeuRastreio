@@ -25,6 +25,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -158,6 +159,10 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             } catch (ex: Exception) {
                 onLoader(false)
                 ex.localizedMessage?.let { localizedMessage ->
+                    val crashlytics = FirebaseCrashlytics.getInstance()
+                    crashlytics.setCrashlyticsCollectionEnabled(true)
+                    crashlytics.log(localizedMessage)
+                    crashlytics.recordException(ex)
                     Log.e("ERROR -> OnShowMap", localizedMessage)
                 }
             }
