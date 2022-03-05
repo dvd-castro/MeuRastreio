@@ -4,22 +4,23 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import br.com.davidcastro.meurastreio.data.model.EventosModel
+import org.joda.time.DateTime
+import org.joda.time.Days
+import org.joda.time.format.DateTimeFormat
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.text.SimpleDateFormat
-import java.util.*
 
 fun getDaysBetweenDatesStrings(firstEvent: EventosModel, lastEvent: EventosModel): Int {
-    val formatter = SimpleDateFormat("dd/MM/yyyy")
-    val date1 = formatter.parse(firstEvent.data).time
+    val formatter = DateTimeFormat.forPattern("dd/MM/yyyy")
+    val firstEventDate = DateTime.parse(firstEvent.data, formatter)
 
-    val date2: Long = if(firstEvent.status == "Objeto entregue ao destinatário") {
-        formatter.parse(lastEvent.data).time
-    }else {
-        Date().time
+    val lastEventDate = if(lastEvent.status == "Objeto entregue ao destinatário") {
+        DateTime.parse(lastEvent.data, formatter)
+    } else {
+        DateTime()
     }
 
-    return ((date2 - date1) / (1000 * 60 * 60 * 24)).toInt()
+    return Days.daysBetween(firstEventDate, lastEventDate).days
 }
 
 class NetworkUtils {

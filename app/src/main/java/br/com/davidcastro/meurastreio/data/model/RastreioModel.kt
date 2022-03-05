@@ -10,8 +10,8 @@ data class RastreioModel (
 ){
         val getDuracao : String
                 get() {
-                    val firstEvent = eventos.first()
-                    val lastEvent = eventos.last()
+                    val firstEvent = eventos.last()
+                    val lastEvent = eventos.first()
 
                     return "${getDaysBetweenDatesStrings(firstEvent, lastEvent)} dias"
                 }
