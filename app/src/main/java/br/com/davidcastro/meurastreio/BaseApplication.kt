@@ -56,7 +56,7 @@ class BaseApplication: Application() {
 
         val alarmManager =
             getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        val flag = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_MUTABLE else 0
+        val flag = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0
         val alarmIntent = Intent(this, AlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(this, 0, intent, flag)
         }
@@ -64,7 +64,7 @@ class BaseApplication: Application() {
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(),
-            1000 * 60 * 30,
+            1000 * 60 * 15,
             alarmIntent
         )
     }
