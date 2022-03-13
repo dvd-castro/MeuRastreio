@@ -17,7 +17,7 @@ Meu Rastreio
 
 <p>
   <a href="https://play.google.com/store/apps/details?id=br.com.davidcastro.meurastreio">
-    <img  width="20%" src="https://i.imgur.com/ZgjXOoq.png"/>
+    <img  width="20%" src="https://i.imgur.com/sADgtz5.png"/>
   </a>
 </p>
 
