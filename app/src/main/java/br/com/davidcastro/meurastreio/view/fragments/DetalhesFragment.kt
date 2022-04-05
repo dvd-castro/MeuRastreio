@@ -165,8 +165,9 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
                     crashlytics.recordException(ex)
                     Log.e("ERROR -> OnShowMap", localizedMessage)
                 }
+                showAlertView(getString(R.string.error_endereco))
             }
-        }else {
+        } else {
             onLoader(false)
             showAlertView(getString(R.string.error_rastreio_internacional))
         }
