@@ -26,6 +26,10 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -34,6 +38,7 @@ private const val CODIGO_RASTREIO = "codigo"
 class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private val viewModel: MainViewModel by sharedViewModel()
+    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     private lateinit var binding: FragmentDetalhesBinding
     private lateinit var alertDialog : AlertDialog
@@ -144,16 +149,17 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
             try {
-                val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
+                scope.launch {
+                    val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
 
-                if (!geoResults.isNullOrEmpty()) {
-                    val addr = geoResults[0]
-                    latLng = LatLng(addr.latitude, addr.longitude)
-                    initMap()
-                } else {
-                    showAlertView(getString(R.string.error_endereco))
+                    if (!geoResults.isNullOrEmpty()) {
+                        val addr = geoResults[0]
+                        latLng = LatLng(addr.latitude, addr.longitude)
+                        initMap()
+                    } else {
+                        showAlertView(getString(R.string.error_endereco))
+                    }
                 }
-
                 onLoader(false)
 
             } catch (ex: Exception) {
