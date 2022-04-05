@@ -6,7 +6,7 @@ Meu Rastreio
 <!-- Subtitle/Description -->
 <h4>APP para rastreio de encomendas rastreáveis pelos correios.</h4>
   <p align="center">
-  Criado para estudos e para uso pessoal.
+  Onde podemos inserir o código de uma encomenda, e conseguiremos acompanhar suas atualizações de status por notificações.
   </p>
 <p>
 <!-- Image Shields -->
@@ -17,7 +17,7 @@ Meu Rastreio
 
 <p>
   <a href="https://play.google.com/store/apps/details?id=br.com.davidcastro.meurastreio">
-    <img  width="20%" src="https://i.imgur.com/ZgjXOoq.png"/>
+    <img  width="20%" src="https://i.imgur.com/sADgtz5.png"/>
   </a>
 </p>
 
