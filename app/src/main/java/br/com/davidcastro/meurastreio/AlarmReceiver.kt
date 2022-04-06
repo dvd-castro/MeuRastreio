@@ -72,6 +72,7 @@ class AlarmReceiver : BroadcastReceiver() {
             .setContentText(rastreio.eventos.first().status)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setAutoCancel(true)
 
         with(NotificationManagerCompat.from(context)) {
             notify(index, builder.build())
