@@ -29,6 +29,8 @@ Meu Rastreio
 ### :rocket: Technologias utilizadas
 - [Kotlin](https://kotlinlang.org) - Linguagem utilizada
 - [Android](https://developer.android.com) - Plataforma
+- [Data Binding](https://developer.android.com/topic/libraries/data-binding?hl=pt-br)
+- [View Binding](https://developer.android.com/topic/libraries/view-binding?hl=pt-br)
 - [Koin](https://insert-koin.io) - Injeção de dependências
 - [Room](https://developer.android.com/training/data-storage/room) - Banco de dados local
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Componente de arquitetura android
@@ -39,6 +41,13 @@ Meu Rastreio
 - [BottomSheetDialog](https://medium.com/android-dev-br/android-ui-bottom-sheet-4709cad826d2) - Para mostrar uma fragment com estilo de bottom dialog.
 - [Alarm Manager](https://developer.android.com/training/scheduling/alarms) - Para que a cada certo período de tempo o app busque uma atualização das encomendas.
 - [Android Notification](https://developer.android.com/training/notify-user/build-notification) - Emitir notificações
+
+
+### ℹ️ informações importantes
+
+<p>
+Dados como rota e token da api utilizadas, estão ausentes desse repositório por questões de segurança., então caso você queira rodar para testar, recomendo baixar o app na <a href="https://play.google.com/store/apps/details?id=br.com.davidcastro.meurastreio">Play Store</a>.
+</p>
 
 <div align="center">
 <p><i>Developed by <a href="https://www.linkedin.com/in/dvdcastro/">David Castro</i></p>
