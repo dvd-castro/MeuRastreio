@@ -68,7 +68,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id) )
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(rastreio.codigo)
+            .setContentTitle(rastreio.nome)
             .setContentText(rastreio.eventos.first().status)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

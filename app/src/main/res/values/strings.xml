@@ -3,6 +3,8 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="menu_title">Refresh</string>
+
     <!-- Tabs -->
     <string name="tab_item_em_andamento">Em andamento</string>
     <string name="tab_item_concluidos">Concluídos</string>
