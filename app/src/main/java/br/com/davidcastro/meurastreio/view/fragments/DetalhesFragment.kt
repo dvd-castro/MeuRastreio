@@ -146,10 +146,9 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
     private fun setAddressOnMap(strAddress: String) {
 
         if(strAddress != "País//") {
-            val geocoder = Geocoder(requireContext(), Locale.getDefault())
-
             try {
                 scope.launch {
+                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
                     val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
 
                     if (!geoResults.isNullOrEmpty()) {

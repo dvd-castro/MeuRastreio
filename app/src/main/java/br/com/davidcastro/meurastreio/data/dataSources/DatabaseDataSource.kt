@@ -1,4 +1,4 @@
-package br.com.davidcastro.meurastreio.data.source
+package br.com.davidcastro.meurastreio.data.dataSources
 
 import android.content.Context
 import br.com.davidcastro.meurastreio.data.db.AppDatabase
