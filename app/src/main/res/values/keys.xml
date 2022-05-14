@@ -1,3 +1,5 @@
 <resources>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">PUT_YOUR_KEY_HERE</string>
+    <string name="google_ads_key" templateMergeStrategy="preserve" translatable="false">PUT_YOUR_KEY_HERE</string>
+    <string name="google_ads_banner" templateMergeStrategy="preserve" translatable="false">PUT_YOUR_KEY_HERE</string>
 </resources>

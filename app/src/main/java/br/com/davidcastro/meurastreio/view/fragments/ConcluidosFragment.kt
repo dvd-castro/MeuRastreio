@@ -12,6 +12,7 @@ import br.com.davidcastro.meurastreio.databinding.FragmentListTemplateBinding
 import br.com.davidcastro.meurastreio.view.adapters.RastreioAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import com.google.android.gms.ads.AdRequest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ConcluidosFragment : Fragment(), ClickListener {
@@ -26,6 +27,10 @@ class ConcluidosFragment : Fragment(), ClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentListTemplateBinding.inflate(layoutInflater, container, false)
+
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+
         return binding.root
     }
 
