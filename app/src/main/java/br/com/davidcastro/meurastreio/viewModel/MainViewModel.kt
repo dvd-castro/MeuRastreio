@@ -86,7 +86,7 @@ class MainViewModel (private val repository: RastreioRepository, private val con
             try {
                 val tracking = repository.findTracking(rastreio.codigo)
 
-                if (tracking.eventos.isNotEmpty() && rastreio.eventos.count() > tracking.eventos.count()) {
+                if (tracking.eventos.isNotEmpty() && tracking.eventos.count() > rastreio.eventos.count()) {
                     updateTrackingOnDb(tracking)
                 }
             } catch (ex: Exception) {

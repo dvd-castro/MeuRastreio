@@ -11,4 +11,7 @@ data class EventosModel (
 ) {
     val getStatus : String
         get() = "$data - $local"
+
+    val getDateTime : String
+        get() = "$data - $hora"
 }

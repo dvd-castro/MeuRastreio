@@ -40,7 +40,7 @@ class AlarmReceiver : BroadcastReceiver() {
                         if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
                             val rastreioVerificado = repository.findTracking(rastreio.codigo)
 
-                            if(rastreio.eventos.first() != rastreioVerificado.eventos.first()) {
+                            if(rastreio.eventos.first().getDateTime != rastreioVerificado.eventos.first().getDateTime) {
                                 val rastreioEntity = rastreioVerificado.toRastreioEntity()
                                 repository.updateTracking(rastreioEntity.codigo, rastreioEntity.eventos)
                                 notifyUpdates(context, rastreioVerificado, index)
@@ -68,8 +68,8 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id) )
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(rastreio.nome)
-            .setContentText(rastreio.eventos.first().status)
+            .setContentTitle(rastreio.eventos.first().status)
+            .setContentText(rastreio.codigo)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
