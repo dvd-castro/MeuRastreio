@@ -56,4 +56,6 @@
     <string name="notification_channel_id">40028922</string>
     <string name="notification_channel_name">meu_rastreio</string>
     <string name="notification_channel_description">Notificações de atualizações de encomendas</string>
+
+    <string name="xiaomi_manufacturer">Xiaomi</string>
 </resources>

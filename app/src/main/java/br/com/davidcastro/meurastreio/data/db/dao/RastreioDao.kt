@@ -1,6 +1,9 @@
 package br.com.davidcastro.meurastreio.data.db.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import br.com.davidcastro.meurastreio.data.db.entity.RastreioEntity
 
 @Dao

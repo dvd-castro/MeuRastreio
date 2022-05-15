@@ -27,10 +27,7 @@ class ConcluidosFragment : Fragment(), ClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentListTemplateBinding.inflate(layoutInflater, container, false)
-
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
-
+        initAD()
         return binding.root
     }
 
@@ -39,6 +36,11 @@ class ConcluidosFragment : Fragment(), ClickListener {
 
         initUi()
         initObservers()
+    }
+
+    private fun initAD(){
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
     }
 
     private fun initObservers() {

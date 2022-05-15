@@ -1,8 +1,8 @@
 package br.com.davidcastro.meurastreio.data.repository
 
 import br.com.davidcastro.meurastreio.data.api.Api
-import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import br.com.davidcastro.meurastreio.data.dataSources.DatabaseDataSource
+import br.com.davidcastro.meurastreio.data.model.RastreioModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

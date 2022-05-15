@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun enableAutoStartIfXiaomiDevice() {
-        if(Build.MANUFACTURER == "Xiaomi" && !preferences.contains(Constansts.AUTO_START_REQUESTED)) {
+        if(Build.MANUFACTURER == getString(R.string.xiaomi_manufacturer) && !preferences.contains(Constansts.AUTO_START_REQUESTED)) {
             alertDialogRequest.show()
         }
     }

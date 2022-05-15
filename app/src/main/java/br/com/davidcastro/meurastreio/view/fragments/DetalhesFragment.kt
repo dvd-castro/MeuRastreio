@@ -3,8 +3,6 @@ package br.com.davidcastro.meurastreio.view.fragments
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +16,7 @@ import br.com.davidcastro.meurastreio.databinding.FragmentDetalhesBinding
 import br.com.davidcastro.meurastreio.helpers.utils.NetworkUtils
 import br.com.davidcastro.meurastreio.view.adapters.DetalhesAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -56,7 +55,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         }
 
         binding = FragmentDetalhesBinding.inflate(layoutInflater, container, false)
-
+        initAD()
         return binding.root
     }
 
@@ -81,6 +80,11 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
                     putString(CODIGO_RASTREIO, codigo)
                 }
             }
+    }
+
+    private fun initAD(){
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
     }
 
     private fun initObservers() {
