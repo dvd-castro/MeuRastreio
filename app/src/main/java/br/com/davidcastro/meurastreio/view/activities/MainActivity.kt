@@ -20,6 +20,7 @@ import br.com.davidcastro.meurastreio.databinding.DialogAdicionarCodigoBinding
 import br.com.davidcastro.meurastreio.helpers.utils.showSnackbar
 import br.com.davidcastro.meurastreio.view.adapters.ViewPagerAdapter
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         installSplashScreen()
+        MobileAds.initialize(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         bindingDialog = DialogAdicionarCodigoBinding.inflate(layoutInflater)
