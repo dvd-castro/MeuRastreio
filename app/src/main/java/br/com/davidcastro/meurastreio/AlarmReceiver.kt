@@ -40,7 +40,7 @@ class AlarmReceiver : BroadcastReceiver() {
                         if(rastreio.eventos.first().status != context.getString(R.string.status_entregue)) {
                             val rastreioVerificado = repository.findTracking(rastreio.codigo)
 
-                            if(rastreio.eventos.first().getDateTime != rastreioVerificado.eventos.first().getDateTime) {
+                            if(rastreioVerificado.eventos.count() > rastreio.eventos.count()) {
                                 val rastreioEntity = rastreioVerificado.toRastreioEntity()
                                 repository.updateTracking(rastreioEntity.codigo, rastreioEntity.eventos)
                                 notifyUpdates(context, rastreioVerificado, index)
