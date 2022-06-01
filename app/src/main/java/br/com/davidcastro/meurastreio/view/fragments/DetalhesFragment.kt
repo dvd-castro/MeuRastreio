@@ -3,7 +3,6 @@ package br.com.davidcastro.meurastreio.view.fragments
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,10 +24,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import com.google.firebase.crashlytics.ktx.setCustomKeys
+import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -37,10 +34,12 @@ private const val CODIGO_RASTREIO = "codigo"
 class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private val viewModel: MainViewModel by sharedViewModel()
-    private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val mainScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
 
     private lateinit var binding: FragmentDetalhesBinding
-    private lateinit var alertDialog : AlertDialog
+    private lateinit var alertDialog: AlertDialog
+    private lateinit var mapFragment: SupportMapFragment
     private lateinit var mMap: GoogleMap
     private var codigo: String? = null
     private var latLng: LatLng? = null
@@ -147,44 +146,49 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setAddressOnMap(strAddress: String) {
+    private suspend fun setAddressOnMap(strAddress: String) = if(strAddress != "País//") {
+        try {
+            val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
-        if(strAddress != "País//") {
-            try {
-                scope.launch {
-                    val geocoder = Geocoder(requireContext(), Locale.getDefault())
-                    val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
+            scope.async {
+                val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
 
-                    if (!geoResults.isNullOrEmpty()) {
-                        val addr = geoResults[0]
-                        latLng = LatLng(addr.latitude, addr.longitude)
-                        initMap()
-                    } else {
-                        showAlertView(getString(R.string.error_endereco))
-                    }
+                if (geoResults.isNotEmpty()) {
+                    latLng = LatLng(geoResults.first().latitude, geoResults.first().longitude)
+                } else {
+                    showAlertView(getString(R.string.error_endereco))
                 }
-                onLoader(false)
+            }.await()
 
-            } catch (ex: Exception) {
-                onLoader(false)
-                ex.localizedMessage?.let { localizedMessage ->
-                    val crashlytics = FirebaseCrashlytics.getInstance()
-                    crashlytics.setCrashlyticsCollectionEnabled(true)
-                    crashlytics.log(localizedMessage)
-                    crashlytics.recordException(ex)
-                    Log.e("ERROR -> OnShowMap", localizedMessage)
-                }
-                showAlertView(getString(R.string.error_endereco))
-            }
-        } else {
+            initMap()
             onLoader(false)
-            showAlertView(getString(R.string.error_rastreio_internacional))
+
+        } catch (ex: Exception) {
+            onLoader(false)
+            showAlertView(getString(R.string.error_endereco))
+
+            val crashlytics = FirebaseCrashlytics.getInstance()
+            crashlytics.setCrashlyticsCollectionEnabled(true)
+
+            codigo?.let {
+                crashlytics.setUserId(it)
+                crashlytics.setCustomKeys {
+                    key("itemCode","$codigo")
+                    key("itemAddres", strAddress)
+                    key("latitude", "${latLng?.latitude}")
+                    key("longitude", "${latLng?.longitude}")
+                }
+            }
+            crashlytics.recordException(ex)
         }
 
+    } else {
+        onLoader(false)
+        showAlertView(getString(R.string.error_rastreio_internacional))
     }
 
-    private fun initMap(){
-        val mapFragment = childFragmentManager
+    private fun initMap() {
+        mapFragment = childFragmentManager
             .findFragmentById(R.id.mapsContainer) as SupportMapFragment
 
         mapFragment.getMapAsync(this)
@@ -217,7 +221,9 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         configRecyclerView(tracking.eventos)
 
         if(NetworkUtils.hasConnectionActive(requireContext())) {
-            setAddressOnMap(tracking.eventos.first().local)
+            mainScope.launch {
+                setAddressOnMap(tracking.eventos.first().local)
+            }
         } else {
             binding.wifiError.visibility = View.VISIBLE
             onLoader(false)
