@@ -150,22 +150,22 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         try {
             val geocoder = Geocoder(requireContext(), Locale.getDefault())
 
-            scope.async {
+            withContext(scope.coroutineContext) {
                 val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
 
                 if (geoResults.isNotEmpty()) {
                     latLng = LatLng(geoResults.first().latitude, geoResults.first().longitude)
                 } else {
-                    showAlertView(getString(R.string.error_endereco))
+                    showAlertView(requireContext().getString(R.string.error_endereco))
                 }
-            }.await()
+            }
 
             initMap()
             onLoader(false)
 
         } catch (ex: Exception) {
             onLoader(false)
-            showAlertView(getString(R.string.error_endereco))
+            showAlertView(requireContext().getString(R.string.error_endereco))
 
             val crashlytics = FirebaseCrashlytics.getInstance()
             crashlytics.setCrashlyticsCollectionEnabled(true)
