@@ -39,8 +39,8 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private lateinit var binding: FragmentDetalhesBinding
     private lateinit var alertDialog: AlertDialog
-    private lateinit var mapFragment: SupportMapFragment
-    private lateinit var mMap: GoogleMap
+    private var mapFragment: SupportMapFragment? = null
+    private var mMap: GoogleMap? = null
     private var codigo: String? = null
     private var latLng: LatLng? = null
 
@@ -105,7 +105,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
     private fun configRecyclerView(data: List<EventosModel>) {
         binding.recyclerView.apply {
-            this.layoutManager = LinearLayoutManager(requireContext())
+            this.layoutManager = LinearLayoutManager(context)
             this.adapter = DetalhesAdapter(data)
             this.setHasFixedSize(false)
         }
@@ -117,14 +117,14 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
             val builder = AlertDialog.Builder(requireContext())
 
             builder.apply {
-                setTitle(resources.getString(R.string.title_atencao))
-                setMessage(resources.getString(R.string.message_deseja_excluir_o_item))
+                setTitle(getString(R.string.title_atencao))
+                setMessage(getString(R.string.message_deseja_excluir_o_item))
 
-                setPositiveButton(resources.getString(R.string.action_to_confirm)) { dialog, id ->
+                setPositiveButton(getString(R.string.action_to_confirm)) { dialog, id ->
                     deleteTracking()
                 }
 
-                setNegativeButton(resources.getString(R.string.action_to_cancel)) { dialog, id ->
+                setNegativeButton(getString(R.string.action_to_cancel)) { dialog, id ->
                     dialog.cancel()
                 }
             }
@@ -141,31 +141,32 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
         latLng?.let{
             val location = LatLng(it.latitude, it.longitude)
-            mMap.addMarker(MarkerOptions().position(location).title(resources.getString(R.string.title_map_pin)))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+            mMap?.addMarker(MarkerOptions().position(location).title(getString(R.string.title_map_pin)))
+            mMap?.moveCamera(CameraUpdateFactory.newLatLng(location))
         }
     }
 
-    private suspend fun setAddressOnMap(strAddress: String) = if(strAddress != "País//") {
+    private fun setAddressOnMap(strAddress: String) = if(strAddress != "País//") {
         try {
-            val geocoder = Geocoder(requireContext(), Locale.getDefault())
+            scope.launch {
+                val geocoder = Geocoder(context, Locale.getDefault())
 
-            withContext(scope.coroutineContext) {
                 val geoResults: List<Address> = geocoder.getFromLocationName(strAddress, 1)
 
                 if (geoResults.isNotEmpty()) {
                     latLng = LatLng(geoResults.first().latitude, geoResults.first().longitude)
                 } else {
-                    showAlertView(requireContext().getString(R.string.error_endereco))
+                    showAlertView(getString(R.string.error_endereco))
+                }
+
+                withContext(mainScope.coroutineContext){
+                    initMap()
+                    onLoader(false)
                 }
             }
-
-            initMap()
-            onLoader(false)
-
         } catch (ex: Exception) {
             onLoader(false)
-            showAlertView(requireContext().getString(R.string.error_endereco))
+            showAlertView(getString(R.string.error_endereco))
 
             val crashlytics = FirebaseCrashlytics.getInstance()
             crashlytics.setCrashlyticsCollectionEnabled(true)
@@ -191,7 +192,7 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
         mapFragment = childFragmentManager
             .findFragmentById(R.id.mapsContainer) as SupportMapFragment
 
-        mapFragment.getMapAsync(this)
+        mapFragment?.getMapAsync(this)
     }
 
     private fun onLoader(boolean: Boolean){
@@ -220,14 +221,14 @@ class DetalhesFragment : BottomSheetDialogFragment(), OnMapReadyCallback {
 
         configRecyclerView(tracking.eventos)
 
-        if(NetworkUtils.hasConnectionActive(requireContext())) {
-            mainScope.launch {
+        context?.let {
+            if(NetworkUtils.hasConnectionActive(it)) {
                 setAddressOnMap(tracking.eventos.first().local)
+            } else {
+                binding.wifiError.visibility = View.VISIBLE
+                onLoader(false)
             }
-        } else {
-            binding.wifiError.visibility = View.VISIBLE
-            onLoader(false)
-        }
+        } ?: showAlertView(getString(R.string.error_endereco))
     }
 
     private fun showAlertView(message: String){
