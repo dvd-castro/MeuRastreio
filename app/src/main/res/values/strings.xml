@@ -6,8 +6,8 @@
     <string name="menu_title">Refresh</string>
 
     <!-- Tabs -->
-    <string name="tab_item_em_andamento">Em andamento</string>
-    <string name="tab_item_concluidos">Concluídos</string>
+    <string name="title_item_em_andamento">Em andamento</string>
+    <string name="title_itens_concluidos">Concluídos</string>
 
     <!-- Descriptions -->
     <string name="description_fab">Clicar para adicionar uma nova encomenda a ser rastreada</string>
@@ -52,10 +52,13 @@
     <string name="message_nao_ha_encomendas_concluidas">No momento não há encomendas concluídas!</string>
     <string name="message_nao_ha_encomendas_em_andamento">No momento não há encomendas em andamento!</string>
     <string name="message_permissao_iniciar">Em dispositivos Xiaomi, precisamos dessa permissão para buscar atualizações em segundo plano, por favor ativar!</string>
+    <string name="message_empty">Ops, parece que você não tem nenhuma encomenda para acompanhar.</string>
 
     <string name="notification_channel_id">40028922</string>
     <string name="notification_channel_name">meu_rastreio</string>
     <string name="notification_channel_description">Notificações de atualizações de encomendas</string>
 
     <string name="xiaomi_manufacturer">Xiaomi</string>
+    <string name="message_clique_no_botao">Clique no botão</string>
+    <string name="message_acima_e_adicione">acima e adicione</string>
 </resources>

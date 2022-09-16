@@ -6,11 +6,12 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import br.com.davidcastro.meurastreio.R
-import br.com.davidcastro.meurastreio.data.api.Constansts
 import br.com.davidcastro.meurastreio.view.fragments.MainFragment
 import com.google.android.gms.ads.MobileAds
 
@@ -40,8 +41,23 @@ class MainActivity : AppCompatActivity() {
         enableAutoStartIfXiaomiDevice()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.refresh -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun enableAutoStartIfXiaomiDevice() {
-        if(Build.MANUFACTURER == getString(R.string.xiaomi_manufacturer) && !preferences.contains(Constansts.AUTO_START_REQUESTED)) {
+        if(Build.MANUFACTURER == getString(R.string.xiaomi_manufacturer) && !preferences.contains(AUTO_START_REQUESTED)) {
             alertDialogRequest.show()
         }
     }
@@ -57,23 +73,25 @@ class MainActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(it)
 
             builder.apply {
-
                 setTitle(getString(R.string.title_permissao_iniciar))
                 setMessage(R.string.message_permissao_iniciar)
                 setView(R.layout.dialog_permissao_iniciar)
 
                 setPositiveButton(getString(R.string.action_to_config)) { _, _ ->
                     requestStartOnBoot()
-                    editor.putBoolean(Constansts.AUTO_START_REQUESTED, true).commit()
+                    editor.putBoolean(AUTO_START_REQUESTED, true).commit()
                 }
 
                 setNegativeButton(getString(R.string.action_to_cancel)) { dialog, _ ->
                     dialog.cancel()
-                    editor.putBoolean(Constansts.AUTO_START_REQUESTED, true).commit()
+                    editor.putBoolean(AUTO_START_REQUESTED, true).commit()
                 }
             }
-
             builder.create()
         }
+    }
+
+    companion object {
+        const val AUTO_START_REQUESTED = "auto_start_enable"
     }
 }
