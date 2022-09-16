@@ -5,15 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.databinding.FragmentMainBinding
+import br.com.davidcastro.meurastreio.view.listeners.ClickListener
+import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), ClickListener {
+
+    private val viewModel: MainViewModel by viewModel()
+    private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    ): View {
+        binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getTracking("NL211785490BR")
+    }
+
+    private fun getTracking(codigo: String) =
+        viewModel.getTracking(codigo)
+
+    override fun onItemClick(codigo: String) {
+        TODO("Not yet implemented")
     }
 }
