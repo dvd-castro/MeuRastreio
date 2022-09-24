@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.davidcastro.meurastreio.data.model.TrackingModel
-import br.com.davidcastro.meurastreio.data.repository.TrackingRespository
+import br.com.davidcastro.meurastreio.data.repository.TrackingRepository
 import kotlinx.coroutines.launch
 
-class MainViewModel (private val repository: TrackingRespository): ViewModel() {
+class MainViewModel (private val repository: TrackingRepository): ViewModel() {
 
     private val _tracking = MutableLiveData<TrackingModel>()
     val tracking: LiveData<TrackingModel> = _tracking

@@ -1,15 +1,49 @@
 package br.com.davidcastro.meurastreio.data.model
 
 data class TrackingModel(
-    val objetos: List<Objeto>?,
-    val quantidade: Int?,
-    val versao: String?
+    private val objetos: List<Objeto>?,
 ) {
-    fun isValidTracking(): Boolean? =
-        this.objetos?.first()?.eventos?.isNotEmpty()
+    fun isValidTracking(): Boolean? = this.objetos?.first()?.eventos?.isNotEmpty()
 
-    fun getMessage() : String? =
-        this.objetos?.first()?.mensagem
+    fun getMessage(): String? = this.objetos?.first()?.mensagem
+
+    fun getEvents(): List<Evento>? = this.objetos?.first()?.eventos
+
+    fun getCode(): String? = this.objetos?.first()?.codObjeto
+
+    fun getLastUnity(): Unidade? = getEvents()?.first()?.unidade
+
+    fun getLastDestiny(): UnidadeDestino? = getEvents()?.first()?.unidadeDestino
+
+    fun getLogistic(): String {
+        val unidade = getLastUnity()?.endereco
+        val nomeUnidade = getLastUnity()?.nome
+        val unidadeDestino = getLastDestiny()?.endereco
+        var result = ""
+
+        if(nomeUnidade != null) {
+            result = nomeUnidade
+        } else {
+            if(unidade != null && unidadeDestino != null) {
+                result =  "${unidade.cidade}-${unidade.uf} -> ${unidadeDestino.cidade}-${unidadeDestino.uf}"
+            } else if(unidade != null){
+                result = "${unidade.cidade}-${unidade.uf}"
+            }
+        }
+
+        return result
+    }
+
+    fun toTrackingHome(): TrackingHome =
+        TrackingHome(
+            code = this.getCode(),
+            name = "",
+            lastStatus = this.getEvents()?.first()?.descricao,
+            date = getEvents()?.first()?.dtHrCriado,
+            local = getLogistic(),
+            hasUpdated = false,
+            hasCompleted = false
+        )
 }
 
 data class Objeto(
@@ -44,7 +78,6 @@ data class TipoPostal(
 )
 
 data class Unidade(
-    val codSro: String?,
     val endereco: Endereco?,
     val nome: String?,
     val tipo: String?
