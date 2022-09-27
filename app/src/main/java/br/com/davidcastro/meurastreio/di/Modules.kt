@@ -6,6 +6,7 @@ import br.com.davidcastro.meurastreio.data.db.AppDatabase
 import br.com.davidcastro.meurastreio.data.repository.TrackingDaoRepositoryImpl
 import br.com.davidcastro.meurastreio.data.repository.TrackingRepositoryImpl
 import br.com.davidcastro.meurastreio.data.repository.TrackingRepository
+import br.com.davidcastro.meurastreio.data.usecase.GetTrackingUseCaseImpl
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -21,9 +22,11 @@ val module = module {
 
     single<TrackingRepository> { TrackingRepositoryImpl(api = get())}
 
+    single { GetTrackingUseCaseImpl(repository = get()) }
+
     viewModel {
         MainViewModel(
-            repository = get()
+            getTrackingUseCase = get()
         )
     }
 }
