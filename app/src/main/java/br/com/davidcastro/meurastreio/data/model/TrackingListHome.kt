@@ -2,8 +2,6 @@ package br.com.davidcastro.meurastreio.data.model
 
 import br.com.davidcastro.meurastreio.data.db.entity.TrackingEntity
 
-class TrackingListHome: ArrayList<TrackingHome>()
-
 data class TrackingHome(
     var name: String?,
     var code: String?,

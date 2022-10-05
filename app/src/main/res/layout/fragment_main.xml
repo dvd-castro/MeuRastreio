@@ -33,27 +33,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/title_em_andamento" />
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_itens_em_andamento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/spacing_16"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginTop="@dimen/spacing_8"
+        android:layout_marginHorizontal="@dimen/spacing_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_em_andamento">
+        app:layout_constraintTop_toBottomOf="@+id/btn_add"
+        tools:itemCount="3"
+        tools:listitem="@layout/layout_list_item_rastreio" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_itens_em_andamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_16"
-            tools:itemCount="3"
-            tools:listitem="@layout/layout_list_item_rastreio" />
+    <include
+        android:id="@+id/include_layout_empty_state"
+        layout="@layout/layout_empty_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_16"
+        android:layout_marginTop="@dimen/spacing_8"
+        app:layout_constraintTop_toBottomOf="@+id/rv_itens_em_andamento" />
 
-        <include layout="@layout/layout_empty_state" />
-
-        <include layout="@layout/layout_sessao_concluidos" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/include_layout_sessao_concluidos"
+        layout="@layout/layout_sessao_concluidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/include_layout_empty_state" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.davidcastro.meurastreio.data.model.TrackingHome
-import br.com.davidcastro.meurastreio.data.model.TrackingListHome
 import br.com.davidcastro.meurastreio.databinding.LayoutListItemRastreioBinding
 
-class TrackingAdapter(private val list: TrackingListHome): RecyclerView.Adapter<TrackingViewHolder>() {
+class TrackingAdapter(private val list: List<TrackingHome>): RecyclerView.Adapter<TrackingViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackingViewHolder =
         TrackingViewHolder(TrackingViewHolder.inflateViewBinding(parent))
 

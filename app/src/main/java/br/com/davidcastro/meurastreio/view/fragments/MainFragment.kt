@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import br.com.davidcastro.meurastreio.data.model.TrackingModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import br.com.davidcastro.meurastreio.data.model.TrackingHome
 import br.com.davidcastro.meurastreio.databinding.FragmentMainBinding
+import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.view.listeners.InsertFragmentListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
@@ -15,6 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
 
     private val viewModel: MainViewModel by viewModel()
+
     private lateinit var binding: FragmentMainBinding
 
     override fun onCreateView(
@@ -51,11 +54,18 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
         modalBottomSheet.showNow(parentFragmentManager, InsertTrackingBottomSheetFragment.TAG)
     }
 
-    private fun getTracking(codigo: String) =
+    private fun getTracking(codigo: String) {
         viewModel.getTracking(codigo)
+    }
 
-    private fun whenHasTracking(trackingModel: TrackingModel) {
-
+    private fun whenHasTracking(trackingHome: TrackingHome) {
+        binding.includeLayoutEmptyState.layoutEmptyState.visibility = View.GONE
+        binding.rvItensEmAndamento.apply {
+            visibility = View.VISIBLE
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(false)
+            adapter = TrackingAdapter(listOf(trackingHome))
+        }
     }
 
     override fun onItemClick(codigo: String) {

@@ -25,9 +25,9 @@ data class TrackingModel(
             result = nomeUnidade
         } else {
             if(unidade != null && unidadeDestino != null) {
-                result =  "${unidade.cidade}-${unidade.uf} -> ${unidadeDestino.cidade}-${unidadeDestino.uf}"
+                result =  "De: ${getLastUnity()?.tipo} - ${unidade.cidade}/${unidade.uf}${System.lineSeparator()}Para: ${getLastDestiny()?.tipo} - ${unidadeDestino.cidade}/${unidadeDestino.uf}"
             } else if(unidade != null){
-                result = "${unidade.cidade}-${unidade.uf}"
+                result = "${getLastUnity()?.tipo} - ${unidade.cidade}/${unidade.uf}"
             }
         }
 
