@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.davidcastro.meurastreio.data.model.TrackingHome
-import br.com.davidcastro.meurastreio.databinding.FragmentMainBinding
+import br.com.davidcastro.data.model.TrackingHome
+import br.com.davidcastro.inserttracking.view.fragments.InsertTrackingBottomSheetFragment
+import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
 import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
-import br.com.davidcastro.meurastreio.view.listeners.InsertFragmentListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import br.com.davidcastro.ui.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(), ClickListener, InsertFragmentListener {

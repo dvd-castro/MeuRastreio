@@ -1,16 +1,17 @@
 package br.com.davidcastro.meurastreio.di
 
-import br.com.davidcastro.meurastreio.data.api.RetrofitClient
-import br.com.davidcastro.meurastreio.data.api.TrackingApi
-import br.com.davidcastro.meurastreio.data.db.AppDatabase
-import br.com.davidcastro.meurastreio.data.repository.TrackingDaoRepository
-import br.com.davidcastro.meurastreio.data.repository.TrackingDaoRepositoryImpl
-import br.com.davidcastro.meurastreio.data.repository.TrackingRepositoryImpl
-import br.com.davidcastro.meurastreio.data.repository.TrackingRepository
-import br.com.davidcastro.meurastreio.data.usecase.GetTrackingUseCase
-import br.com.davidcastro.meurastreio.data.usecase.GetTrackingUseCaseImpl
-import br.com.davidcastro.meurastreio.data.usecase.ReloadAllTrackingUseCase
-import br.com.davidcastro.meurastreio.data.usecase.ReloadAllTrackingUseCaseImpl
+import br.com.davidcastro.data.api.RetrofitClient
+import br.com.davidcastro.data.api.TrackingApi
+import br.com.davidcastro.data.db.AppDatabase
+import br.com.davidcastro.data.db.dao.TrackingDao
+import br.com.davidcastro.data.repository.TrackingDaoRepository
+import br.com.davidcastro.data.repository.TrackingDaoRepositoryImpl
+import br.com.davidcastro.data.repository.TrackingRepository
+import br.com.davidcastro.data.repository.TrackingRepositoryImpl
+import br.com.davidcastro.data.usecase.GetTrackingUseCase
+import br.com.davidcastro.data.usecase.GetTrackingUseCaseImpl
+import br.com.davidcastro.data.usecase.ReloadAllTrackingUseCase
+import br.com.davidcastro.data.usecase.ReloadAllTrackingUseCaseImpl
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,7 +19,7 @@ import org.koin.dsl.module
 
 val module = module {
 
-    single { AppDatabase.getDatabase(context = androidContext()).rastreioDao }
+    single <TrackingDao> { AppDatabase.getDatabase(context = androidContext()).rastreioDao }
 
     single <TrackingDaoRepository> { TrackingDaoRepositoryImpl(trackingDao = get()) }
 

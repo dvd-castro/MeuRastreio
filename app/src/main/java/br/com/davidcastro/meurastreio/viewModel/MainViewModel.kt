@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.davidcastro.meurastreio.data.model.TrackingHome
-import br.com.davidcastro.meurastreio.data.repository.TrackingDaoRepository
-import br.com.davidcastro.meurastreio.data.usecase.GetTrackingUseCase
-import br.com.davidcastro.meurastreio.data.usecase.ReloadAllTrackingUseCase
+import br.com.davidcastro.data.model.TrackingHome
+import br.com.davidcastro.data.repository.TrackingDaoRepository
+import br.com.davidcastro.data.usecase.GetTrackingUseCase
+import br.com.davidcastro.data.usecase.ReloadAllTrackingUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel (
