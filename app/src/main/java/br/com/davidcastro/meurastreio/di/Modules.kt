@@ -9,6 +9,8 @@ import br.com.davidcastro.meurastreio.data.repository.TrackingRepositoryImpl
 import br.com.davidcastro.meurastreio.data.repository.TrackingRepository
 import br.com.davidcastro.meurastreio.data.usecase.GetTrackingUseCase
 import br.com.davidcastro.meurastreio.data.usecase.GetTrackingUseCaseImpl
+import br.com.davidcastro.meurastreio.data.usecase.ReloadAllTrackingUseCase
+import br.com.davidcastro.meurastreio.data.usecase.ReloadAllTrackingUseCaseImpl
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,13 +24,22 @@ val module = module {
 
     single <TrackingApi> { RetrofitClient.getRetrofitInstance(TrackingApi::class.java,"https://proxyapp.correios.com.br/") }
 
-    single <TrackingRepository> { TrackingRepositoryImpl(api = get())}
+    single <TrackingRepository> { TrackingRepositoryImpl(api = get()) }
 
     single <GetTrackingUseCase> { GetTrackingUseCaseImpl(repository = get()) }
 
+    single <ReloadAllTrackingUseCase> {
+        ReloadAllTrackingUseCaseImpl(
+            getTrackingUseCase = get(),
+            trackingDaoRepository = get()
+        )
+    }
+
     viewModel {
         MainViewModel(
-            getTrackingUseCase = get()
+            getTrackingUseCase = get(),
+            reloadAllTrackingUseCase = get(),
+            trackingDaoRepository = get()
         )
     }
 }

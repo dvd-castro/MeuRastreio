@@ -9,6 +9,8 @@ data class TrackingModel(
 
     fun getEvents(): List<Evento>? = this.objetos?.first()?.eventos
 
+    fun getLastEvent(): Evento? = getEvents()?.first()
+
     fun getCode(): String? = this.objetos?.first()?.codObjeto
 
     fun getLastUnity(): Unidade? = getEvents()?.first()?.unidade

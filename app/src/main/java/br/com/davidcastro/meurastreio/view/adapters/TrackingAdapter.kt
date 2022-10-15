@@ -10,9 +10,8 @@ class TrackingAdapter(private val list: List<TrackingHome>): RecyclerView.Adapte
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackingViewHolder =
         TrackingViewHolder(TrackingViewHolder.inflateViewBinding(parent))
 
-    override fun onBindViewHolder(holder: TrackingViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TrackingViewHolder, position: Int) =
         holder.bind(list[position])
-    }
 
     override fun getItemCount(): Int = list.count()
 }
