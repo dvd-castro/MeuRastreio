@@ -12,14 +12,13 @@ class ReloadAllTrackingUseCaseImpl(
         var hasUpdate = false
 
         withContext(Dispatchers.IO) {
-            trackingDaoRepository.getAll().forEach { trackingEntity ->
-                val result =
-                    getTrackingUseCase.getTracking(trackingEntity.code)?.toTrackingHome()
-                if (result?.date != trackingEntity.date) {
+            trackingDaoRepository.getAll().forEach { trackingModel ->
+                val result = getTrackingUseCase.getTracking(trackingModel.code)
+                if (result?.getLastEventDate() != trackingModel.getLastEventDate()) {
                     result?.let {
                         it.hasUpdated = true
                         hasUpdate = true
-                        trackingDaoRepository.insert(it.toTrackingEntity())
+                        trackingDaoRepository.insert(it)
                     }
                 }
             }

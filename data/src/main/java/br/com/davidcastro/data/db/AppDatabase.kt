@@ -7,13 +7,13 @@ import androidx.room.RoomDatabase
 import br.com.davidcastro.data.db.dao.TrackingDao
 import br.com.davidcastro.data.db.entity.TrackingEntity
 
-private const val DATABASE_VERSION = 1
+private const val DATABASE_VERSION = 2
 private const val DATABASE_NAME = "appdatabase"
 
 @Database(entities = [TrackingEntity::class], version = DATABASE_VERSION, exportSchema = false)
 abstract class AppDatabase: RoomDatabase() {
 
-    abstract val rastreioDao: TrackingDao
+    abstract val trackingDao: TrackingDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

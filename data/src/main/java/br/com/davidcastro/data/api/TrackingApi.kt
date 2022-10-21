@@ -3,11 +3,13 @@ package br.com.davidcastro.data.api
 import br.com.davidcastro.data.model.TrackingModel
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TrackingApi {
-    @GET("v1/sro-rastro/{codigo}")
+    @GET("json")
     suspend fun getTracking(
-        @Path("codigo") codigo: String
+        @Query("user") email: String = "",
+        @Query("token") token: String = "",
+        @Query("codigo") codigo: String
     ): Response<TrackingModel>
 }

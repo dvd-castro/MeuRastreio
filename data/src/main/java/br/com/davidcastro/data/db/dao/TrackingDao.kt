@@ -15,12 +15,12 @@ interface TrackingDao {
     @Query("SELECT * FROM rastreio")
     fun getAll(): MutableList<TrackingEntity>
 
-    @Query("SELECT * FROM rastreio WHERE code = (:code)")
+    @Query("SELECT * FROM rastreio WHERE codigo = (:code)")
     fun get(code: String): TrackingEntity
 
-    @Query("DELETE FROM rastreio WHERE code = (:code)")
+    @Query("DELETE FROM rastreio WHERE codigo = (:code)")
     fun delete(code: String)
 
-    @Query("SELECT (SELECT COUNT(*) FROM rastreio WHERE code = (:code)) > 0")
+    @Query("SELECT (SELECT COUNT(*) FROM rastreio WHERE codigo = (:code)) > 0")
     fun contains(code: String) : Boolean
 }

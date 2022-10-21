@@ -19,11 +19,11 @@ import org.koin.dsl.module
 
 val module = module {
 
-    single <TrackingDao> { AppDatabase.getDatabase(context = androidContext()).rastreioDao }
+    single <TrackingDao> { AppDatabase.getDatabase(context = androidContext()).trackingDao }
 
     single <TrackingDaoRepository> { TrackingDaoRepositoryImpl(trackingDao = get()) }
 
-    single <TrackingApi> { RetrofitClient.getRetrofitInstance(TrackingApi::class.java,"https://proxyapp.correios.com.br/") }
+    single <TrackingApi> { RetrofitClient.getRetrofitInstance(TrackingApi::class.java, "https://api.linketrack.com/track/") }
 
     single <TrackingRepository> { TrackingRepositoryImpl(api = get()) }
 
@@ -39,7 +39,6 @@ val module = module {
     viewModel {
         MainViewModel(
             getTrackingUseCase = get(),
-            reloadAllTrackingUseCase = get(),
             trackingDaoRepository = get()
         )
     }

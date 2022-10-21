@@ -1,15 +1,15 @@
 package br.com.davidcastro.data.repository
 
-import br.com.davidcastro.data.db.entity.TrackingEntity
+import br.com.davidcastro.data.model.TrackingModel
 
 interface TrackingDaoRepository {
-    fun insert(rastreio: TrackingEntity)
+    suspend fun insert(rastreio: TrackingModel)
 
-    fun get(codigo: String): TrackingEntity
+    suspend fun get(codigo: String): TrackingModel
 
-    fun delete(codigo: String)
+    suspend fun delete(codigo: String)
 
-    fun contains(codigo: String): Boolean
+    suspend fun contains(codigo: String): Boolean
 
-    fun getAll(): List<TrackingEntity>
+    suspend fun getAll(): List<TrackingModel>
 }

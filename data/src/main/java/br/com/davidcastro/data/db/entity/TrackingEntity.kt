@@ -2,19 +2,25 @@ package br.com.davidcastro.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import br.com.davidcastro.data.model.TrackingHome
+import br.com.davidcastro.data.model.EventList
+import br.com.davidcastro.data.model.TrackingModel
+import com.google.gson.Gson
 
 @Entity(tableName = "rastreio")
 data class TrackingEntity (
     @PrimaryKey
-    var name: String,
-    var code: String,
-    var lastStatus: String,
-    var local: String,
-    var date: String,
-    var hasUpdated: Boolean,
-    var hasCompleted: Boolean,
+    var codigo : String = "",
+    var nome : String = "",
+    var eventos : String = "",
+    var hasUpdated: Boolean = false,
+    var hasCompleted: Boolean = false,
 ) {
-    fun toTrackingHome(): TrackingHome =
-        TrackingHome( name, code, lastStatus, local, date, hasUpdated, hasCompleted )
+    fun toTrackingModel(): TrackingModel =
+        TrackingModel(
+            code = this.codigo,
+            events = Gson().fromJson(this.eventos, EventList::class.java),
+            name = this.nome,
+            hasUpdated = this.hasUpdated,
+            hasCompleted = this.hasCompleted
+        )
 }

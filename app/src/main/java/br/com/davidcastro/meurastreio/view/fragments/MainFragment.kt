@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.davidcastro.data.model.TrackingHome
+import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.inserttracking.view.fragments.InsertTrackingBottomSheetFragment
 import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
 import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
@@ -20,6 +20,7 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
     private val viewModel: MainViewModel by viewModel()
 
     private lateinit var binding: FragmentMainBinding
+    private val trackingAdapter = TrackingAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +35,7 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
 
         initUI()
         initObservers()
+        getAllTrackingInDataBase()
     }
 
     private fun initObservers() {
@@ -42,8 +44,16 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
 
     private fun initUI() {
         setInsertClickListener()
+        initRecyclerView()
     }
 
+    private fun initRecyclerView() {
+        binding.rvItensEmAndamento.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(false)
+            adapter = trackingAdapter
+        }
+    }
     private fun setInsertClickListener() {
         binding.btnAdd.setOnClickListener {
             openInsertTrackingFragment()
@@ -59,14 +69,14 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
         viewModel.getTracking(codigo)
     }
 
-    private fun whenHasTracking(trackingHome: TrackingHome) {
+    private fun getAllTrackingInDataBase() {
+        viewModel.getAllTrackingInDataBase()
+    }
+
+    private fun whenHasTracking(listTrackingHome: List<TrackingModel>) {
+        binding.rvItensEmAndamento.visibility = View.VISIBLE
         binding.includeLayoutEmptyState.layoutEmptyState.visibility = View.GONE
-        binding.rvItensEmAndamento.apply {
-            visibility = View.VISIBLE
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(false)
-            adapter = TrackingAdapter(listOf(trackingHome))
-        }
+        trackingAdapter.submitList(listTrackingHome)
     }
 
     override fun onItemClick(codigo: String) {

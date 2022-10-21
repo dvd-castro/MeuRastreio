@@ -1,21 +1,33 @@
 package br.com.davidcastro.data.repository
 
 import br.com.davidcastro.data.db.dao.TrackingDao
-import br.com.davidcastro.data.db.entity.TrackingEntity
+import br.com.davidcastro.data.model.TrackingModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class TrackingDaoRepositoryImpl(private val trackingDao: TrackingDao): TrackingDaoRepository {
-    override fun insert(rastreio: TrackingEntity) =
-        trackingDao.insert(rastreio)
+    override suspend fun insert(rastreio: TrackingModel) =
+        withContext(Dispatchers.IO) {
+            trackingDao.insert(rastreio.toTrackingEntity())
+        }
 
-    override fun get(codigo: String): TrackingEntity =
-        trackingDao.get(codigo)
+    override suspend fun get(codigo: String): TrackingModel =
+        withContext(Dispatchers.IO) {
+            return@withContext trackingDao.get(codigo).toTrackingModel()
+        }
 
-    override fun delete(codigo: String) =
-        trackingDao.delete(codigo)
+    override suspend fun delete(codigo: String) =
+        withContext(Dispatchers.IO) {
+            trackingDao.delete(codigo)
+        }
 
-    override fun contains(codigo: String): Boolean =
-        trackingDao.contains(codigo)
+    override suspend fun contains(codigo: String): Boolean =
+        withContext(Dispatchers.IO) {
+            return@withContext trackingDao.contains(codigo)
+        }
 
-    override fun getAll(): List<TrackingEntity> =
-        trackingDao.getAll()
+    override suspend fun getAll(): List<TrackingModel> =
+        withContext(Dispatchers.IO) {
+            return@withContext trackingDao.getAll().map { it.toTrackingModel() }.reversed()
+        }
 }
