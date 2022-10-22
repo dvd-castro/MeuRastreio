@@ -6,6 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import br.com.davidcastro.data.db.dao.TrackingDao
 import br.com.davidcastro.data.db.entity.TrackingEntity
+import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.room.migration.Migration
 
 private const val DATABASE_VERSION = 2
 private const val DATABASE_NAME = "appdatabase"
@@ -21,6 +23,13 @@ abstract class AppDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE rastreio ADD COLUMN hasUpdated INTEGER")
+                database.execSQL("ALTER TABLE rastreio ADD COLUMN hasCompleted INTEGER")
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
@@ -28,8 +37,9 @@ abstract class AppDatabase: RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    DATABASE_NAME
-                ).build()
+                    DATABASE_NAME)
+                    .addMigrations(MIGRATION_1_2)
+                    .build()
                 INSTANCE = instance
                 // return instance
                 instance

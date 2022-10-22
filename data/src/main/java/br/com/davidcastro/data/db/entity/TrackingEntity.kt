@@ -12,15 +12,15 @@ data class TrackingEntity (
     var codigo : String = "",
     var nome : String = "",
     var eventos : String = "",
-    var hasUpdated: Boolean = false,
-    var hasCompleted: Boolean = false,
+    var hasUpdated: Boolean? = false,
+    var hasCompleted: Boolean? = false,
 ) {
     fun toTrackingModel(): TrackingModel =
         TrackingModel(
             code = this.codigo,
             events = Gson().fromJson(this.eventos, EventList::class.java),
             name = this.nome,
-            hasUpdated = this.hasUpdated,
-            hasCompleted = this.hasCompleted
+            hasUpdated = this.hasUpdated ?: false,
+            hasCompleted = this.hasCompleted ?: false
         )
 }
