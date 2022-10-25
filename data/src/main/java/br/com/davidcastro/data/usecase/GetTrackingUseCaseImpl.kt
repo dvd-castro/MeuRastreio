@@ -7,7 +7,14 @@ class GetTrackingUseCaseImpl(private val repository: TrackingRepository): GetTra
     override suspend fun getTracking(code: String): TrackingModel? {
         val result = repository.getTracking(code)
         return if(result.isSuccessful && result.body() != null) {
-            result.body()
+            setTrackingWithCompleted(result.body())
         } else null
     }
+
+    private fun setTrackingWithCompleted(tracking: TrackingModel?): TrackingModel? =
+        tracking?.apply {
+            events.find { it.status == "Objeto entregue ao destinatário" }?.let {
+                hasCompleted = true
+            }
+        }
 }

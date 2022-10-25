@@ -26,6 +26,7 @@
 
     <!--    Radius    -->
     <dimen name="radius_10">10dp</dimen>
+    <dimen name="radius_16">16dp</dimen>
     <dimen name="radius_24">24dp</dimen>
 
 </resources>

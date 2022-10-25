@@ -9,9 +9,9 @@
     <color name="dark_gray">#393B3C</color>
     <color name="light_gray">#E5E5E5</color>
     <color name="gray">#888888</color>
-    <color name="blue">#3A4ADC</color>
-    <color name="red">#F34545</color>
-    <color name="orange">#FFA800</color>
-    <color name="green">#2BCF4F</color>
+    <color name="blue">#4F5CDB</color>
+    <color name="red">#C24343</color>
+    <color name="orange">#DC831B</color>
+    <color name="green">#329F29</color>
     <color name="background_popup">#BF000000</color>
 </resources>
