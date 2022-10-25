@@ -6,6 +6,16 @@ import com.google.gson.annotations.SerializedName
 
 class EventList: ArrayList<Evento>()
 
+class TrackingList(private val list: List<TrackingModel>): ArrayList<TrackingModel>() {
+
+    init {
+        this.addAll(list)
+    }
+
+    fun getAllTrackingCompleted(): List<TrackingModel> = this.filter { it.hasCompleted }
+    fun getAllTrackingInProgress(): List<TrackingModel> = this.filter { !it.hasCompleted }
+}
+
 data class TrackingModel(
     @SerializedName("codigo") val code: String,
     @SerializedName("eventos") val events: ArrayList<Evento>,

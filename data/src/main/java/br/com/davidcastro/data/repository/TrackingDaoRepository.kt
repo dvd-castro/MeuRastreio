@@ -1,5 +1,6 @@
 package br.com.davidcastro.data.repository
 
+import br.com.davidcastro.data.model.TrackingList
 import br.com.davidcastro.data.model.TrackingModel
 
 interface TrackingDaoRepository {
@@ -11,5 +12,5 @@ interface TrackingDaoRepository {
 
     suspend fun contains(codigo: String): Boolean
 
-    suspend fun getAll(): List<TrackingModel>
+    suspend fun getAll(): TrackingList
 }

@@ -21,6 +21,7 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
 
     private lateinit var binding: FragmentMainBinding
     private val trackingAdapter = TrackingAdapter()
+    private val trackingAdapterInProgress = TrackingAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +40,8 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
     }
 
     private fun initObservers() {
-        viewModel.tracking.observe(viewLifecycleOwner, ::whenHasTracking)
+        viewModel.trackingInProgress.observe(viewLifecycleOwner, ::whenHasTrackingInProgress)
+        viewModel.trackingCompleted.observe(viewLifecycleOwner, ::whenHasTrackingCompleted)
     }
 
     private fun initUI() {
@@ -53,6 +55,11 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
             setHasFixedSize(false)
             adapter = trackingAdapter
         }
+        binding.includeLayoutSessaoConcluidos.rvItemsConcluidos.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(false)
+            adapter = trackingAdapterInProgress
+        }
     }
     private fun setInsertClickListener() {
         binding.btnAdd.setOnClickListener {
@@ -65,18 +72,25 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
         modalBottomSheet.showNow(parentFragmentManager, InsertTrackingBottomSheetFragment.TAG)
     }
 
-    private fun getTracking(codigo: String) {
-        viewModel.getTracking(codigo)
+    private fun getTracking(codigo: String, name: String?) {
+        viewModel.getTracking(codigo, name)
     }
 
     private fun getAllTrackingInDataBase() {
         viewModel.getAllTrackingInDataBase()
     }
 
-    private fun whenHasTracking(listTrackingHome: List<TrackingModel>) {
+    private fun whenHasTrackingInProgress(trackingList: List<TrackingModel>) {
         binding.rvItensEmAndamento.visibility = View.VISIBLE
         binding.includeLayoutEmptyState.layoutEmptyState.visibility = View.GONE
-        trackingAdapter.submitList(listTrackingHome)
+        trackingAdapter.submitList(trackingList)
+    }
+
+    private fun whenHasTrackingCompleted(trackingList: List<TrackingModel>) {
+        with(binding.includeLayoutSessaoConcluidos) {
+            layoutSessaoConcluidos.visibility = View.VISIBLE
+            trackingAdapterInProgress.submitList(trackingList)
+        }
     }
 
     override fun onItemClick(codigo: String) {
@@ -84,6 +98,6 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
     }
 
     override fun sendTrackingCode(code: String, name: String?) {
-        getTracking(code)
+        getTracking(code, name)
     }
 }

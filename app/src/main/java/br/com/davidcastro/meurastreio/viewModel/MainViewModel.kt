@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.davidcastro.data.model.TrackingList
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.data.repository.TrackingDaoRepository
 import br.com.davidcastro.data.usecase.GetTrackingUseCase
@@ -15,8 +16,11 @@ class MainViewModel (
     private val trackingDaoRepository: TrackingDaoRepository,
     ): ViewModel() {
 
-    private val _tracking = MutableLiveData<List<TrackingModel>>()
-    val tracking: LiveData<List<TrackingModel>> = _tracking
+    private val _trackingInProgress = MutableLiveData<List<TrackingModel>>()
+    val trackingInProgress: LiveData<List<TrackingModel>> = _trackingInProgress
+
+    private val _trackingCompleted = MutableLiveData<List<TrackingModel>>()
+    val trackingCompleted: LiveData<List<TrackingModel>> = _trackingCompleted
 
     private val _hasError = MutableLiveData(false)
     val hasError: LiveData<Boolean> = _hasError
@@ -26,20 +30,26 @@ class MainViewModel (
 
     fun getAllTrackingInDataBase() {
         viewModelScope.launch {
-            trackingDaoRepository.getAll().let {
-                if(it.isNotEmpty()) {
-                    _tracking.postValue(it)
-                }
-            }
+            processTrackingInDataBaseToView(trackingDaoRepository.getAll())
         }
     }
 
-    fun getTracking(codigo: String) {
+    private fun processTrackingInDataBaseToView(all: TrackingList) {
+        if(all.isNotEmpty()) {
+            if(all.getAllTrackingCompleted().isNotEmpty())
+                _trackingCompleted.postValue(all.getAllTrackingCompleted())
+
+            if(all.getAllTrackingInProgress().isNotEmpty())
+                _trackingInProgress.postValue(all.getAllTrackingInProgress())
+        }
+    }
+
+    fun getTracking(codigo: String, name:String?) {
         viewModelScope.launch {
             try {
                 if(!containsTracking(codigo)) {
                     getTrackingUseCase.getTracking(codigo)?.let {
-                        trackingDaoRepository.insert(it)
+                        insertNewTracking(it, name)
                         getAllTrackingInDataBase()
                     } ?: run {
                         _hasError.postValue(true)
@@ -52,6 +62,12 @@ class MainViewModel (
                 _hasError.postValue(true)
             }
         }
+    }
+
+    private suspend fun insertNewTracking(trackingModel: TrackingModel, name: String?) {
+        trackingDaoRepository.insert(trackingModel.apply {
+            this.name = name?: ""
+        })
     }
 
     suspend fun containsTracking(codigo: String): Boolean =
