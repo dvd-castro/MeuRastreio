@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/gray_background"
-    tools:context=".view.fragments.MainFragment">
+    android:background="@color/gray_background">
 
     <TextView
         android:id="@+id/title_em_andamento"
@@ -38,18 +37,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:visibility="visible"
         android:layout_marginTop="@dimen/spacing_8"
         android:layout_marginHorizontal="@dimen/spacing_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_add"
+        tools:visibility="visible"
         tools:itemCount="3"
         tools:listitem="@layout/layout_list_item_rastreio" />
 
     <include
-        android:id="@+id/include_layout_empty_state"
         layout="@layout/layout_empty_state"
+        android:id="@+id/include_layout_empty_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_16"
@@ -57,8 +56,8 @@
         app:layout_constraintTop_toBottomOf="@+id/rv_itens_em_andamento" />
 
     <include
-        android:id="@+id/include_layout_sessao_concluidos"
         layout="@layout/layout_sessao_concluidos"
+        android:id="@+id/include_layout_sessao_concluidos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_16"
