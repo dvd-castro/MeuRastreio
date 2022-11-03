@@ -38,7 +38,7 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
     private fun setStatus(item: TrackingModel) {
         item.getLastEvent().status?.let {
             binding.tvStatus.text = it
-            binding.tvStatus.setTextColor(UiUtils.getColor(binding.root.context, it))
+            binding.tvStatus.setTextColor(UiUtils.getTrackingStatusColor(binding.root.context, it))
         }
     }
 

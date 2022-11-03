@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.inserttracking.view.fragments.InsertTrackingBottomSheetFragment
 import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
+import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import br.com.davidcastro.ui.databinding.FragmentMainBinding
+import br.com.davidcastro.ui.utils.UiUtils.showErrorSnackbar
+import br.com.davidcastro.ui.utils.UiUtils.showSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
@@ -20,7 +23,7 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
     private val viewModel: MainViewModel by viewModel()
 
     private lateinit var binding: FragmentMainBinding
-    private val trackingAdapter = TrackingAdapter()
+    private val trackingAdapterCompleted = TrackingAdapter()
     private val trackingAdapterInProgress = TrackingAdapter()
 
     override fun onCreateView(
@@ -42,6 +45,8 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
     private fun initObservers() {
         viewModel.trackingInProgress.observe(viewLifecycleOwner, ::whenHasTrackingInProgress)
         viewModel.trackingCompleted.observe(viewLifecycleOwner, ::whenHasTrackingCompleted)
+        viewModel.trackingAlreadyExists.observe(viewLifecycleOwner, ::whenTrackingAlreadyExists)
+        viewModel.hasError.observe(viewLifecycleOwner, ::whenGetTrackingHasError)
     }
 
     private fun initUI() {
@@ -53,12 +58,12 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
         binding.rvItensEmAndamento.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(false)
-            adapter = trackingAdapter
+            adapter = trackingAdapterInProgress
         }
         binding.includeLayoutSessaoConcluidos.rvItemsConcluidos.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(false)
-            adapter = trackingAdapterInProgress
+            adapter = trackingAdapterCompleted
         }
     }
     private fun setInsertClickListener() {
@@ -83,13 +88,25 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
     private fun whenHasTrackingInProgress(trackingList: List<TrackingModel>) {
         binding.rvItensEmAndamento.visibility = View.VISIBLE
         binding.includeLayoutEmptyState.layoutEmptyState.visibility = View.GONE
-        trackingAdapter.submitList(trackingList)
+        trackingAdapterInProgress.submitList(trackingList)
     }
 
     private fun whenHasTrackingCompleted(trackingList: List<TrackingModel>) {
         with(binding.includeLayoutSessaoConcluidos) {
             layoutSessaoConcluidos.visibility = View.VISIBLE
-            trackingAdapterInProgress.submitList(trackingList)
+            trackingAdapterCompleted.submitList(trackingList)
+        }
+    }
+
+    private fun whenTrackingAlreadyExists(show: Boolean) {
+        if(show) {
+            showSnackbar(binding.root, getString(R.string.error_rastreio_ja_inserido))
+        }
+    }
+
+    private fun whenGetTrackingHasError(hasError: Boolean) {
+        if (hasError) {
+            showErrorSnackbar(binding.root, getString(R.string.error_server))
         }
     }
 

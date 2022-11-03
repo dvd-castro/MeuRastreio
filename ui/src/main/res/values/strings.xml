@@ -23,8 +23,7 @@
     <string name="hint_codigo">Código de rastreio</string>
 
     <!-- Erros -->
-    <string name="error_server">Deu ruim, algum problema na busca, ou código inválido, tente novamente mais tarde!</string>
-    <string name="error_rastreio_nao_encontrado">Ops,código de rastreio não encontrado, verifique e tente novamente!</string>
+    <string name="error_server">Deu ruim, algum problema na busca, ou código inválido, tente novamente!</string>
     <string name="error_rastreio_ja_inserido">Código de rastreio já foi inserido anteriormente!</string>
     <string name="error_campo_vazio">Insira o código de rastreio!</string>
     <string name="error_deletar">Ocorreu um erro ao deletar, por favor tente novamente!</string>
