@@ -7,18 +7,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_title_session_finished"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginVertical="@dimen/spacing_16"
-        tools:text="@tools:sample/last_names" />
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:layout_marginBottom="@dimen/spacing_16"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
@@ -50,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/spacing_4"
                     android:layout_marginHorizontal="@dimen/spacing_8"
-                    android:textSize="@dimen/text_10"
+                    android:textSize="@dimen/text_12"
                     android:textColor="@color/white"
                     tools:text="@string/title_itens_concluidos" />
 
@@ -60,7 +51,6 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:visibility="gone"
                 android:textSize="@dimen/text_14"
                 android:layout_marginTop="@dimen/spacing_4"
@@ -86,7 +76,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_4"
-                android:textColor="@color/black"
                 android:textSize="@dimen/text_14"
                 android:textIsSelectable="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_4"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_14"
                 android:layout_marginBottom="@dimen/spacing_4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
