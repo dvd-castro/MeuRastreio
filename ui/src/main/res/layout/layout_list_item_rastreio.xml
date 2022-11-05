@@ -60,18 +60,6 @@
                 tools:visibility="visible" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_4"
-                android:textSize="@dimen/text_14"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
-                tools:text="@tools:sample/last_names" />
-
-            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_codigo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,11 +68,23 @@
                 android:textIsSelectable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_status"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
                 tools:text="@tools:sample/last_names" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_logistica"
+                android:id="@+id/tv_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:textSize="@dimen/text_14"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_codigo"
+                tools:text="@tools:sample/last_names" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_substatus_one"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_4"
@@ -92,7 +92,24 @@
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_codigo"
+                app:layout_constraintTop_toBottomOf="@id/tv_status"
+                tools:text="@tools:sample/last_names"
+                tools:visibility="visible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_substatus_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_4"
+                android:textSize="@dimen/text_14"
+                android:visibility="gone"
+                android:linksClickable="true"
+                android:autoLink="web"
+                
+                android:textColorLink="@color/blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_substatus_one"
                 tools:text="@tools:sample/last_names"
                 tools:visibility="visible" />
 
@@ -107,7 +124,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_logistica"
+                app:layout_constraintTop_toBottomOf="@id/tv_substatus_two"
                 tools:text="@tools:sample/last_names" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,28 +24,42 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
     }
 
     fun bind(item: TrackingModel) {
-        with(binding) {
-            tvCodigo.text = item.code
-            tvData.text = item.getEventDateAndLocal()
+        binding.tvCodigo.text = item.code
+        setDate(item)
+        setStatus(item)
+        setSubstatus(item)
+        setHasCompleted(item.hasCompleted)
+        setName(item.name)
+    }
 
-            setStatus(item)
-            setLogistic(item)
-            setHasCompleted(item.hasCompleted)
-            setName(item.name)
+    private fun setDate(item: TrackingModel) {
+        if(item.events.isNotEmpty()) {
+            binding.tvData.text = item.getEventDateAndLocal()
         }
     }
 
     private fun setStatus(item: TrackingModel) {
-        item.getLastEvent().status?.let {
-            binding.tvStatus.text = it
-            binding.tvStatus.setTextColor(UiUtils.getTrackingStatusColor(binding.root.context, it))
+        if(item.events.isNotEmpty()) {
+            item.getLastEvent().status?.let {
+                binding.tvStatus.text = it
+                binding.tvStatus.setTextColor(UiUtils.getTrackingStatusColor(binding.root.context, it))
+            }
         }
     }
 
-    private fun setLogistic(item: TrackingModel) {
-        if(!item.getLastEvent().subStatus.isNullOrEmpty()) {
-            binding.tvLogistica.text = item.getLastEventDestiny()
-            binding.tvLogistica.visibility = View.VISIBLE
+    private fun setSubstatus(item: TrackingModel) {
+        if(item.events.isNotEmpty() && !item.getLastEvent().subStatus.isNullOrEmpty()) {
+
+            item.getLastEvent().subStatus?.let {
+
+                binding.tvSubstatusOne.text = it.first()
+                binding.tvSubstatusOne.visibility = View.VISIBLE
+
+                if(it.count() == 2) {
+                    binding.tvSubstatusTwo.text = UiUtils.getHtmlString(it[1])
+                    binding.tvSubstatusTwo.visibility = View.VISIBLE
+                }
+            }
         }
     }
 

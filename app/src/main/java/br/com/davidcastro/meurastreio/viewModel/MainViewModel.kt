@@ -49,8 +49,12 @@ class MainViewModel (
             try {
                 if(!containsTracking(codigo)) {
                     getTrackingUseCase.getTracking(codigo)?.let {
-                        insertNewTracking(it, name)
-                        getAllTrackingInDataBase()
+                        if(it.events.isNotEmpty()) {
+                            insertNewTracking(it, name)
+                            getAllTrackingInDataBase()
+                        } else {
+                            _hasError.postValue(true)
+                        }
                     } ?: run {
                         _hasError.postValue(true)
                     }

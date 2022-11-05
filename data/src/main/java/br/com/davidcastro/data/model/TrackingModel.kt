@@ -29,12 +29,6 @@ data class TrackingModel(
 
     fun getEventDateAndLocal():String = "${getLastEvent().date} - ${getLastEvent().local}"
 
-    fun getLastEventDestiny(): String {
-        return if(getLastEvent().subStatus?.isNotEmpty() == true)
-            getLastEvent().subStatus?.first()?.replaceBefore("Para:", "") ?: ""
-        else ""
-    }
-
     fun toTrackingEntity() = TrackingEntity(
         codigo = this.code,
         nome = this.name ?: "",
