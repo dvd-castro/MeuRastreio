@@ -1,5 +1,6 @@
 package br.com.davidcastro.meurastreio.view.adapters
 
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.davidcastro.data.model.TrackingModel
+import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.ui.databinding.LayoutListItemRastreioBinding
 import br.com.davidcastro.ui.utils.UiUtils
 
@@ -18,6 +20,9 @@ class TrackingAdapter: ListAdapter<TrackingModel, TrackingViewHolder>(DiffUtil) 
 }
 
 class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): RecyclerView.ViewHolder(binding.root) {
+
+    private val context = binding.root.context
+
     companion object {
         internal fun inflateViewBinding(parent: ViewGroup): LayoutListItemRastreioBinding =
             LayoutListItemRastreioBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -49,15 +54,18 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
 
     private fun setSubstatus(item: TrackingModel) {
         if(item.events.isNotEmpty() && !item.getLastEvent().subStatus.isNullOrEmpty()) {
-
             item.getLastEvent().subStatus?.let {
-
                 binding.tvSubstatusOne.text = it.first()
                 binding.tvSubstatusOne.visibility = View.VISIBLE
 
                 if(it.count() == 2) {
-                    binding.tvSubstatusTwo.text = UiUtils.getHtmlString(it[1])
                     binding.tvSubstatusTwo.visibility = View.VISIBLE
+                    if(it[1].contains("Minhas Importações")) {
+                        binding.tvSubstatusTwo.movementMethod = LinkMovementMethod.getInstance()
+                        binding.tvSubstatusTwo.text = UiUtils.getHtmlString(context.getString(R.string.message_acessar_importacoes))
+                    } else {
+                        binding.tvSubstatusTwo.text = it[1]
+                    }
                 }
             }
         }
