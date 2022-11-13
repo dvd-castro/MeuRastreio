@@ -8,17 +8,17 @@ class ReloadAllTrackingUseCaseImpl(
     private val getTrackingUseCase: GetTrackingUseCase,
     private val trackingDaoRepository: TrackingDaoRepository
 ): ReloadAllTrackingUseCase {
+
     override suspend fun reload(): Boolean {
         var hasUpdate = false
 
         withContext(Dispatchers.IO) {
-            trackingDaoRepository.getAll().forEach { trackingModel ->
-                val result = getTrackingUseCase.getTracking(trackingModel.code)
-                if (result?.getLastEventDate() != trackingModel.getLastEventDate()) {
-                    result?.let {
-                        it.hasUpdated = true
+            trackingDaoRepository.getAll().getAllTrackingInProgress().forEach { trackingModel ->
+                getTrackingUseCase.getTracking(trackingModel.code)?.let { result ->
+                    if (result.getLastEventDate() != trackingModel.getLastEventDate()) {
+                        result.hasUpdated = true
                         hasUpdate = true
-                        trackingDaoRepository.insert(it)
+                        trackingDaoRepository.update(result)
                     }
                 }
             }

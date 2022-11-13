@@ -1,6 +1,7 @@
 package br.com.davidcastro.meurastreio
 
 import android.app.*
+import android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -53,9 +54,7 @@ class BaseApplication: Application() {
     }
 
     private fun initAlarmManager() {
-
-        val alarmManager =
-            getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val flag = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.FLAG_IMMUTABLE else 0
         val alarmIntent = Intent(this, AlarmReceiver::class.java).let { intent ->
             PendingIntent.getBroadcast(this, 0, intent, flag)
@@ -64,7 +63,7 @@ class BaseApplication: Application() {
         alarmManager?.setRepeating(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
             SystemClock.elapsedRealtime(),
-            1000 * 60 * 15,
+            INTERVAL_FIFTEEN_MINUTES,
             alarmIntent
         )
     }

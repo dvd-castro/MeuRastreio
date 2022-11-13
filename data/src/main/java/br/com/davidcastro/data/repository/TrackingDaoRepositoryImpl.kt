@@ -12,6 +12,12 @@ class TrackingDaoRepositoryImpl(private val trackingDao: TrackingDao): TrackingD
             trackingDao.insert(rastreio.toTrackingEntity())
         }
 
+    override suspend fun update(rastreio: TrackingModel) {
+        withContext(Dispatchers.IO) {
+            trackingDao.update(rastreio.toTrackingEntity())
+        }
+    }
+
     override suspend fun get(codigo: String): TrackingModel =
         withContext(Dispatchers.IO) {
             return@withContext trackingDao.get(codigo).toTrackingModel()

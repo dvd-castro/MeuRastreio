@@ -52,6 +52,8 @@
     <string name="message_nao_ha_encomendas_em_andamento">No momento não há encomendas em andamento!</string>
     <string name="message_permissao_iniciar">Em dispositivos Xiaomi, precisamos dessa permissão para buscar atualizações em segundo plano, por favor ativar!</string>
     <string name="message_empty">Ops, parece que você não tem nenhuma encomenda para acompanhar.</string>
+    <string name="message_notification_title">Suas encomendas foram atualizadas!</string>
+    <string name="message_notification_text">Clique aqui para ver!</string>
 
     <string name="notification_channel_id">40028922</string>
     <string name="notification_channel_name">meu_rastreio</string>
