@@ -45,6 +45,7 @@ class MainViewModel (
     }
 
     fun getTracking(codigo: String, name:String?) {
+        //TODO refatorar para remover regras de negócio e passar para o usecase
         viewModelScope.launch {
             try {
                 if(!containsTracking(codigo)) {
