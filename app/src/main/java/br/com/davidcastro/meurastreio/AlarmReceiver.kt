@@ -24,6 +24,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
     private suspend fun checkIfHaveUpdates(context: Context) {
         try {
+            Log.d("###", "Trying to update")
             if(reloadAllTrackingUseCase.reload()) {
                 Utils.notifyUpdates(context)
             }
