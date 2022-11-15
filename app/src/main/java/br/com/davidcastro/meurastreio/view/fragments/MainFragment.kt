@@ -1,9 +1,7 @@
 package br.com.davidcastro.meurastreio.view.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
@@ -18,7 +16,7 @@ import br.com.davidcastro.ui.utils.UiUtils.showErrorSnackbar
 import br.com.davidcastro.ui.utils.UiUtils.showSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
+class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -40,6 +38,21 @@ class MainFragment : Fragment(), ClickListener, InsertFragmentListener {
         initUI()
         initObservers()
         getAllTrackingInDataBase()
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.refresh -> {
+                viewModel.reload()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initObservers() {
