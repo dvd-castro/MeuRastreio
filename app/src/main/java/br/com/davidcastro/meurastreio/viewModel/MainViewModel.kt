@@ -9,10 +9,12 @@ import br.com.davidcastro.data.model.TrackingList
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.data.repository.TrackingDaoRepository
 import br.com.davidcastro.data.usecase.GetTrackingUseCase
+import br.com.davidcastro.data.usecase.ReloadAllTrackingUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel (
     private val getTrackingUseCase: GetTrackingUseCase,
+    private val reloadAllTrackingUseCase: ReloadAllTrackingUseCase,
     private val trackingDaoRepository: TrackingDaoRepository,
     ): ViewModel() {
 
@@ -63,6 +65,19 @@ class MainViewModel (
                     _trackingAlreadyExists.postValue(true)
                 }
             } catch (ex:Exception) {
+                Log.d("###","$ex")
+                _hasError.postValue(true)
+            }
+        }
+    }
+
+    fun reload() {
+        viewModelScope.launch {
+            try {
+                if(reloadAllTrackingUseCase.reload()) {
+                    getAllTrackingInDataBase()
+                }
+            } catch (ex: Exception){
                 Log.d("###","$ex")
                 _hasError.postValue(true)
             }

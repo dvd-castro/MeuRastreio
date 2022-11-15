@@ -39,6 +39,7 @@ val module = module {
     viewModel {
         MainViewModel(
             getTrackingUseCase = get(),
+            reloadAllTrackingUseCase = get(),
             trackingDaoRepository = get()
         )
     }
