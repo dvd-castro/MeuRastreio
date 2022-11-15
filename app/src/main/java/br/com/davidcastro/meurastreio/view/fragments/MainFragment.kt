@@ -8,10 +8,10 @@ import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.inserttracking.view.fragments.InsertTrackingBottomSheetFragment
 import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.databinding.FragmentMainBinding
 import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
-import br.com.davidcastro.ui.databinding.FragmentMainBinding
 import br.com.davidcastro.ui.utils.UiUtils.showErrorSnackbar
 import br.com.davidcastro.ui.utils.UiUtils.showSnackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
