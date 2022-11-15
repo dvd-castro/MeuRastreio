@@ -4,6 +4,7 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +34,7 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
         setDate(item)
         setStatus(item)
         setSubstatus(item)
-        setHasCompleted(item.hasCompleted)
+        setHasCompletedAndHasUpdated(item)
         setName(item.name)
     }
 
@@ -71,10 +72,14 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
         }
     }
 
-    private fun setHasCompleted(hasCompleted: Boolean) {
-        if(hasCompleted) {
-            binding.cvHasCompleted.visibility = View.VISIBLE
+    private fun setHasCompletedAndHasUpdated(item: TrackingModel) {
+        if(item.hasCompleted) {
+            binding.cvHasCompletedOrUpdated.visibility = View.VISIBLE
             binding.tvHasCompleted.text = "Finalizado"
+        } else if(item.hasUpdated) {
+            binding.cvHasCompletedOrUpdated.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red))
+            binding.cvHasCompletedOrUpdated.visibility = View.VISIBLE
+            binding.tvHasCompleted.text = "Atualizado"
         }
     }
 

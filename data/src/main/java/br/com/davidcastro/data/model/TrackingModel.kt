@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 class EventList: ArrayList<Evento>()
 
-class TrackingList(private val list: List<TrackingModel>): ArrayList<TrackingModel>() {
+class TrackingList(list: List<TrackingModel>): ArrayList<TrackingModel>() {
 
     init {
         this.addAll(list)
@@ -26,6 +26,8 @@ data class TrackingModel(
     fun getLastEvent(): Evento = events.first()
 
     fun getLastEventDate(): String? = getLastEvent().date
+
+    fun getLastEventDateAndHour(): String = "${getLastEventDate()} - ${getLastEvent().hour}"
 
     fun getEventDateAndLocal():String = "${getLastEvent().date} - ${getLastEvent().local}"
 

@@ -18,7 +18,9 @@
     <dimen name="height_250dp">250dp</dimen>
 
     <!--    Paddings    -->
+    <dimen name="spacing_2">2dp</dimen>
     <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_6">6dp</dimen>
     <dimen name="spacing_8">8dp</dimen>
     <dimen name="spacing_16">16dp</dimen>
     <dimen name="spacing_24">24dp</dimen>
