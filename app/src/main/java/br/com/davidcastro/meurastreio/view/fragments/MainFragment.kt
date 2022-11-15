@@ -14,6 +14,7 @@ import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
 import br.com.davidcastro.ui.utils.UiUtils.showErrorSnackbar
 import br.com.davidcastro.ui.utils.UiUtils.showSnackbar
+import com.google.android.gms.ads.AdRequest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
@@ -36,9 +37,12 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
         super.onViewCreated(view, savedInstanceState)
 
         initUI()
-        initObservers()
-        getAllTrackingInDataBase()
         setHasOptionsMenu(true)
+    }
+
+    private fun initAD() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -65,6 +69,9 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
     private fun initUI() {
         setInsertClickListener()
         initRecyclerView()
+        initAD()
+        initObservers()
+        getAllTrackingInDataBase()
     }
 
     private fun initRecyclerView() {
