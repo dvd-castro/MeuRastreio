@@ -21,11 +21,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var alertDialogRequest : AlertDialog
     private lateinit var preferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         installSplashScreen()
-        MobileAds.initialize(this)
+        initAdMob()
 
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
@@ -34,9 +35,7 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
 
-        preferences = getSharedPreferences("user_preferences", MODE_PRIVATE)
-        editor = preferences.edit()
-
+        initSharedPreferences()
         configDialogStartOnBootRequest()
         enableAutoStartIfXiaomiDevice()
     }
@@ -54,6 +53,15 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initAdMob() {
+        MobileAds.initialize(this)
+    }
+
+    private fun initSharedPreferences() {
+        preferences = getSharedPreferences("user_preferences", MODE_PRIVATE)
+        editor = preferences.edit()
     }
 
     private fun enableAutoStartIfXiaomiDevice() {
