@@ -30,6 +30,19 @@
         app:layout_constraintTop_toBottomOf="@id/adView" />
 
     <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/spacing_8"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:src="@drawable/ic_refresh"
+        app:layout_constraintBottom_toBottomOf="@+id/title_em_andamento"
+        app:layout_constraintEnd_toStartOf="@id/btn_add"
+        app:layout_constraintTop_toTopOf="@+id/title_em_andamento" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -37,26 +37,11 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
         super.onViewCreated(view, savedInstanceState)
 
         initUI()
-        setHasOptionsMenu(true)
     }
 
     private fun initAD() {
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.refresh -> {
-                viewModel.reload()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     private fun initObservers() {
@@ -67,7 +52,7 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
     }
 
     private fun initUI() {
-        setInsertClickListener()
+        setInsertAndRefreshClickListener()
         initRecyclerView()
         initAD()
         initObservers()
@@ -86,15 +71,22 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
             adapter = trackingAdapterCompleted
         }
     }
-    private fun setInsertClickListener() {
+    private fun setInsertAndRefreshClickListener() {
         binding.btnAdd.setOnClickListener {
             openInsertTrackingFragment()
+        }
+        binding.btnRefresh.setOnClickListener {
+            reloadAllTrackingInProgress()
         }
     }
 
     private fun openInsertTrackingFragment() {
         val modalBottomSheet = InsertTrackingBottomSheetFragment(this@MainFragment)
         modalBottomSheet.showNow(parentFragmentManager, InsertTrackingBottomSheetFragment.TAG)
+    }
+
+    private fun reloadAllTrackingInProgress() {
+        viewModel.reload()
     }
 
     private fun getTracking(codigo: String, name: String?) {
