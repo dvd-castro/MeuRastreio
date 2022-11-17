@@ -42,6 +42,7 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
     private fun initAD() {
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
+        binding.adView2.loadAd(adRequest)
     }
 
     private fun initObservers() {
