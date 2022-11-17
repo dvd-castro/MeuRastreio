@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import br.com.davidcastro.inserttracking.databinding.FragmentInsertTrackingBottomSheetBinding
 import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
-import br.com.davidcastro.ui.databinding.FragmentInsertTrackingBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class InsertTrackingBottomSheetFragment(private val listener: InsertFragmentListener) : BottomSheetDialogFragment() {

@@ -85,6 +85,7 @@ dependencies {
     implementation "androidx.core:core-splashscreen:1.0.0"
 
     implementation project(path: ':features:inserttracking')
+    implementation project(path: ':features:trackingdetails')
     implementation project(path: ':ui')
     implementation project(path: ':data')
 }

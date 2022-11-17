@@ -3,7 +3,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 rootProject.name = "Meu Rastreio"
@@ -12,3 +11,4 @@ include ':features'
 include ':features:inserttracking'
 include ':ui'
 include ':data'
+include ':features:trackingdetails'
