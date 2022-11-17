@@ -12,6 +12,7 @@ import br.com.davidcastro.meurastreio.databinding.FragmentMainBinding
 import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import br.com.davidcastro.trackingdetails.view.fragments.TrackingDetailsBottomSheetFragment
 import br.com.davidcastro.ui.utils.UiUtils.showErrorSnackbar
 import br.com.davidcastro.ui.utils.UiUtils.showSnackbar
 import com.google.android.gms.ads.AdRequest
@@ -22,8 +23,8 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
     private val viewModel: MainViewModel by viewModel()
 
     private lateinit var binding: FragmentMainBinding
-    private val trackingAdapterCompleted = TrackingAdapter()
-    private val trackingAdapterInProgress = TrackingAdapter()
+    private val trackingAdapterCompleted = TrackingAdapter(this)
+    private val trackingAdapterInProgress = TrackingAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -124,7 +125,8 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
     }
 
     override fun onItemClick(codigo: String) {
-        TODO("Not yet implemented")
+        val modalBottomSheet = TrackingDetailsBottomSheetFragment()
+        modalBottomSheet.showNow(parentFragmentManager, TrackingDetailsBottomSheetFragment.TAG)
     }
 
     override fun sendTrackingCode(code: String, name: String?) {

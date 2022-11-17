@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.ui.databinding.LayoutListItemRastreioBinding
 import br.com.davidcastro.ui.utils.UiUtils
 
-class TrackingAdapter: ListAdapter<TrackingModel, TrackingViewHolder>(DiffUtil) {
+class TrackingAdapter(private val listener: ClickListener): ListAdapter<TrackingModel, TrackingViewHolder>(DiffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackingViewHolder =
         TrackingViewHolder(TrackingViewHolder.inflateViewBinding(parent))
 
-    override fun onBindViewHolder(holder: TrackingViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: TrackingViewHolder, position: Int) = holder.bind(getItem(position), listener)
 }
 
 class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): RecyclerView.ViewHolder(binding.root) {
@@ -29,8 +30,9 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
             LayoutListItemRastreioBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    fun bind(item: TrackingModel) {
+    fun bind(item: TrackingModel, listener: ClickListener) {
         binding.tvCodigo.text = item.code
+        binding.cvItemList.setOnClickListener { listener.onItemClick(item.code) }
         setDate(item)
         setStatus(item)
         setSubstatus(item)
