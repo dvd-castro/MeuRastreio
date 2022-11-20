@@ -27,7 +27,19 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : 
     }
 
     private fun initUI() {
+        setName()
+        setCode()
+    }
 
+    private fun setName() {
+        if(!tracking.name.isNullOrBlank()) {
+            binding.tvName.text = tracking.name
+            binding.tvName.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setCode() {
+        binding.tvCode.text = tracking.code
     }
 
     companion object {

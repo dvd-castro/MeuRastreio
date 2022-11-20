@@ -8,6 +8,49 @@
     android:padding="@dimen/spacing_16"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="@dimen/spacing_36"
+        android:layout_height="3dp"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_16"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginBottom="@dimen/spacing_4"
+        tools:text="@tools:sample/full_names"
+        android:layout_marginTop="@dimen/spacing_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold"
+        tools:text="@tools:sample/us_zipcodes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_event_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_code"
+        tools:itemCount="5"
+        tools:listitem="@layout/layout_list_item_details" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
