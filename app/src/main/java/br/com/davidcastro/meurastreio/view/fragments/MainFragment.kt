@@ -82,11 +82,6 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
         }
     }
 
-    private fun openInsertTrackingFragment() {
-        val modalBottomSheet = InsertTrackingBottomSheetFragment(this@MainFragment)
-        modalBottomSheet.showNow(parentFragmentManager, InsertTrackingBottomSheetFragment.TAG)
-    }
-
     private fun reloadAllTrackingInProgress() {
         viewModel.reload()
     }
@@ -124,8 +119,13 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
         }
     }
 
-    override fun onItemClick(codigo: String) {
-        val modalBottomSheet = TrackingDetailsBottomSheetFragment()
+    private fun openInsertTrackingFragment() {
+        val modalBottomSheet = InsertTrackingBottomSheetFragment(this@MainFragment)
+        modalBottomSheet.showNow(parentFragmentManager, InsertTrackingBottomSheetFragment.TAG)
+    }
+
+    override fun onItemClick(tracking: TrackingModel) {
+        val modalBottomSheet = TrackingDetailsBottomSheetFragment(tracking = tracking)
         modalBottomSheet.showNow(parentFragmentManager, TrackingDetailsBottomSheetFragment.TAG)
     }
 

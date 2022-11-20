@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.trackingdetails.databinding.FragmentTrackingDetailsBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class TrackingDetailsBottomSheetFragment : BottomSheetDialogFragment() {
+class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentTrackingDetailsBottomSheetBinding
 
