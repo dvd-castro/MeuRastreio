@@ -50,4 +50,6 @@ data class Evento(
     @SerializedName("local") val local: String?,
     @SerializedName("status") val status: String?,
     @SerializedName("subStatus")  val subStatus: ArrayList<String>?
-) : Parcelable
+) : Parcelable {
+    fun getEventDateAndHour():String = "$date - $hour"
+}

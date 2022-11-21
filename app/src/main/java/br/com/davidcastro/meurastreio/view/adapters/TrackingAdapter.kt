@@ -50,7 +50,7 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
         if(item.events.isNotEmpty()) {
             item.getLastEvent().status?.let {
                 binding.tvStatus.text = it
-                binding.tvStatus.setTextColor(UiUtils.getTrackingStatusColor(binding.root.context, it))
+                binding.tvStatus.setTextColor(UiUtils.getTrackingStatusColor(context, it))
             }
         }
     }

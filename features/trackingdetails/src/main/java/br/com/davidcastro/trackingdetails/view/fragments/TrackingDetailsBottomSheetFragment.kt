@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.trackingdetails.databinding.FragmentTrackingDetailsBottomSheetBinding
+import br.com.davidcastro.trackingdetails.view.adapters.TrackingDetailsAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : BottomSheetDialogFragment() {
@@ -29,6 +31,15 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : 
     private fun initUI() {
         setName()
         setCode()
+        setList()
+    }
+
+    private fun setList() {
+        binding.rvEventList.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(false)
+            adapter = TrackingDetailsAdapter(tracking.events)
+        }
     }
 
     private fun setName() {

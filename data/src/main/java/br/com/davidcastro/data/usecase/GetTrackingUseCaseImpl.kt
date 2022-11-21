@@ -19,7 +19,7 @@ class GetTrackingUseCaseImpl(private val repository: TrackingRepository): GetTra
             events.find { it.status == "Objeto entregue ao destinatário" }?.let {
                 hasCompleted = true
             }
-            events.find { it.status == "Objeto postado" }?.let {
+            events.firstOrNull { it.status == "Objeto postado" }?.let {
                 events.remove(it)
                 events.add(it)
             }
