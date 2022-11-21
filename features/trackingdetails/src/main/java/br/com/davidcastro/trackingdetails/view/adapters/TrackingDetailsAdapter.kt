@@ -18,10 +18,12 @@ class TrackingDetailsAdapter(private val list: List<Evento>): Adapter<TrackingDe
 
 
     override fun onBindViewHolder(holder: TrackingDetailsViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], position, isLastItem(position))
     }
 
     override fun getItemCount(): Int = list.count()
+
+    private fun isLastItem(position: Int): Boolean = position == itemCount - 1
 }
 
 class TrackingDetailsViewHolder(private val binding: LayoutListItemDetailsBinding): ViewHolder(binding.root) {
@@ -33,11 +35,24 @@ class TrackingDetailsViewHolder(private val binding: LayoutListItemDetailsBindin
 
     private val context = binding.root.context
 
-    fun bind(item: Evento) {
+    fun bind(item: Evento, position: Int, lastItem: Boolean) {
         setStatus(item)
         setSubstatus(item)
-        setLocal(item)
         setDate(item)
+        setDot(position)
+        removeLastLine(lastItem)
+    }
+
+    private fun removeLastLine(lastItem: Boolean) {
+        if (lastItem) {
+            binding.flLine.visibility = View.GONE
+        }
+    }
+
+    private fun setDot(position: Int) {
+        if(position == 0) {
+            binding.flEllipseColored.visibility = View.VISIBLE
+        }
     }
 
     private fun setDate(item: Evento) {
@@ -49,13 +64,6 @@ class TrackingDetailsViewHolder(private val binding: LayoutListItemDetailsBindin
             binding.tvStatus.text = item.status
             binding.tvStatus.visibility = View.VISIBLE
             binding.tvStatus.setTextColor(UiUtils.getTrackingStatusColor(context, it))
-        }
-    }
-
-    private fun setLocal(item: Evento) {
-        item.local?.let {
-            binding.tvLocal.visibility = View.VISIBLE
-            binding.tvLocal.text = it
         }
     }
 
