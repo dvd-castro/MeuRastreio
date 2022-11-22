@@ -33,6 +33,7 @@
 
     <!--Actions -->
     <string name="action_delete">Apagar</string>
+    <string name="action_to_share">Compartilhar</string>
     <string name="action_to_add">Adicionar</string>
     <string name="action_to_config">Configurações</string>
     <string name="action_to_cancel">Cancelar</string>
