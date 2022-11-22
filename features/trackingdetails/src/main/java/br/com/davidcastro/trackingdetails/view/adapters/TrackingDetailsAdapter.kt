@@ -4,6 +4,7 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import br.com.davidcastro.data.model.Evento
@@ -56,7 +57,7 @@ class TrackingDetailsViewHolder(private val binding: LayoutListItemDetailsBindin
     }
 
     private fun setDate(item: Evento) {
-        binding.tvUpdatedAt.text = item.getEventDateAndHour()
+        binding.tvUpdatedAt.text = item.getEventDateAndHourAndLocal()
         binding.tvUpdatedAt.visibility = View.VISIBLE
     }
     private fun setStatus(item: Evento) {
@@ -70,19 +71,26 @@ class TrackingDetailsViewHolder(private val binding: LayoutListItemDetailsBindin
     private fun setSubstatus(item: Evento) {
         if(!item.subStatus.isNullOrEmpty()) {
             item.subStatus?.let {
-                binding.tvSubstatusOne.text = it.first()
-                binding.tvSubstatusOne.visibility = View.VISIBLE
-
-                if(it.count() == 2) {
-                    binding.tvSubstatusTwo.visibility = View.VISIBLE
-                    if(it[1].contains("Minhas Importações")) {
-                        binding.tvSubstatusTwo.movementMethod = LinkMovementMethod.getInstance()
-                        binding.tvSubstatusTwo.text = UiUtils.getHtmlString(context.getString(R.string.message_acessar_importacoes))
-                    } else {
-                        binding.tvSubstatusTwo.text = it[1]
+                when(it.count()) {
+                    1 -> {
+                        setIfHasImportedMessage(binding.tvSubstatusOne, it.first())
+                    }
+                    2 -> {
+                        setIfHasImportedMessage(binding.tvSubstatusOne, it[0])
+                        setIfHasImportedMessage(binding.tvSubstatusTwo, it[1])
                     }
                 }
             }
+        }
+    }
+
+    private fun setIfHasImportedMessage(textView: AppCompatTextView, subStatus: String) {
+        textView.visibility = View.VISIBLE
+        if(subStatus.contains("Minhas Importações")) {
+            textView.movementMethod = LinkMovementMethod.getInstance()
+            textView.text = UiUtils.getHtmlString(context.getString(R.string.message_acessar_importacoes))
+        } else {
+            textView.text = subStatus
         }
     }
 }
