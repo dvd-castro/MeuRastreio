@@ -17,6 +17,16 @@
         android:layout_marginTop="@dimen/spacing_16"
         android:background="@color/gray" />
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="SMART_BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        android:layout_marginTop="@dimen/spacing_24" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_code"
         android:layout_width="wrap_content"
@@ -25,7 +35,7 @@
         android:textStyle="bold"
         android:layout_marginBottom="@dimen/spacing_4"
         tools:text="@tools:sample/us_zipcodes"
-        android:layout_marginTop="@dimen/spacing_24" />
+        android:layout_marginTop="@dimen/spacing_16" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_name"

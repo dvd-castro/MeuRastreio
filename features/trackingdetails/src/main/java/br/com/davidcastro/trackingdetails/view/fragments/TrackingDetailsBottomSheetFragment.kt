@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.trackingdetails.databinding.FragmentTrackingDetailsBottomSheetBinding
 import br.com.davidcastro.trackingdetails.view.adapters.TrackingDetailsAdapter
+import com.google.android.gms.ads.AdRequest
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : BottomSheetDialogFragment() {
@@ -29,9 +30,15 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : 
     }
 
     private fun initUI() {
+        initAD()
         setName()
         setCode()
         setList()
+    }
+
+    private fun initAD() {
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
     }
 
     private fun setList() {
