@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
+import br.com.davidcastro.trackingdetails.R
 import br.com.davidcastro.trackingdetails.databinding.FragmentTrackingDetailsBottomSheetBinding
 import br.com.davidcastro.trackingdetails.view.adapters.TrackingDetailsAdapter
 import com.google.android.gms.ads.AdRequest
@@ -14,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentTrackingDetailsBottomSheetBinding
+    lateinit var alertDialog: AlertDialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +37,8 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : 
         setName()
         setCode()
         setList()
+        configDialog()
+        configClickListeners()
     }
 
     private fun initAD() {
@@ -58,6 +63,31 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : 
 
     private fun setCode() {
         binding.tvCode.text = tracking.code
+    }
+
+    private fun configClickListeners() {
+        binding.llDelete.setOnClickListener {
+            alertDialog.show()
+        }
+    }
+    private fun configDialog() {
+        alertDialog = this.let {
+
+            val builder = AlertDialog.Builder(requireContext())
+
+            builder.apply {
+                setTitle(getString(R.string.title_atencao))
+                setMessage(getString(R.string.message_deseja_excluir_o_item))
+
+                setPositiveButton(getString(R.string.action_to_confirm)) { dialog, id ->
+                }
+
+                setNegativeButton(getString(R.string.action_to_cancel)) { dialog, id ->
+                    dialog.cancel()
+                }
+            }
+            builder.create()
+        }
     }
 
     companion object {
