@@ -32,17 +32,10 @@ class MainViewModel (
 
     fun getAllTrackingInDataBase() {
         viewModelScope.launch {
-            processTrackingInDataBaseToView(trackingDaoRepository.getAll())
-        }
-    }
-
-    private fun processTrackingInDataBaseToView(all: TrackingList) {
-        if(all.isNotEmpty()) {
-            if(all.getAllTrackingCompleted().isNotEmpty())
-                _trackingCompleted.postValue(all.getAllTrackingCompleted())
-
-            if(all.getAllTrackingInProgress().isNotEmpty())
-                _trackingInProgress.postValue(all.getAllTrackingInProgress())
+            trackingDaoRepository.getAll().let {
+                _trackingCompleted.postValue(it.getAllTrackingCompleted())
+                _trackingInProgress.postValue(it.getAllTrackingInProgress())
+            }
         }
     }
 

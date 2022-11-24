@@ -97,14 +97,26 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBo
     }
 
     private fun whenHasTrackingInProgress(trackingList: List<TrackingModel>) {
-        binding.rvItensEmAndamento.visibility = View.VISIBLE
-        binding.includeLayoutEmptyState.layoutEmptyState.visibility = View.GONE
+        if(trackingList.isNotEmpty()) {
+            binding.rvItensEmAndamento.visibility = View.VISIBLE
+            binding.includeLayoutEmptyState.layoutEmptyState.visibility = View.GONE
+        } else {
+            binding.rvItensEmAndamento.visibility = View.GONE
+            binding.includeLayoutEmptyState.layoutEmptyState.visibility = View.VISIBLE
+        }
+
         trackingAdapterInProgress.submitList(trackingList)
     }
 
     private fun whenHasTrackingCompleted(trackingList: List<TrackingModel>) {
         with(binding.includeLayoutSessaoConcluidos) {
-            layoutSessaoConcluidos.visibility = View.VISIBLE
+
+            if(trackingList.isNotEmpty()) {
+                layoutSessaoConcluidos.visibility = View.VISIBLE
+            } else {
+                layoutSessaoConcluidos.visibility = View.GONE
+            }
+
             trackingAdapterCompleted.submitList(trackingList)
         }
     }
