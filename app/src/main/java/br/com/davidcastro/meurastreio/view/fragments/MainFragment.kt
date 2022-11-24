@@ -3,6 +3,7 @@ package br.com.davidcastro.meurastreio.view.fragments
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.inserttracking.view.fragments.InsertTrackingBottomSheetFragment
@@ -12,13 +13,14 @@ import br.com.davidcastro.meurastreio.databinding.FragmentMainBinding
 import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
 import br.com.davidcastro.meurastreio.view.listeners.ClickListener
 import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import br.com.davidcastro.trackingdetails.listeners.OnCloseBottomSheetDialogFragment
 import br.com.davidcastro.trackingdetails.view.fragments.TrackingDetailsBottomSheetFragment
 import br.com.davidcastro.ui.utils.UiUtils.showErrorSnackbar
 import br.com.davidcastro.ui.utils.UiUtils.showSnackbar
 import com.google.android.gms.ads.AdRequest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
+class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBottomSheetDialogFragment {
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -125,11 +127,15 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener {
     }
 
     override fun onItemClick(tracking: TrackingModel) {
-        val modalBottomSheet = TrackingDetailsBottomSheetFragment(tracking = tracking)
+        val modalBottomSheet = TrackingDetailsBottomSheetFragment(tracking = tracking, this)
         modalBottomSheet.showNow(parentFragmentManager, TrackingDetailsBottomSheetFragment.TAG)
     }
 
     override fun sendTrackingCode(code: String, name: String?) {
         getTracking(code, name)
+    }
+
+    override fun launch() {
+        getAllTrackingInDataBase()
     }
 }

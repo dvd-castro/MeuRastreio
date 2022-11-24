@@ -9,11 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.trackingdetails.R
 import br.com.davidcastro.trackingdetails.databinding.FragmentTrackingDetailsBottomSheetBinding
+import br.com.davidcastro.trackingdetails.di.TrackingDetailsModule
+import br.com.davidcastro.trackingdetails.listeners.OnCloseBottomSheetDialogFragment
 import br.com.davidcastro.trackingdetails.view.adapters.TrackingDetailsAdapter
+import br.com.davidcastro.trackingdetails.viewmodel.TrackingDetailsViewModel
 import com.google.android.gms.ads.AdRequest
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : BottomSheetDialogFragment() {
+class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel, private val onCloseListener: OnCloseBottomSheetDialogFragment) : BottomSheetDialogFragment() {
+
+    private val viewModel by viewModel<TrackingDetailsViewModel>()
 
     private lateinit var binding: FragmentTrackingDetailsBottomSheetBinding
     lateinit var alertDialog: AlertDialog
@@ -23,22 +29,36 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        TrackingDetailsModule.inject()
         binding = FragmentTrackingDetailsBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUI()
-    }
 
-    private fun initUI() {
         initAD()
         setName()
         setCode()
         setList()
         configDialog()
         configClickListeners()
+        setObservable()
+    }
+
+    private fun setObservable() {
+        viewModel.hasDeleted.observe(viewLifecycleOwner, ::onDelete)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        onCloseListener.launch()
+    }
+
+    private fun onDelete(hasDeleted: Boolean) {
+        if(hasDeleted) {
+            dismiss()
+        }
     }
 
     private fun initAD() {
@@ -80,6 +100,7 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel) : 
                 setMessage(getString(R.string.message_deseja_excluir_o_item))
 
                 setPositiveButton(getString(R.string.action_to_confirm)) { dialog, id ->
+                    viewModel.delete(tracking.code)
                 }
 
                 setNegativeButton(getString(R.string.action_to_cancel)) { dialog, id ->
