@@ -32,13 +32,21 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
     }
 
     fun bind(item: TrackingModel, listener: ClickListener) {
-        binding.tvCodigo.text = item.code
-        binding.cvItemList.setOnClickListener { listener.onItemClick(tracking = item) }
+        setName(item)
+        setClickListener(item, listener)
         setDate(item)
         setStatus(item)
         setSubstatus(item)
         setHasCompletedAndHasUpdated(item)
         setName(item.name)
+    }
+
+    private fun setName(item: TrackingModel) {
+        binding.tvCodigo.text = item.code
+    }
+
+    private fun setClickListener(item: TrackingModel, listener: ClickListener) {
+        binding.cvItemList.setOnClickListener { listener.onItemClick(tracking = item) }
     }
 
     private fun setDate(item: TrackingModel) {
