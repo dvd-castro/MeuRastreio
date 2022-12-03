@@ -53,6 +53,7 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBo
         viewModel.trackingCompleted.observe(viewLifecycleOwner, ::whenHasTrackingCompleted)
         viewModel.trackingAlreadyExists.observe(viewLifecycleOwner, ::whenTrackingAlreadyExists)
         viewModel.hasError.observe(viewLifecycleOwner, ::whenGetTrackingHasError)
+        viewModel.loader.observe(viewLifecycleOwner, ::showLoader)
     }
 
     private fun initUI() {
@@ -136,6 +137,14 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBo
     private fun openInsertTrackingFragment() {
         val modalBottomSheet = InsertTrackingBottomSheetFragment(this@MainFragment)
         modalBottomSheet.showNow(parentFragmentManager, InsertTrackingBottomSheetFragment.TAG)
+    }
+
+    private fun showLoader(show: Boolean) {
+        if(show) {
+            binding.loader.visibility = View.VISIBLE
+        } else {
+            binding.loader.visibility = View.GONE
+        }
     }
 
     override fun onItemClick(tracking: TrackingModel) {

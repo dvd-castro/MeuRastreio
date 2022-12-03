@@ -83,6 +83,7 @@ dependencies {
 
     implementation "joda-time:joda-time:2.10.13"
     implementation "androidx.core:core-splashscreen:1.0.0"
+    implementation "com.airbnb.android:lottie:3.4.0"
 
     implementation project(path: ':features:inserttracking')
     implementation project(path: ':features:trackingdetails')

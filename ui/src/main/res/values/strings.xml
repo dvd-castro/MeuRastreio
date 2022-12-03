@@ -45,6 +45,7 @@
     <string name="title_map_pin">Última localização da encomenda</string>
     <string name="title_atencao">Atenção!</string>
     <string name="title_permissao_iniciar">Permissão de início automático necessária!</string>
+    <string name="title_carregando">Carregando...</string>
 
     <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
     <string name="message_acessar_importacoes"><![CDATA[<span class="minhasImportacoes">Acesse o ambiente: <a href="https://apps.correios.com.br/portalimportador/pages/pesquisarRemessaImportador/pesquisarRemessaImportador.jsf" target="_blank">Minhas Importações</a></span>]]></string>

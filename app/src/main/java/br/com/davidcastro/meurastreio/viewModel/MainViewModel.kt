@@ -30,17 +30,26 @@ class MainViewModel (
     private val _trackingAlreadyExists = MutableLiveData(false)
     val trackingAlreadyExists: LiveData<Boolean> = _trackingAlreadyExists
 
+    private val _loader = MutableLiveData(false)
+    val loader: LiveData<Boolean> = _loader
+
     fun getAllTrackingInDataBase() {
         viewModelScope.launch {
-            trackingDaoRepository.getAll().let {
-                _trackingCompleted.postValue(it.getAllTrackingCompleted())
-                _trackingInProgress.postValue(it.getAllTrackingInProgress())
+            try {
+                trackingDaoRepository.getAll().let {
+                    _trackingCompleted.postValue(it.getAllTrackingCompleted())
+                    _trackingInProgress.postValue(it.getAllTrackingInProgress())
+                }
+            } catch (ex: Exception) {
+                Log.d("###","$ex")
+                _hasError.postValue(true)
             }
         }
     }
 
     fun getTracking(codigo: String, name:String?) {
         //TODO refatorar para remover regras de negócio e passar para o usecase
+        _loader.postValue(true)
         viewModelScope.launch {
             try {
                 if(!containsTracking(codigo)) {
@@ -57,21 +66,26 @@ class MainViewModel (
                 } else {
                     _trackingAlreadyExists.postValue(true)
                 }
+                _loader.postValue(false)
             } catch (ex:Exception) {
                 Log.d("###","$ex")
                 _hasError.postValue(true)
+                _loader.postValue(false)
             }
         }
     }
 
     fun reload() {
+        _loader.postValue(true)
         viewModelScope.launch {
             try {
                 if(reloadAllTrackingUseCase.reload()) {
                     getAllTrackingInDataBase()
                 }
-            } catch (ex: Exception){
+                _loader.postValue(false)
+            } catch (ex: Exception) {
                 Log.d("###","$ex")
+                _loader.postValue(false)
                 _hasError.postValue(true)
             }
         }
