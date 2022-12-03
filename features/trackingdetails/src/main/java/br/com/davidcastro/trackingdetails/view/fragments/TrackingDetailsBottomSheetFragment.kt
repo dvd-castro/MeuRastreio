@@ -1,5 +1,6 @@
 package br.com.davidcastro.trackingdetails.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -89,7 +90,12 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel, pr
         binding.llDelete.setOnClickListener {
             alertDialog.show()
         }
+
+        binding.llShare.setOnClickListener {
+            shareLastEvent()
+        }
     }
+
     private fun configDialog() {
         alertDialog = this.let {
 
@@ -109,6 +115,17 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel, pr
             }
             builder.create()
         }
+    }
+
+    private fun shareLastEvent() {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, tracking.getStatusToShare())
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 
     companion object {

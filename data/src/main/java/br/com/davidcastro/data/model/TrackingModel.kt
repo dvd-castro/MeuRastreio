@@ -41,6 +41,9 @@ data class TrackingModel(
         hasUpdated = this.hasUpdated,
         hasCompleted = this.hasCompleted,
     )
+
+    fun getStatusToShare(): String =
+        "Codigo: $code \nStatus: ${getLastEvent().status} \n${getLastEvent().subStatus?.get(0) ?: "" } \n${getLastEvent().subStatus?.get(1) ?: ""}"
 }
 
 @Parcelize
