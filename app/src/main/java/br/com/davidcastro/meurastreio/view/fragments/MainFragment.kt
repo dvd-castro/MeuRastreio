@@ -148,13 +148,15 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBo
     }
 
     private fun setItemAsUpdatedFalse(tracking: TrackingModel) {
-        viewModel.insertNewTracking(tracking, tracking.name)
+        if(tracking.hasUpdated) {
+            tracking.hasUpdated = false
+            viewModel.insertNewTracking(tracking, tracking.name)
+        }
     }
 
     override fun onItemClick(tracking: TrackingModel) {
         setItemAsUpdatedFalse(tracking)
-        val modalBottomSheet = TrackingDetailsBottomSheetFragment(tracking = tracking, this)
-        modalBottomSheet.showNow(parentFragmentManager, TrackingDetailsBottomSheetFragment.TAG)
+        TrackingDetailsBottomSheetFragment(tracking = tracking, this).showNow(parentFragmentManager, TrackingDetailsBottomSheetFragment.TAG)
     }
 
     override fun sendTrackingCode(code: String, name: String?) {

@@ -54,12 +54,7 @@ class MainViewModel (
             try {
                 if(!containsTracking(codigo)) {
                     getTrackingUseCase.getTracking(codigo)?.let {
-                        if(it.events.isNotEmpty()) {
-                            insertNewTracking(it, name)
-                            getAllTrackingInDataBase()
-                        } else {
-                            _hasError.postValue(true)
-                        }
+                        insertNewTracking(it, name)
                     } ?: run {
                         _hasError.postValue(true)
                     }
@@ -93,9 +88,9 @@ class MainViewModel (
 
     fun insertNewTracking(trackingModel: TrackingModel, name: String?) {
         viewModelScope.launch {
-            trackingDaoRepository.insert(trackingModel.apply {
-                this.name = name?: ""
-            })
+            trackingModel.name = name ?: ""
+            trackingDaoRepository.insert(trackingModel)
+            getAllTrackingInDataBase()
         }
     }
 

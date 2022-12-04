@@ -98,6 +98,8 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
             binding.cvHasCompletedOrUpdated.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red))
             binding.cvHasCompletedOrUpdated.visibility = View.VISIBLE
             binding.tvHasCompleted.text = "Atualizado"
+        } else {
+            binding.cvHasCompletedOrUpdated.visibility = View.GONE
         }
     }
 
@@ -111,9 +113,12 @@ class TrackingViewHolder(private val binding: LayoutListItemRastreioBinding): Re
 
 object DiffUtil: DiffUtil.ItemCallback<TrackingModel>() {
     override fun areItemsTheSame(oldItem: TrackingModel, newItem: TrackingModel) =
-        newItem.code == oldItem.code
+        newItem == oldItem
 
     override fun areContentsTheSame(oldItem: TrackingModel, newItem: TrackingModel) =
         newItem.getLastEventDate() == oldItem.getLastEventDate()
+                && newItem.hasCompleted == oldItem.hasCompleted
+                && newItem.hasUpdated == oldItem.hasUpdated
+                && newItem.events == oldItem.events
 
 }
