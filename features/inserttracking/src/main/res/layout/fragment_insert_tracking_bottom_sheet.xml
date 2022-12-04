@@ -61,34 +61,14 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/linear_layout_alert"
+    <TextView
+        android:id="@+id/text_view_alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/text_input_name" >
-
-        <TextView
-            android:id="@+id/text_view_alert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_16"
-            android:text="@string/message_alert_tracking"
-            android:textColor="@color/gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_input_name" />
-
-        <com.google.android.material.checkbox.MaterialCheckBox
-            android:id="@+id/check_box_alert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/message_not_show"
-            app:barrierMargin="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_aviso" />
-
-    </LinearLayout>
+        android:layout_marginTop="@dimen/spacing_16"
+        android:text="@string/message_alert_tracking"
+        android:textColor="@color/gray"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_name" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -96,7 +76,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="@dimen/spacing_16"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_alert" >
+        app:layout_constraintTop_toBottomOf="@+id/text_view_alert" >
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_cancel"
