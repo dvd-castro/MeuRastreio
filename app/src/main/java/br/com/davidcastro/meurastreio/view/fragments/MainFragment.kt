@@ -147,7 +147,12 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBo
         }
     }
 
+    private fun setItemAsUpdatedFalse(tracking: TrackingModel) {
+        viewModel.insertNewTracking(tracking, tracking.name)
+    }
+
     override fun onItemClick(tracking: TrackingModel) {
+        setItemAsUpdatedFalse(tracking)
         val modalBottomSheet = TrackingDetailsBottomSheetFragment(tracking = tracking, this)
         modalBottomSheet.showNow(parentFragmentManager, TrackingDetailsBottomSheetFragment.TAG)
     }

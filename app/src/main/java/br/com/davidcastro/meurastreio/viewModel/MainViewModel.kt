@@ -91,10 +91,12 @@ class MainViewModel (
         }
     }
 
-    private suspend fun insertNewTracking(trackingModel: TrackingModel, name: String?) {
-        trackingDaoRepository.insert(trackingModel.apply {
-            this.name = name?: ""
-        })
+    fun insertNewTracking(trackingModel: TrackingModel, name: String?) {
+        viewModelScope.launch {
+            trackingDaoRepository.insert(trackingModel.apply {
+                this.name = name?: ""
+            })
+        }
     }
 
     private suspend fun containsTracking(codigo: String): Boolean =
