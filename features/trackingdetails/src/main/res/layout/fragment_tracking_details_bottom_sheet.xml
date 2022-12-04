@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_18"
         android:textStyle="bold"
+        android:textIsSelectable="true"
         android:layout_marginBottom="@dimen/spacing_4"
         tools:text="@tools:sample/us_zipcodes"
         android:layout_marginTop="@dimen/spacing_16" />

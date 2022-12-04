@@ -97,7 +97,7 @@ class MainViewModel (
         })
     }
 
-    suspend fun containsTracking(codigo: String): Boolean =
+    private suspend fun containsTracking(codigo: String): Boolean =
         trackingDaoRepository.contains(codigo)
 }
 
