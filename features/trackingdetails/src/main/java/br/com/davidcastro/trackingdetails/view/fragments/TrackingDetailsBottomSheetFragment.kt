@@ -124,8 +124,7 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel, pr
             type = "text/plain"
         }
 
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
+        startActivity(Intent.createChooser(sendIntent, null))
     }
 
     companion object {
