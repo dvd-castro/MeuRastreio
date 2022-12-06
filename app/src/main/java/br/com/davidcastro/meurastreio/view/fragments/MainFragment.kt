@@ -3,7 +3,6 @@ package br.com.davidcastro.meurastreio.view.fragments
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.inserttracking.view.fragments.InsertTrackingBottomSheetFragment
