@@ -64,6 +64,6 @@
     <string name="xiaomi_manufacturer">Xiaomi</string>
     <string name="message_clique_no_botao">Clique no botão</string>
     <string name="message_acima_e_adicione">acima e adicione</string>
-    <string name="message_alert_tracking">Lembrando que o rastreio da encomenda só estará disponível quando estiver rastreável na base de dados dos Correios, então caso tenha comprado um produto recentemente e já recebeu o código de rastreio, possa ser que ele ainda não esteja disponível para ser rastreado, então recomendamos tentar novamente em alguns dias</string>
+    <string name="message_alert_tracking">Lembrando que o rastreio da encomenda só estará disponível quando estiver rastreável na base de dados dos Correios, então caso tenha comprado um produto recentemente e já recebeu o código de rastreio, possa ser que ele ainda não esteja disponível para ser rastreado, então recomendamos tentar novamente em alguns dias.</string>
     <string name="message_not_show">Não mostrar novamente</string>
 </resources>

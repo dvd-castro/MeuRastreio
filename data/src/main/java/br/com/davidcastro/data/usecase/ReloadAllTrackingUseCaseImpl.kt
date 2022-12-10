@@ -15,8 +15,13 @@ class ReloadAllTrackingUseCaseImpl(
         withContext(Dispatchers.IO) {
             trackingDaoRepository.getAll().getAllTrackingInProgress().forEach { trackingModel ->
                 getTrackingUseCase.getTracking(trackingModel.code)?.let { result ->
-                    if (result.getLastEventDateAndHour() != trackingModel.getLastEventDateAndHour()) {
-                        result.hasUpdated = true
+                    if (result.events.count() > trackingModel.events.count()) {
+
+                        result.apply {
+                            name = trackingModel.name
+                            hasUpdated = true
+                        }
+
                         hasUpdate = true
                         trackingDaoRepository.update(result)
                     }
