@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import br.com.davidcastro.inserttracking.databinding.FragmentInsertTrackingBottomSheetBinding
 import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -38,14 +39,24 @@ class InsertTrackingBottomSheetFragment(private val listener: InsertFragmentList
             getEditTextFields()
             dismiss()
         }
+
+        binding.textInputCode.editText?.doOnTextChanged { inputText, _, _, _ ->
+            if(inputText?.length == 13) {
+                binding.textInputName.requestFocus()
+            }
+        }
     }
 
     private fun getEditTextFields() {
         listener.sendTrackingCode(
-            binding.textInputCode.editText?.text.toString(),
-            binding.textInputName.editText?.text.toString()
+            getInputCodeText(),
+            getInputNameText()
         )
     }
+
+    private fun getInputCodeText(): String = binding.textInputCode.editText?.text.toString()
+
+    private fun getInputNameText(): String = binding.textInputName.editText?.text.toString()
 
     companion object {
         const val TAG = "ModalBottomSheet"
