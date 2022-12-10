@@ -7,7 +7,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:paddingHorizontal="@dimen/spacing_16"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <FrameLayout
@@ -24,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         app:adSize="SMART_BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:adUnitId="@string/google_ads_banner2"
         android:layout_marginTop="@dimen/spacing_24" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -108,6 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_16"
+        android:layout_marginHorizontal="@dimen/spacing_16"
         tools:itemCount="3"
         tools:listitem="@layout/layout_list_item_details" />
 
