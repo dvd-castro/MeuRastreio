@@ -1,0 +1,51 @@
+ext.baseDependencies = [
+        'core' : 'androidx.core:core-ktx:1.8.0',
+        'fragment' : 'androidx.fragment:fragment-ktx:1.4.1',
+        'appcompat' : 'androidx.appcompat:appcompat:1.5.1',
+        'material' : 'com.google.android.material:material:1.6.1',
+        'constraintLayout' : 'androidx.constraintlayout:constraintlayout:2.1.4',
+        'coroutines' : 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2',
+        'livedata' : 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1',
+        'viewmodel' : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1',
+        'splashscreen' : 'androidx.core:core-splashscreen:1.0.0',
+        'ads' : 'com.google.android.gms:play-services-ads:21.4.0',
+        'navigationFragment' : 'androidx.navigation:navigation-fragment-ktx:2.4.2',
+        'navigationUi' : 'androidx.navigation:navigation-ui-ktx:2.4.2'
+]
+
+ext.roomDependencies = [
+        'roomRuntime' : 'androidx.room:room-runtime:2.4.2',
+        'roomCompiler': 'androidx.room:room-compiler:2.4.2',
+        'roomKtx': 'androidx.room:room-ktx:2.4.2'
+]
+
+ext.koinDependencies = [
+        'koinCore' : 'io.insert-koin:koin-core:3.1.4',
+        'koinTest' : 'io.insert-koin:koin-test:3.1.4',
+        'koinAndroid' : 'io.insert-koin:koin-android:3.1.4',
+]
+
+ext.retrofitDependencies = [
+        'gson' : 'com.google.code.gson:gson:2.9.0',
+        'retrofit' : 'com.squareup.retrofit2:retrofit:2.9.0',
+        'retrofitConverterGson' : 'com.squareup.retrofit2:converter-gson:2.9.0',
+]
+
+ext.unitTestDependencies = [
+        'junit' : 'junit:junit:4.13.2',
+        'kotlinTest' : 'org.jetbrains.kotlin:kotlin-test:1.5.31',
+        'mockk' : 'io.mockk:mockk:1.13.2',
+        'coroutinesTest' : 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4',
+        'coreTesting' : 'androidx.arch.core:core-testing:2.1.0',
+]
+
+ext.lottieDependence = [
+        'lottie' : "com.airbnb.android:lottie:3.4.0"
+]
+
+ext.firebaseDependencies = [
+        'firebaseAnalytics' : 'com.google.firebase:firebase-analytics:21.2.0',
+        'firebaseCrashlytics' : 'com.google.firebase:firebase-crashlytics-ktx:18.3.2',
+        'firebaseAnalyticsKTX' : 'com.google.firebase:firebase-analytics-ktx:21.2.0',
+        'firebasePerfomance' : 'com.google.firebase:firebase-perf-ktx:20.3.0',
+]

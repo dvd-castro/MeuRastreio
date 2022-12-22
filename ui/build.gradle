@@ -6,6 +6,8 @@ plugins {
 android {
     compileSdk 32
 
+    apply from: "$rootProject.projectDir/dependencies.gradle"
+
     defaultConfig {
         minSdk 23
         targetSdk 32
@@ -34,16 +36,15 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.6.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.fragment:fragment-ktx:1.4.1'
-    implementation "androidx.core:core-splashscreen:1.0.0"
-    implementation "com.airbnb.android:lottie:3.4.0"
+    implementation baseDependencies.core
+    implementation baseDependencies.fragment
+    implementation baseDependencies.appcompat
+    implementation baseDependencies.material
+    implementation baseDependencies.constraintLayout
+    implementation baseDependencies.coroutines
+    implementation baseDependencies.livedata
+    implementation baseDependencies.viewmodel
+    implementation baseDependencies.splashscreen
+
+    implementation lottieDependence.lottie
 }
