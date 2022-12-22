@@ -7,8 +7,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Meu Rastreio"
 include ':app'
-include ':features'
-include ':features:inserttracking'
 include ':ui'
 include ':data'
+include ':features'
 include ':features:trackingdetails'
+include ':features:inserttracking'
+
