@@ -105,11 +105,11 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel, pr
                 setTitle(getString(R.string.title_atencao))
                 setMessage(getString(R.string.message_deseja_excluir_o_item))
 
-                setPositiveButton(getString(R.string.action_to_confirm)) { dialog, id ->
+                setPositiveButton(getString(R.string.action_to_confirm)) { _, _ ->
                     viewModel.delete(tracking.code)
                 }
 
-                setNegativeButton(getString(R.string.action_to_cancel)) { dialog, id ->
+                setNegativeButton(getString(R.string.action_to_cancel)) { dialog, _ ->
                     dialog.cancel()
                 }
             }
