@@ -1,4 +1,4 @@
-package br.com.davidcastro.data
+package br.com.davidcastro.meurastreio.tests
 
 import org.junit.Test
 
