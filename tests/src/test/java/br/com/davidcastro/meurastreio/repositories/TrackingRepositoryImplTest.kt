@@ -17,7 +17,7 @@ internal class TrackingRepositoryImplTest {
 
     private val trackingApi: TrackingApi = mockk()
     private val repository: TrackingRepositoryImpl = TrackingRepositoryImpl(trackingApi)
-    private val response = Response.success(mockk<TrackingModel>())
+    private val response: Response<TrackingModel> = mockk()
 
     @Test
     fun `when get tracking has success`() = runTest {
