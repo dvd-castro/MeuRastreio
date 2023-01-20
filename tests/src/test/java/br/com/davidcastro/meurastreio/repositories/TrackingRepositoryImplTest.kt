@@ -10,6 +10,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import retrofit2.Response
+import kotlin.test.assertFailsWith
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class TrackingRepositoryImplTest {
@@ -19,15 +20,28 @@ internal class TrackingRepositoryImplTest {
     private val response = Response.success(mockk<TrackingModel>())
 
     @Test
-    fun `when get tracking with success`() = runTest {
+    fun `when get tracking has success`() = runTest {
         val expectedResult = response
 
         coEvery {
             trackingApi.getTracking(any(), any(), any())
         } returns response
 
-        val result = repository.getTracking("")
+        val result = getTracking()
 
         Assert.assertEquals(expectedResult, result)
     }
+
+    @Test(expected = Throwable::class)
+    fun `when get tracking has exception`() = runTest {
+
+        coEvery {
+            getTracking()
+        } throws Exception()
+
+        assertFailsWith<Throwable> { getTracking() }
+    }
+
+    private suspend fun getTracking() =
+        repository.getTracking("")
 }
