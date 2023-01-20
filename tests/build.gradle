@@ -39,11 +39,13 @@ dependencies {
     implementation baseDependencies.livedata
     implementation baseDependencies.viewmodel
 
-    testImplementation unitTestDependencies.junit
+    androidTestImplementation unitTestDependencies.junit
     testImplementation unitTestDependencies.kotlinTest
     testImplementation unitTestDependencies.mockk
     testImplementation unitTestDependencies.coroutinesTest
     testImplementation unitTestDependencies.coreTesting
+
+    implementation retrofitDependencies.retrofit
 
     implementation project(path: ':app')
     implementation project(path: ':data')
