@@ -27,21 +27,8 @@ internal class TrackingRepositoryImplTest {
             trackingApi.getTracking(any(), any(), any())
         } returns response
 
-        val result = getTracking()
+        val result =   repository.getTracking("")
 
         Assert.assertEquals(expectedResult, result)
     }
-
-    @Test(expected = Throwable::class)
-    fun `when get tracking has exception`() = runTest {
-
-        coEvery {
-            getTracking()
-        } throws Exception()
-
-        assertFailsWith<Throwable> { getTracking() }
-    }
-
-    private suspend fun getTracking() =
-        repository.getTracking("")
 }

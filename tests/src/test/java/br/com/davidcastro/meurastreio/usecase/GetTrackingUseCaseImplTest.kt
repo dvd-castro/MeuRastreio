@@ -22,7 +22,7 @@ internal class GetTrackingUseCaseImplTest {
     private val trackingModel = Gson().fromJson(trackingRealResponseMock, TrackingModel::class.java)
 
     @Test
-    fun `when get tracking returns a tracking`() = runTest{
+    fun `when get tracking returns a tracking`() = runTest {
         val expectedResult = trackingModel
 
         coEvery {
@@ -34,4 +34,16 @@ internal class GetTrackingUseCaseImplTest {
         assertEquals(expectedResult, result)
     }
 
+    @Test
+    fun `when get tracking returns a error`() = runTest {
+        val expectedResult = null
+
+        coEvery {
+            repository.getTracking(any())
+        } returns Response.success(null)
+
+        val result = useCase.getTracking("")
+
+        assertEquals(expectedResult, result)
+    }
 }
