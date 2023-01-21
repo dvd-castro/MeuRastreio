@@ -46,6 +46,8 @@ dependencies {
     testImplementation unitTestDependencies.coreTesting
 
     implementation retrofitDependencies.retrofit
+    implementation retrofitDependencies.gson
+    implementation retrofitDependencies.retrofitConverterGson
 
     implementation project(path: ':app')
     implementation project(path: ':data')
