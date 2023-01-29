@@ -7,10 +7,11 @@ class GetTrackingUseCaseImpl(private val repository: TrackingRepository): GetTra
 
     override suspend fun getTracking(code: String): TrackingModel? {
         val result = repository.getTracking(code)
-        return if(
+
+        return if (
             result.isSuccessful && result.body() != null &&
-            result.body()?.events?.isNotEmpty() == true)
-        {
+            result.body()?.events?.isNotEmpty() == true
+        ) {
             configStatusAndEvents(result.body())
         } else {
             null

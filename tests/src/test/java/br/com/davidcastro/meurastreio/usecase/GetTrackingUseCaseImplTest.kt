@@ -35,7 +35,7 @@ internal class GetTrackingUseCaseImplTest {
     }
 
     @Test
-    fun `when get tracking returns a error`() = runTest {
+    fun `when get tracking returns a null`() = runTest {
         val expectedResult = null
 
         coEvery {
