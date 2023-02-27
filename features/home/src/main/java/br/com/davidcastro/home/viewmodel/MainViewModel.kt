@@ -1,11 +1,10 @@
-package br.com.davidcastro.meurastreio.viewModel
+package br.com.davidcastro.home.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.davidcastro.data.model.TrackingList
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.data.repository.TrackingDaoRepository
 import br.com.davidcastro.data.usecase.GetTrackingUseCase

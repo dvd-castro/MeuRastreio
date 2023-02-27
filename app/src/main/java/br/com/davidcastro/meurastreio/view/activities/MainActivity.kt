@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import br.com.davidcastro.meurastreio.R
-import br.com.davidcastro.meurastreio.view.fragments.MainFragment
+import br.com.davidcastro.home.view.fragments.HomeFragment
 import com.google.android.gms.ads.MobileAds
 
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment())
+                .replace(R.id.container, HomeFragment())
                 .commitNow()
         }
 

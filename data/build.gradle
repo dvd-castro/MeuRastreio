@@ -4,18 +4,17 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
-    id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     apply from: "$rootProject.projectDir/dependencies.gradle"
 
     defaultConfig {
         minSdk 23
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -50,7 +49,7 @@ dependencies {
     implementation retrofitDependencies.retrofit
     implementation retrofitDependencies.retrofitConverterGson
 
-    implementation firebaseDependencies.firebaseAnalytics
+    implementation platform(firebaseDependencies.firebaseBom)
     implementation firebaseDependencies.firebaseCrashlytics
     implementation firebaseDependencies.firebaseAnalyticsKTX
 }

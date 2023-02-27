@@ -8,7 +8,7 @@ ext.baseDependencies = [
         'livedata' : 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1',
         'viewmodel' : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1',
         'splashscreen' : 'androidx.core:core-splashscreen:1.0.0',
-        'ads' : 'com.google.android.gms:play-services-ads:21.4.0',
+        'ads' : 'com.google.android.gms:play-services-ads:21.5.0',
         'navigationFragment' : 'androidx.navigation:navigation-fragment-ktx:2.4.2',
         'navigationUi' : 'androidx.navigation:navigation-ui-ktx:2.4.2'
 ]
@@ -44,8 +44,8 @@ ext.lottieDependence = [
 ]
 
 ext.firebaseDependencies = [
-        'firebaseAnalytics' : 'com.google.firebase:firebase-analytics:21.2.0',
-        'firebaseCrashlytics' : 'com.google.firebase:firebase-crashlytics-ktx:18.3.2',
-        'firebaseAnalyticsKTX' : 'com.google.firebase:firebase-analytics-ktx:21.2.0',
-        'firebasePerfomance' : 'com.google.firebase:firebase-perf-ktx:20.3.0',
+        'firebaseBom' : 'com.google.firebase:firebase-bom:31.2.0',
+        'firebaseCrashlytics' : 'com.google.firebase:firebase-crashlytics-ktx',
+        'firebaseAnalyticsKTX' : 'com.google.firebase:firebase-analytics-ktx',
+        'firebasePerfomance' : 'com.google.firebase:firebase-perf-ktx',
 ]

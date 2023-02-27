@@ -1,4 +1,4 @@
-package br.com.davidcastro.meurastreio.view.adapters
+package br.com.davidcastro.home.view.adapters
 
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.davidcastro.data.model.TrackingModel
-import br.com.davidcastro.meurastreio.R
-import br.com.davidcastro.meurastreio.view.listeners.ClickListener
+import br.com.davidcastro.home.R
+import br.com.davidcastro.home.view.listeners.ClickListener
 import br.com.davidcastro.ui.databinding.LayoutListItemRastreioBinding
 import br.com.davidcastro.ui.utils.UiUtils
 
-class TrackingAdapter(private val listener: ClickListener): ListAdapter<TrackingModel, TrackingViewHolder>(DiffUtil) {
+class TrackingAdapter(private val listener: ClickListener): ListAdapter<TrackingModel, TrackingViewHolder>(
+    DiffUtil
+) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackingViewHolder =
         TrackingViewHolder(TrackingViewHolder.inflateViewBinding(parent))
 

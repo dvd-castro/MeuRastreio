@@ -1,17 +1,17 @@
-package br.com.davidcastro.meurastreio.view.fragments
+package br.com.davidcastro.home.view.fragments
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
+import br.com.davidcastro.home.R
+import br.com.davidcastro.home.databinding.FragmentHomeBinding
 import br.com.davidcastro.inserttracking.view.fragments.InsertTrackingBottomSheetFragment
 import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
-import br.com.davidcastro.meurastreio.R
-import br.com.davidcastro.meurastreio.databinding.FragmentMainBinding
-import br.com.davidcastro.meurastreio.view.adapters.TrackingAdapter
-import br.com.davidcastro.meurastreio.view.listeners.ClickListener
-import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import br.com.davidcastro.home.view.adapters.TrackingAdapter
+import br.com.davidcastro.home.view.listeners.ClickListener
+import br.com.davidcastro.home.viewmodel.MainViewModel
 import br.com.davidcastro.trackingdetails.listeners.OnCloseBottomSheetDialogFragment
 import br.com.davidcastro.trackingdetails.view.fragments.TrackingDetailsBottomSheetFragment
 import br.com.davidcastro.ui.utils.UiUtils.showErrorSnackbar
@@ -19,11 +19,11 @@ import br.com.davidcastro.ui.utils.UiUtils.showSnackbar
 import com.google.android.gms.ads.AdRequest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBottomSheetDialogFragment {
+class HomeFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBottomSheetDialogFragment {
 
     private val viewModel: MainViewModel by viewModel()
 
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentHomeBinding
     private val trackingAdapterCompleted = TrackingAdapter(this)
     private val trackingAdapterInProgress = TrackingAdapter(this)
 
@@ -31,7 +31,7 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBo
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -134,7 +134,7 @@ class MainFragment: Fragment(), ClickListener, InsertFragmentListener, OnCloseBo
     }
 
     private fun openInsertTrackingFragment() {
-        val modalBottomSheet = InsertTrackingBottomSheetFragment(this@MainFragment)
+        val modalBottomSheet = InsertTrackingBottomSheetFragment(this@HomeFragment)
         modalBottomSheet.showNow(parentFragmentManager, InsertTrackingBottomSheetFragment.TAG)
     }
 

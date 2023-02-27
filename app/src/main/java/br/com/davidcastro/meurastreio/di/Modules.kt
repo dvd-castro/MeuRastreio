@@ -9,7 +9,7 @@ import br.com.davidcastro.data.repository.TrackingDaoRepositoryImpl
 import br.com.davidcastro.data.repository.TrackingRepository
 import br.com.davidcastro.data.repository.TrackingRepositoryImpl
 import br.com.davidcastro.data.usecase.*
-import br.com.davidcastro.meurastreio.viewModel.MainViewModel
+import br.com.davidcastro.home.viewmodel.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

@@ -8,14 +8,14 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     apply from: "$rootProject.projectDir/dependencies.gradle"
 
     defaultConfig {
         applicationId "br.com.davidcastro.meurastreio"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 42
         versionName "4.2"
 
@@ -61,7 +61,7 @@ dependencies {
     kapt roomDependencies.roomCompiler
     implementation roomDependencies.roomKtx
 
-    implementation firebaseDependencies.firebaseAnalytics
+    implementation platform(firebaseDependencies.firebaseBom)
     implementation firebaseDependencies.firebaseCrashlytics
     implementation firebaseDependencies.firebaseAnalyticsKTX
     implementation firebaseDependencies.firebasePerfomance
@@ -74,6 +74,7 @@ dependencies {
 
     implementation project(path: ':features:inserttracking')
     implementation project(path: ':features:trackingdetails')
+    implementation project(path: ':features:home')
     implementation project(path: ':ui')
     implementation project(path: ':data')
 }
