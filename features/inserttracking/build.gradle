@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -44,6 +46,10 @@ dependencies {
     implementation baseDependencies.appcompat
     implementation baseDependencies.material
     implementation baseDependencies.constraintLayout
+
+    implementation firebaseDependencies.firebaseAnalytics
+    implementation firebaseDependencies.firebaseCrashlytics
+    implementation firebaseDependencies.firebaseAnalyticsKTX
 
     implementation project(path: ':ui')
 }

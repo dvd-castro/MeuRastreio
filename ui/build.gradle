@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -48,4 +50,8 @@ dependencies {
     implementation baseDependencies.splashscreen
 
     implementation lottieDependence.lottie
+
+    implementation firebaseDependencies.firebaseAnalytics
+    implementation firebaseDependencies.firebaseCrashlytics
+    implementation firebaseDependencies.firebaseAnalyticsKTX
 }

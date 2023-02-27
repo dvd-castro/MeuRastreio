@@ -4,6 +4,8 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -47,4 +49,8 @@ dependencies {
     implementation retrofitDependencies.gson
     implementation retrofitDependencies.retrofit
     implementation retrofitDependencies.retrofitConverterGson
+
+    implementation firebaseDependencies.firebaseAnalytics
+    implementation firebaseDependencies.firebaseCrashlytics
+    implementation firebaseDependencies.firebaseAnalyticsKTX
 }
