@@ -32,7 +32,7 @@ ext.retrofitDependencies = [
 ]
 
 ext.unitTestDependencies = [
-        'junit' : 'junit:junit:4.13.2',
+        'junit' : 'junit:junit:4.12',
         'kotlinTest' : 'org.jetbrains.kotlin:kotlin-test:1.5.31',
         'mockk' : 'io.mockk:mockk:1.13.2',
         'coroutinesTest' : 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4',
