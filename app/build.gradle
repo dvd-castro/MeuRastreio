@@ -7,7 +7,18 @@ plugins {
     id 'com.google.firebase.firebase-perf'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\david\\Documents\\signature\\keystore.jks')
+            storePassword localProperties['PASSWORD']
+            keyAlias localProperties['KEY_ALIAS']
+            keyPassword localProperties['KEY_PASSWORD']
+        }
+    }
     compileSdk 33
 
     apply from: "$rootProject.projectDir/dependencies.gradle"
@@ -20,6 +31,9 @@ android {
         versionName "4.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
+
+        buildConfigField "String", "BASE_URL", localProperties['BASE_URL']
     }
 
     buildFeatures {

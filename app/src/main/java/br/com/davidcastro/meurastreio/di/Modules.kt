@@ -10,6 +10,7 @@ import br.com.davidcastro.data.repository.TrackingRepository
 import br.com.davidcastro.data.repository.TrackingRepositoryImpl
 import br.com.davidcastro.data.usecase.*
 import br.com.davidcastro.home.viewmodel.MainViewModel
+import br.com.davidcastro.meurastreio.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -20,7 +21,7 @@ val module = module {
 
     single <TrackingDaoRepository> { TrackingDaoRepositoryImpl(trackingDao = get()) }
 
-    single <TrackingApi> { RetrofitClient.getRetrofitInstance(TrackingApi::class.java, "https://api.linketrack.com/track/") }
+    single <TrackingApi> { RetrofitClient.getRetrofitInstance(TrackingApi::class.java, BuildConfig.BASE_URL) }
 
     single <TrackingRepository> { TrackingRepositoryImpl(api = get()) }
 
