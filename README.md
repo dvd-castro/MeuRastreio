@@ -21,7 +21,8 @@ Meu Rastreio
   </a>
 </p>
 
-<img  width="90%"  src="https://i.imgur.com/N6sUEFd.png">
+<img  width="30%"  src="https://i.imgur.com/XAIngTi.jpg">
+<img  width="30%"  src="https://i.imgur.com/Xoc3bDt.jpg">
 </div>
 
 ---
