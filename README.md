@@ -29,7 +29,7 @@ Meu Rastreio
 
 ### :rocket: Technologias utilizadas
 - [Kotlin](https://kotlinlang.org) - Linguagem utilizada
-- [Android](https://developer.android.com) - Plataforma
+- [MVVM] - Arquitetura
 - [View Binding](https://developer.android.com/topic/libraries/view-binding?hl=pt-br)
 - [Koin](https://insert-koin.io) - Injeção de dependências
 - [Room](https://developer.android.com/training/data-storage/room) - Banco de dados local
