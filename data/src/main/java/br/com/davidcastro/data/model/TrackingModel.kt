@@ -8,16 +8,6 @@ import kotlinx.parcelize.Parcelize
 
 class EventList: ArrayList<Evento>()
 
-class TrackingList(list: List<TrackingModel>): ArrayList<TrackingModel>() {
-
-    init {
-        this.addAll(list)
-    }
-
-    fun getAllTrackingCompleted(): List<TrackingModel> = this.filter { it.hasCompleted }
-    fun getAllTrackingInProgress(): List<TrackingModel> = this.filter { !it.hasCompleted }
-}
-
 @Parcelize
 data class TrackingModel(
     @SerializedName("codigo") val code: String,
@@ -29,8 +19,6 @@ data class TrackingModel(
     fun getLastEvent(): Evento = events.first()
 
     fun getLastEventDate(): String? = getLastEvent().date
-
-    fun getLastEventDateAndHour(): String = "${getLastEventDate()} - ${getLastEvent().hour}"
 
     fun getEventDateAndLocal():String = "${getLastEvent().date} - ${getLastEvent().local}"
 

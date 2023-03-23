@@ -4,8 +4,8 @@ import br.com.davidcastro.data.db.AppDatabase
 import br.com.davidcastro.data.db.dao.TrackingDao
 import br.com.davidcastro.data.repository.TrackingDaoRepository
 import br.com.davidcastro.data.repository.TrackingDaoRepositoryImpl
-import br.com.davidcastro.data.usecase.DeleteTrackingUseCase
-import br.com.davidcastro.data.usecase.DeleteTrackingUseCaseImpl
+import br.com.davidcastro.data.usecase.db.DeleteTrackingInDbUseCase
+import br.com.davidcastro.data.usecase.db.DeleteTrackingInDbUseCaseImpl
 import br.com.davidcastro.trackingdetails.viewmodel.TrackingDetailsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,9 +19,9 @@ object TrackingDetailsModule {
 
         single <TrackingDaoRepository> { TrackingDaoRepositoryImpl(trackingDao = get()) }
 
-        single<DeleteTrackingUseCase> { DeleteTrackingUseCaseImpl(trackingDaoRepository = get()) }
+        single<DeleteTrackingInDbUseCase> { DeleteTrackingInDbUseCaseImpl(trackingDaoRepository = get()) }
 
-        viewModel { TrackingDetailsViewModel(deleteTrackingUseCase = get()) }
+        viewModel { TrackingDetailsViewModel(deleteTrackingInDbUseCase = get()) }
     }
 
     fun inject() = loadKoinModules(modules)

@@ -4,7 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import br.com.davidcastro.data.usecase.ReloadAllTrackingUseCase
+import br.com.davidcastro.data.usecase.remote.ReloadAllTrackingUseCase
+import br.com.davidcastro.meurastreio.utils.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

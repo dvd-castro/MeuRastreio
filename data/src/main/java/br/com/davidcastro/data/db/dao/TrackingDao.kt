@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import br.com.davidcastro.data.db.entity.TrackingEntity
 
 @Dao
@@ -13,11 +12,8 @@ interface TrackingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(trackingEntity: TrackingEntity)
 
-    @Update
-    fun update(list: TrackingEntity)
-
     @Query("SELECT * FROM rastreio")
-    fun getAll(): MutableList<TrackingEntity>
+    fun getAll(): List<TrackingEntity>
 
     @Query("SELECT * FROM rastreio WHERE codigo = (:code)")
     fun get(code: String): TrackingEntity

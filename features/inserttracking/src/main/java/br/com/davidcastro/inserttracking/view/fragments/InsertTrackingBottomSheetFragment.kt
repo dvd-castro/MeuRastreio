@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import br.com.davidcastro.inserttracking.databinding.FragmentInsertTrackingBottomSheetBinding
-import br.com.davidcastro.inserttracking.view.listeners.InsertFragmentListener
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class InsertTrackingBottomSheetFragment(private val listener: InsertFragmentListener) : BottomSheetDialogFragment() {
+class InsertTrackingBottomSheetFragment(private val listener: (codigo: String, nome: String) -> Unit) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentInsertTrackingBottomSheetBinding
 
@@ -48,7 +47,7 @@ class InsertTrackingBottomSheetFragment(private val listener: InsertFragmentList
     }
 
     private fun getEditTextFields() {
-        listener.sendTrackingCode(
+        listener.invoke(
             getInputCodeText(),
             getInputNameText()
         )

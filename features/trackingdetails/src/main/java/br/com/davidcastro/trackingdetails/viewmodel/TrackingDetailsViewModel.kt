@@ -5,10 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.davidcastro.data.usecase.DeleteTrackingUseCase
+import br.com.davidcastro.data.usecase.db.DeleteTrackingInDbUseCase
 import kotlinx.coroutines.launch
 
-class TrackingDetailsViewModel(private val deleteTrackingUseCase: DeleteTrackingUseCase): ViewModel() {
+class TrackingDetailsViewModel(private val deleteTrackingInDbUseCase: DeleteTrackingInDbUseCase): ViewModel() {
 
     private var _hasDeleted = MutableLiveData(false)
     var hasDeleted: LiveData<Boolean> = _hasDeleted
@@ -16,7 +16,7 @@ class TrackingDetailsViewModel(private val deleteTrackingUseCase: DeleteTracking
     fun delete(code: String) {
         viewModelScope.launch {
             try {
-                deleteTrackingUseCase.deleteTracking(code)
+                deleteTrackingInDbUseCase.deleteTracking(code)
                 _hasDeleted.postValue(true)
             } catch (ex: Exception) {
                 Log.d("###","$ex")

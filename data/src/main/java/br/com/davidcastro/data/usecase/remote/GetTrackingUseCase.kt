@@ -1,4 +1,4 @@
-package br.com.davidcastro.data.usecase
+package br.com.davidcastro.data.usecase.remote
 
 import br.com.davidcastro.data.model.TrackingModel
 

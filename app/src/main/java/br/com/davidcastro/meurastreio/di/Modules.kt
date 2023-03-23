@@ -8,7 +8,11 @@ import br.com.davidcastro.data.repository.TrackingDaoRepository
 import br.com.davidcastro.data.repository.TrackingDaoRepositoryImpl
 import br.com.davidcastro.data.repository.TrackingRepository
 import br.com.davidcastro.data.repository.TrackingRepositoryImpl
-import br.com.davidcastro.data.usecase.*
+import br.com.davidcastro.data.usecase.db.*
+import br.com.davidcastro.data.usecase.remote.GetTrackingUseCase
+import br.com.davidcastro.data.usecase.remote.GetTrackingUseCaseImpl
+import br.com.davidcastro.data.usecase.remote.ReloadAllTrackingUseCase
+import br.com.davidcastro.data.usecase.remote.ReloadAllTrackingUseCaseImpl
 import br.com.davidcastro.home.viewmodel.MainViewModel
 import br.com.davidcastro.meurastreio.BuildConfig
 import org.koin.android.ext.koin.androidContext
@@ -27,10 +31,17 @@ val module = module {
 
     single <GetTrackingUseCase> { GetTrackingUseCaseImpl(repository = get()) }
 
+    single <GetAllTrackingsInDbUseCase> { GetAllTrackingsInDbUseCaseImpl(trackingDaoRepository = get()) }
+
+    single <InsertTrackingInDbUseCase> { InsertTrackingInDbUseCaseImpl(trackingDaoRepository = get()) }
+
+    single <ContainsTrackingInDbUseCase> { ContainsTrackingInDbUseCaseImpl(trackingDaoRepository = get())}
+
     single <ReloadAllTrackingUseCase> {
         ReloadAllTrackingUseCaseImpl(
             getTrackingUseCase = get(),
-            trackingDaoRepository = get()
+            getAllTrackingsInDbUseCase = get(),
+            insertTrackingInDbUseCase = get()
         )
     }
 
@@ -38,7 +49,9 @@ val module = module {
         MainViewModel(
             getTrackingUseCase = get(),
             reloadAllTrackingUseCase = get(),
-            trackingDaoRepository = get()
+            getAllTrackingsInDbUseCase = get(),
+            insertTrackingInDbUseCase = get(),
+            containsTrackingInDbUseCase = get()
         )
     }
 }

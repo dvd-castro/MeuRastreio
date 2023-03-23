@@ -1,4 +1,4 @@
-package br.com.davidcastro.meurastreio
+package br.com.davidcastro.meurastreio.utils
 
 import android.app.PendingIntent
 import android.content.Context
@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.view.activities.MainActivity
 
 object Utils {

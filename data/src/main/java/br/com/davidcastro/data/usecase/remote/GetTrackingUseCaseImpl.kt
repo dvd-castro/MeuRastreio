@@ -1,15 +1,18 @@
-package br.com.davidcastro.data.usecase
+package br.com.davidcastro.data.usecase.remote
 
 import br.com.davidcastro.data.model.TrackingModel
 import br.com.davidcastro.data.repository.TrackingRepository
 
-class GetTrackingUseCaseImpl(private val repository: TrackingRepository): GetTrackingUseCase {
+class GetTrackingUseCaseImpl(
+    private val repository: TrackingRepository
+    ): GetTrackingUseCase {
 
     override suspend fun getTracking(code: String): TrackingModel? {
         val result = repository.getTracking(code)
 
         return if (
-            result.isSuccessful && result.body() != null &&
+            result.isSuccessful &&
+            result.body() != null &&
             result.body()?.events?.isNotEmpty() == true
         ) {
             configStatusAndEvents(result.body())
