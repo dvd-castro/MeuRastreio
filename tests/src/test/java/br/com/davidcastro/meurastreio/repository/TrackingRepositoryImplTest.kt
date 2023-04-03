@@ -36,7 +36,7 @@ internal class TrackingRepositoryImplTest {
     }
 
     @Test
-    fun `when get tracking has error 500 with body null`() = runTest {
+    fun `when get tracking has a 500 error with body null`() = runTest {
 
         val expectedResult = Response.error<TrackingModel>(500, ResponseBody.create(null, ""))
 
@@ -50,7 +50,7 @@ internal class TrackingRepositoryImplTest {
     }
 
     @Test(expected = RuntimeException::class)
-    fun `when get tracking has exception`() = runTest {
+    fun `when get tracking has a exception`() = runTest {
 
         coEvery {
             trackingApi.getTracking(any(), any(), any())
