@@ -3,8 +3,8 @@ package br.com.davidcastro.meurastreio.repository
 import TrackingResponseRealMock
 import br.com.davidcastro.data.api.TrackingApi
 import br.com.davidcastro.data.model.TrackingModel
-import br.com.davidcastro.data.repository.TrackingRepository
-import br.com.davidcastro.data.repository.TrackingRepositoryImpl
+import br.com.davidcastro.data.repository.trackingrepository.TrackingRepository
+import br.com.davidcastro.data.repository.trackingrepository.TrackingRepositoryImpl
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

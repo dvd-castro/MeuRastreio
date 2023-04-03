@@ -1,4 +1,4 @@
-package br.com.davidcastro.data.usecase.db
+package br.com.davidcastro.data.usecase.db.containstrackingindbusecase
 
 interface ContainsTrackingInDbUseCase {
 

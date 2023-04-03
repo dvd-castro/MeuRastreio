@@ -1,7 +1,8 @@
-package br.com.davidcastro.data.usecase.remote
+package br.com.davidcastro.data.usecase.remote.reloadalltrackingusecase
 
-import br.com.davidcastro.data.usecase.db.GetAllTrackingsInDbUseCase
-import br.com.davidcastro.data.usecase.db.InsertTrackingInDbUseCase
+import br.com.davidcastro.data.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCase
+import br.com.davidcastro.data.usecase.db.inserttrackingindbusecase.InsertTrackingInDbUseCase
+import br.com.davidcastro.data.usecase.remote.gettrackingusecase.GetTrackingUseCase
 import br.com.davidcastro.data.utils.getAllTrackingInProgress
 
 class ReloadAllTrackingUseCaseImpl(

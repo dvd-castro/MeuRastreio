@@ -2,9 +2,9 @@ package br.com.davidcastro.meurastreio.usecase
 
 import TrackingResponseRealMock
 import br.com.davidcastro.data.model.TrackingModel
-import br.com.davidcastro.data.repository.TrackingRepository
-import br.com.davidcastro.data.usecase.remote.GetTrackingUseCase
-import br.com.davidcastro.data.usecase.remote.GetTrackingUseCaseImpl
+import br.com.davidcastro.data.repository.trackingrepository.TrackingRepository
+import br.com.davidcastro.data.usecase.remote.gettrackingusecase.GetTrackingUseCase
+import br.com.davidcastro.data.usecase.remote.gettrackingusecase.GetTrackingUseCaseImpl
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

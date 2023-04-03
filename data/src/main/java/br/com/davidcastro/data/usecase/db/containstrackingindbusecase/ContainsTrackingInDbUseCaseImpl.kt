@@ -1,6 +1,6 @@
-package br.com.davidcastro.data.usecase.db
+package br.com.davidcastro.data.usecase.db.containstrackingindbusecase
 
-import br.com.davidcastro.data.repository.TrackingDaoRepository
+import br.com.davidcastro.data.repository.trackingdaorepository.TrackingDaoRepository
 
 class ContainsTrackingInDbUseCaseImpl(
     private val trackingDaoRepository: TrackingDaoRepository

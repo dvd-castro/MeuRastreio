@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.davidcastro.data.model.TrackingModel
-import br.com.davidcastro.data.usecase.db.ContainsTrackingInDbUseCase
-import br.com.davidcastro.data.usecase.db.GetAllTrackingsInDbUseCase
-import br.com.davidcastro.data.usecase.db.InsertTrackingInDbUseCase
-import br.com.davidcastro.data.usecase.remote.GetTrackingUseCase
-import br.com.davidcastro.data.usecase.remote.ReloadAllTrackingUseCase
+import br.com.davidcastro.data.usecase.db.containstrackingindbusecase.ContainsTrackingInDbUseCase
+import br.com.davidcastro.data.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCase
+import br.com.davidcastro.data.usecase.db.inserttrackingindbusecase.InsertTrackingInDbUseCase
+import br.com.davidcastro.data.usecase.remote.gettrackingusecase.GetTrackingUseCase
+import br.com.davidcastro.data.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCase
 import br.com.davidcastro.data.utils.getAllTrackingCompleted
 import br.com.davidcastro.data.utils.getAllTrackingInProgress
 import kotlinx.coroutines.launch

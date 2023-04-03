@@ -1,4 +1,4 @@
-package br.com.davidcastro.data.repository
+package br.com.davidcastro.data.repository.trackingrepository
 
 import br.com.davidcastro.data.api.TrackingApi
 import br.com.davidcastro.data.model.TrackingModel

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.davidcastro.data.usecase.db.DeleteTrackingInDbUseCase
+import br.com.davidcastro.data.usecase.db.deletetrackingindbusecase.DeleteTrackingInDbUseCase
 import kotlinx.coroutines.launch
 
 class TrackingDetailsViewModel(private val deleteTrackingInDbUseCase: DeleteTrackingInDbUseCase): ViewModel() {

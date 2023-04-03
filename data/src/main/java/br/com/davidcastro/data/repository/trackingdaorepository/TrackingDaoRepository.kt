@@ -1,4 +1,4 @@
-package br.com.davidcastro.data.repository
+package br.com.davidcastro.data.repository.trackingdaorepository
 
 import br.com.davidcastro.data.db.entity.TrackingEntity
 

@@ -1,7 +1,7 @@
-package br.com.davidcastro.data.usecase.remote
+package br.com.davidcastro.data.usecase.remote.gettrackingusecase
 
 import br.com.davidcastro.data.model.TrackingModel
-import br.com.davidcastro.data.repository.TrackingRepository
+import br.com.davidcastro.data.repository.trackingrepository.TrackingRepository
 
 class GetTrackingUseCaseImpl(
     private val repository: TrackingRepository
