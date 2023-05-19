@@ -1,9 +1,12 @@
 package br.com.davidcastro.meurastreio.utils
 
+import android.Manifest
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import br.com.davidcastro.meurastreio.R
@@ -27,6 +30,13 @@ object Utils {
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
+
+        if (Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.TIRAMISU &&
+            ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) !=
+            PackageManager.PERMISSION_GRANTED) {
+            return
+        }
 
         NotificationManagerCompat.from(context).notify(0, builder.build())
     }
