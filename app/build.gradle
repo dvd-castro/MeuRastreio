@@ -41,7 +41,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"])
+            resValue("string", "google_ads_banner1", localProperties["GOOGLE_ADS_BANNER_1"])
+            resValue("string", "google_ads_banner2", localProperties["GOOGLE_ADS_BANNER_2"])
+            resValue("string", "google_ads_banner3", localProperties["GOOGLE_ADS_BANNER_3"])
+        }
         release {
+            resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"])
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

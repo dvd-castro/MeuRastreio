@@ -25,6 +25,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 app:adSize="SMART_BANNER"
+                android:visibility="gone"
                 app:adUnitId="@string/google_ads_banner1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +38,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 app:adSize="SMART_BANNER"
-                app:adUnitId="@string/google_ads_banner3"
+                android:visibility="gone"
+                app:adUnitId="@string/google_ads_banner2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/adView" />

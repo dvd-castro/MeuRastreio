@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
+import br.com.davidcastro.home.BuildConfig
 import br.com.davidcastro.home.R
 import br.com.davidcastro.home.databinding.FragmentHomeBinding
 import br.com.davidcastro.home.view.adapters.TrackingAdapter
@@ -58,9 +59,13 @@ class HomeFragment: Fragment(), OnCloseBottomSheetDialogFragment {
     }
 
     private fun initAD() {
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
-        binding.adView2.loadAd(adRequest)
+        if(!BuildConfig.DEBUG) {
+            val adRequest = AdRequest.Builder().build()
+            binding.adView.visibility = View.VISIBLE
+            binding.adView2.visibility = View.VISIBLE
+            binding.adView.loadAd(adRequest)
+            binding.adView2.loadAd(adRequest)
+        }
     }
 
     private fun initObservers() {

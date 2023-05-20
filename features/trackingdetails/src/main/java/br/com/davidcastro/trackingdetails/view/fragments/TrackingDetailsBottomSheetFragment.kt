@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
+import br.com.davidcastro.trackingdetails.BuildConfig
 import br.com.davidcastro.trackingdetails.R
 import br.com.davidcastro.trackingdetails.databinding.FragmentTrackingDetailsBottomSheetBinding
 import br.com.davidcastro.trackingdetails.di.TrackingDetailsModule
@@ -63,8 +64,11 @@ class TrackingDetailsBottomSheetFragment(private val tracking: TrackingModel, pr
     }
 
     private fun initAD() {
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
+        if(!BuildConfig.DEBUG) {
+            val adRequest = AdRequest.Builder().build()
+            binding.adView.visibility = View.VISIBLE
+            binding.adView.loadAd(adRequest)
+        }
     }
 
     private fun setList() {
