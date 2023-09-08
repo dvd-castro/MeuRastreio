@@ -1,15 +1,9 @@
 package br.com.davidcastro.home.view.fragments
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.davidcastro.data.model.TrackingModel
@@ -31,7 +25,6 @@ class HomeFragment: Fragment(), OnCloseBottomSheetDialogFragment {
     private val viewModel: MainViewModel by viewModel()
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private val trackingAdapterCompleted = TrackingAdapter(::onItemClick)
     private val trackingAdapterInProgress = TrackingAdapter(::onItemClick)
 
@@ -41,15 +34,6 @@ class HomeFragment: Fragment(), OnCloseBottomSheetDialogFragment {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        requestPermissionLauncher =
-            registerForActivityResult(
-                ActivityResultContracts.RequestPermission()
-            ) {}
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,8 +66,6 @@ class HomeFragment: Fragment(), OnCloseBottomSheetDialogFragment {
         initAD()
         initObservers()
         getAllTrackingInDataBase()
-        setNotificationsChannel()
-        requestNotificationPermission()
     }
 
     private fun initRecyclerView() {
@@ -179,30 +161,6 @@ class HomeFragment: Fragment(), OnCloseBottomSheetDialogFragment {
     private fun onItemClick(tracking: TrackingModel) {
         setItemAsUpdatedFalse(tracking)
         TrackingDetailsBottomSheetFragment(tracking = tracking, this).showNow(parentFragmentManager, TrackingDetailsBottomSheetFragment.TAG)
-    }
-
-    private fun requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionLauncher.launch(
-                android.Manifest.permission.POST_NOTIFICATIONS
-            )
-        }
-    }
-
-    private fun setNotificationsChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.notification_channel_name)
-            val descriptionText = getString(R.string.notification_channel_description)
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel(getString(R.string.notification_channel_id), name, importance).apply {
-                description = descriptionText
-                setShowBadge(true)
-            }
-
-            val notificationManager: NotificationManager =
-                requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
     }
 
     private fun sendTrackingCode(code: String, name: String?) {
