@@ -27,13 +27,14 @@ android {
         applicationId "br.com.davidcastro.meurastreio"
         minSdk 23
         targetSdk 33
-        versionCode 45
-        versionName "4.5"
+        versionCode 46
+        versionName "1.4.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
 
         buildConfigField "String", "BASE_URL", localProperties['BASE_URL']
+        resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"])
     }
 
     buildFeatures {
@@ -42,16 +43,21 @@ android {
 
     buildTypes {
         debug {
-            resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"])
-            resValue("string", "google_ads_banner1", localProperties["GOOGLE_ADS_BANNER_1"])
-            resValue("string", "google_ads_banner2", localProperties["GOOGLE_ADS_BANNER_2"])
-            resValue("string", "google_ads_banner3", localProperties["GOOGLE_ADS_BANNER_3"])
+            debuggable true
+            shrinkResources false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue("string", "google_ads_banner1", localProperties["GOOGLE_ADS_BANNER_TEST"])
+            resValue("string", "google_ads_banner2", localProperties["GOOGLE_ADS_BANNER_TEST"])
+            resValue("string", "google_ads_banner3", localProperties["GOOGLE_ADS_BANNER_TEST"])
         }
         release {
-            resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"])
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            resValue("string", "google_ads_banner1", localProperties["GOOGLE_ADS_BANNER_1"])
+            resValue("string", "google_ads_banner2", localProperties["GOOGLE_ADS_BANNER_2"])
+            resValue("string", "google_ads_banner3", localProperties["GOOGLE_ADS_BANNER_3"])
         }
     }
 
