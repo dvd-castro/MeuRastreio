@@ -13,32 +13,28 @@ localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\david\\Documents\\signature\\keystore.jks')
+            storeFile file('keystore.jks')
             storePassword localProperties['PASSWORD']
             keyAlias localProperties['KEY_ALIAS']
             keyPassword localProperties['KEY_PASSWORD']
         }
     }
-    compileSdk 33
+    compileSdk 34
 
     apply from: "$rootProject.projectDir/dependencies.gradle"
 
     defaultConfig {
         applicationId "br.com.davidcastro.meurastreio"
         minSdk 23
-        targetSdk 33
+        targetSdk 34
         versionCode 46
-        versionName "1.4.6"
+        versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
 
         buildConfigField "String", "BASE_URL", localProperties['BASE_URL']
         resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"])
-    }
-
-    buildFeatures {
-        viewBinding true
     }
 
     buildTypes {
@@ -62,12 +58,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
     }
 
     namespace 'br.com.davidcastro.meurastreio'
