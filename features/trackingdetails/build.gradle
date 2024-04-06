@@ -5,6 +5,9 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
     namespace 'br.com.davidcastro.trackingdetails'
     compileSdk 34
@@ -17,6 +20,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"])
     }
 
     buildTypes {

@@ -8,7 +8,7 @@ ext.baseDependencies = [
         'livedata' : 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0',
         'viewmodel' : 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0',
         'splashscreen' : 'androidx.core:core-splashscreen:1.0.1',
-        'ads' : 'com.google.android.gms:play-services-ads:21.5.0',
+        'ads' : 'com.google.android.gms:play-services-ads:23.0.0',
         'navigationFragment' : 'androidx.navigation:navigation-fragment-ktx:2.7.7',
         'navigationUi' : 'androidx.navigation:navigation-ui-ktx:2.7.7'
 ]

@@ -48,4 +48,5 @@ Thumbs.db
 app/src/main/res/values/keys.xml
 app/release/output-metadata.json
 app/release/app-release.aab
-app/src/main/java/br/com/davidcastro/meurastreio/data/api/Constansts.kt
+/.idea/
+/app/keystore.jks

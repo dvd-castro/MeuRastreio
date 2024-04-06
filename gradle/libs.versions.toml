@@ -1,0 +1,72 @@
+[versions]
+coreSplashscreen = "1.0.1"
+firebaseBom = "32.8.0"
+firebaseCrashlyticsGradle = "2.9.9"
+googleServices = "4.4.1"
+gradle = "8.3.1"
+coreKtx = "1.12.0"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
+koinCore = "3.5.3"
+kotlinGradlePlugin = "1.8.0"
+lifecycleRuntimeKtx = "2.7.0"
+activityCompose = "1.8.2"
+composeBom = "2024.03.00"
+perfPlugin = "1.4.2"
+playServicesAds = "23.0.0"
+roomRuntime = "2.6.1"
+
+[libraries]
+
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
+google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
+firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
+perf-plugin = { module = "com.google.firebase:perf-plugin", version.ref = "perfPlugin" }
+
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+# Firebase
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-bom-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
+firebase-bom-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx"}
+firebase-bom-perf = { group = "com.google.firebase", name = "firebase-perf-ktx"}
+
+#Koin
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koinCore" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinCore" }
+
+# ROOM
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+
+[plugins]
+androidApplication = { id = "com.android.application" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android" }
+googleServices = { id = "com.google.gms.google-services" }
+firebaseCrashlytics = { id = "com.google.firebase.crashlytics" }
+firebasePerf = { id = "com.google.firebase.firebase-perf" }
+
+
+
+
