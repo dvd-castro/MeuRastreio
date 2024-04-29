@@ -7,6 +7,7 @@ plugins {
     id(libs.plugins.googleServices.get().pluginId)
     id(libs.plugins.firebaseCrashlytics.get().pluginId)
     id(libs.plugins.firebasePerf.get().pluginId)
+    id(libs.plugins.parcelize.get().pluginId)
 }
 
 val localPropertiesFile = rootProject.file("local.properties")
@@ -21,7 +22,7 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("/app/keystore.jks")
+            storeFile = file("keystore.jks")
             storePassword = localProperties.getProperty("PASSWORD")
             keyAlias = localProperties.getProperty("KEY_ALIAS")
             keyPassword = localProperties.getProperty("KEY_PASSWORD")
@@ -30,22 +31,26 @@ android {
 
     defaultConfig {
         applicationId = "br.com.davidcastro.meurastreio"
-        minSdk = 23
+        minSdk = 26
         targetSdk = 34
         versionCode = 46
         versionName = "3.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+
         buildConfigField("String", "BASE_URL", localProperties["BASE_URL"].toString())
+        buildConfigField("String", "API_USER", localProperties["API_USER"].toString())
+        buildConfigField("String", "API_TOKEN", localProperties["API_TOKEN"].toString())
         resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"].toString())
     }
 
     buildTypes {
         debug {
             isDebuggable = true
-            isShrinkResources = true
-            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -64,12 +69,17 @@ android {
             resValue("string", "google_ads_banner1", localProperties["GOOGLE_ADS_BANNER_1"].toString())
             resValue("string", "google_ads_banner2", localProperties["GOOGLE_ADS_BANNER_2"].toString())
             resValue("string", "google_ads_banner3", localProperties["GOOGLE_ADS_BANNER_3"].toString())
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
 
     kotlinOptions {
@@ -79,6 +89,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
     }
 }
 
@@ -91,6 +102,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -116,9 +128,11 @@ dependencies {
     implementation(libs.play.services.ads)
     implementation(libs.androidx.core.splashscreen)
 
-    implementation(project(":features:inserttracking"))
-    implementation(project(":features:trackingdetails"))
-    implementation(project(":features:home"))
-    implementation(project(":ui"))
-    implementation(project(":data"))
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    implementation(libs.lottie.compose)
 }

@@ -1,30 +1,38 @@
 [versions]
-coreSplashscreen = "1.0.1"
-firebaseBom = "32.8.0"
-firebaseCrashlyticsGradle = "2.9.9"
-googleServices = "4.4.1"
-gradle = "8.3.1"
-coreKtx = "1.12.0"
+gradle = "8.3.2"
+coreKtx = "1.13.0"
+kotlinGradlePlugin = "1.8.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-koinCore = "3.5.3"
-kotlinGradlePlugin = "1.8.0"
 lifecycleRuntimeKtx = "2.7.0"
-activityCompose = "1.8.2"
-composeBom = "2024.03.00"
+activityCompose = "1.9.0"
+composeBom = "2024.04.01"
+coreSplashscreen = "1.0.1"
+
+firebaseBom = "32.8.1"
+firebaseCrashlyticsGradle = "2.9.9"
+googleServices = "4.4.1"
+lottieCompose = "6.4.0"
 perfPlugin = "1.4.2"
 playServicesAds = "23.0.0"
+
+okhttp = "4.12.0"
+retrofit = "2.10.0"
+gson = "2.10.1"
+converterGson = "2.10.0"
+loggingInterceptor = "4.10.0"
+
 roomRuntime = "2.6.1"
+
+koinCore = "3.5.3"
 
 [libraries]
 
+# Core
 gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
-firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
-perf-plugin = { module = "com.google.firebase:perf-plugin", version.ref = "perfPlugin" }
-
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -46,6 +54,9 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-bom-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
 firebase-bom-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx"}
 firebase-bom-perf = { group = "com.google.firebase", name = "firebase-perf-ktx"}
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
+perf-plugin = { module = "com.google.firebase:perf-plugin", version.ref = "perfPlugin" }
+firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
 
 #Koin
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
@@ -58,6 +69,14 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 
+# RETROFIT E GSON
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "loggingInterceptor" }
+
+#ADS
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 
 [plugins]
@@ -66,7 +85,4 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android" }
 googleServices = { id = "com.google.gms.google-services" }
 firebaseCrashlytics = { id = "com.google.firebase.crashlytics" }
 firebasePerf = { id = "com.google.firebase.firebase-perf" }
-
-
-
-
+parcelize = { id = "kotlin-parcelize" }

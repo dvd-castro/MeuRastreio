@@ -7,10 +7,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Meu Rastreio"
 include (":app")
-include (":ui")
-include (":data")
-include (":features")
-include (":features:trackingdetails")
-include (":features:inserttracking")
-include (":tests")
-include (":features:home")
