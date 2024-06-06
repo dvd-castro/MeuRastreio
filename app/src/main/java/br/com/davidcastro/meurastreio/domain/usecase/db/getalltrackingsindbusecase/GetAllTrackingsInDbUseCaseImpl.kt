@@ -8,7 +8,7 @@ class GetAllTrackingsInDbUseCaseImpl(
     private val repository: TrackingRepository
     ): GetAllTrackingsInDbUseCase {
 
-    override suspend fun getAll(): Flow<List<TrackingDomain>> {
+    override suspend operator fun invoke(): Flow<List<TrackingDomain>> {
         return repository.getAll()
     }
 }

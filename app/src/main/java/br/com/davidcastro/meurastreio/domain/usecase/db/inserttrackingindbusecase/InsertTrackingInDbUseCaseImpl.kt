@@ -7,7 +7,7 @@ class InsertTrackingInDbUseCaseImpl(
     private val repository: TrackingRepository
     ): InsertTrackingInDbUseCase {
 
-    override suspend fun insert(tracking: TrackingDomain) {
+    override suspend operator fun invoke(tracking: TrackingDomain) {
         repository.insert(tracking)
     }
 }

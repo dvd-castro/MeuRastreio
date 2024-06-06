@@ -1,4 +1,4 @@
-package br.com.davidcastro.meurastreio.core.utils
+package br.com.davidcastro.meurastreio.core.utils.extensions
 
 import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
 

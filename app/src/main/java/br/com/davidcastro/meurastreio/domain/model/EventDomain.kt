@@ -10,6 +10,4 @@ data class EventDomain(
     val local: String?,
     val status: String?,
     val subStatus: ArrayList<String>?
-) : Parcelable {
-    fun getEventDateAndHourAndLocal():String = "$date $hour - $local"
-}
+) : Parcelable

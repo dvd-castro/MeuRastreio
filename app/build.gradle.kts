@@ -8,6 +8,7 @@ plugins {
     id(libs.plugins.firebaseCrashlytics.get().pluginId)
     id(libs.plugins.firebasePerf.get().pluginId)
     id(libs.plugins.parcelize.get().pluginId)
+    id(libs.plugins.ksp.get().pluginId)
 }
 
 val localPropertiesFile = rootProject.file("local.properties")
@@ -79,7 +80,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
 
     kotlinOptions {
@@ -102,6 +103,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -116,6 +119,7 @@ dependencies {
     implementation(libs.firebase.bom.crashlytics)
     implementation(libs.firebase.bom.perf)
 
+    implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
@@ -123,6 +127,7 @@ dependencies {
 
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.play.services.ads)

@@ -1,6 +1,5 @@
 package br.com.davidcastro.meurastreio.core.di
 
-import br.com.davidcastro.home.viewmodel.MainViewModel
 import br.com.davidcastro.meurastreio.BuildConfig
 import br.com.davidcastro.meurastreio.data.datasource.db.DbDataSource
 import br.com.davidcastro.meurastreio.data.datasource.db.DbDataSourceImpl
@@ -22,6 +21,7 @@ import br.com.davidcastro.meurastreio.domain.usecase.remote.gettrackingusecase.G
 import br.com.davidcastro.meurastreio.domain.usecase.remote.gettrackingusecase.GetTrackingUseCaseImpl
 import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCaseImpl
+import br.com.davidcastro.meurastreio.features.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
@@ -96,12 +96,11 @@ val module = module {
     }
 
     viewModel {
-        MainViewModel(
+        HomeViewModel(
             getTrackingUseCase = get(),
             reloadAllTrackingUseCase = get(),
             getAllTrackingsInDbUseCase = get(),
-            insertTrackingInDbUseCase = get(),
-            containsTrackingInDbUseCase = get()
+            insertTrackingInDbUseCase = get()
         )
     }
 }

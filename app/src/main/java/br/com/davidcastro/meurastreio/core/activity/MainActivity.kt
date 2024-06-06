@@ -14,15 +14,13 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.core.navigation.AppNavigation
 import br.com.davidcastro.meurastreio.core.theme.MeuRastreioTheme
 import com.google.android.gms.ads.MobileAds
+import org.koin.androidx.compose.KoinAndroidContext
+import org.koin.core.annotation.KoinExperimentalAPI
 
 class MainActivity : ComponentActivity() {
 
@@ -35,6 +33,7 @@ class MainActivity : ComponentActivity() {
         ) {}
     }
 
+    @OptIn(KoinExperimentalAPI::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -48,11 +47,8 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MeuRastreioTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Text("Android")
+                KoinAndroidContext {
+                    AppNavigation()
                 }
             }
         }

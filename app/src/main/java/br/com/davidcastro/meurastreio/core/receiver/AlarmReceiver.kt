@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCase
 import br.com.davidcastro.meurastreio.core.utils.Utils
+import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -29,7 +29,7 @@ class AlarmReceiver : BroadcastReceiver() {
     private suspend fun checkIfHaveUpdates(context: Context) {
         try {
             Log.d("###", "Trying to update")
-            if(reloadAllTrackingUseCase.reload()) {
+            if(reloadAllTrackingUseCase()) {
                 Utils.notifyUpdates(context)
             }
         } catch (ex: Exception) {

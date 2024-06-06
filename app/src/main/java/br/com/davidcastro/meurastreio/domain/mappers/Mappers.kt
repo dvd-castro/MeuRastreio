@@ -1,5 +1,6 @@
 package br.com.davidcastro.meurastreio.domain.mappers
 
+import br.com.davidcastro.meurastreio.core.utils.extensions.orFalse
 import br.com.davidcastro.meurastreio.data.service.db.entity.TrackingEntity
 import br.com.davidcastro.meurastreio.data.service.remote.response.TrackingResponse
 import br.com.davidcastro.meurastreio.domain.model.EventDomain
@@ -19,7 +20,7 @@ fun TrackingResponse.toDomain(): TrackingDomain {
         events = this.events.map {
             EventDomain(
                 date = it.date,
-                hour = it.date,
+                hour = it.hour,
                 local = it.local,
                 status = it.status,
                 subStatus = it.subStatus
@@ -30,7 +31,7 @@ fun TrackingResponse.toDomain(): TrackingDomain {
 
 fun TrackingEntity.toDomain(): TrackingDomain {
     return TrackingDomain(
-        code = this.codigo.orEmpty(),
+        code = this.codigo,
         events = Gson().fromJson(this.eventos, EventList::class.java),
         name = this.nome,
         hasUpdated = this.hasUpdated,
@@ -40,8 +41,8 @@ fun TrackingEntity.toDomain(): TrackingDomain {
 
 fun TrackingDomain.toEntity() = TrackingEntity(
     codigo = this.code,
-    nome = this.name ?: "",
+    nome = this.name.orEmpty(),
     eventos = Gson().toJson(this.events),
-    hasUpdated = this.hasUpdated,
-    hasCompleted = this.hasCompleted,
+    hasUpdated = this.hasUpdated.orFalse(),
+    hasCompleted = this.hasCompleted.orFalse(),
 )

@@ -3,5 +3,5 @@ package br.com.davidcastro.meurastreio.domain.usecase.db.inserttrackingindbuseca
 import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
 
 interface InsertTrackingInDbUseCase {
-    suspend fun insert(tracking: TrackingDomain)
+    suspend operator fun invoke(tracking: TrackingDomain)
 }
