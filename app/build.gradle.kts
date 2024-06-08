@@ -9,6 +9,7 @@ plugins {
     id(libs.plugins.firebasePerf.get().pluginId)
     id(libs.plugins.parcelize.get().pluginId)
     id(libs.plugins.ksp.get().pluginId)
+    id(libs.plugins.kotlinSerialization.get().pluginId)
 }
 
 val localPropertiesFile = rootProject.file("local.properties")
@@ -105,6 +106,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

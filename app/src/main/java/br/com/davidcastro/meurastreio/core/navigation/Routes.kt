@@ -1,7 +1,8 @@
 package br.com.davidcastro.meurastreio.core.navigation
 
-const val ARGS_KEY = "data"
+import kotlinx.serialization.Serializable
 
-enum class Routes(val route: String, val routeWithArgs: String) {
-    HomeScreen("home", ""),
+sealed class Routes {
+    @Serializable
+    data object Home: Routes()
 }

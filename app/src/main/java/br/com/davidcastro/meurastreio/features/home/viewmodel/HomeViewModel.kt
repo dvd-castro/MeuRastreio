@@ -61,7 +61,7 @@ class HomeViewModel (
                     )
                 )
             }
-        } catch (e: Exception) {
+        } catch (ex: Exception) {
             updateUiState(
                 uiState.value.copy(
                     hasError = true
@@ -84,7 +84,7 @@ class HomeViewModel (
                     insertTrackingInDbUseCase(it)
                 }
             }
-        } catch (e: Exception) {
+        } catch (ex: Exception) {
             updateUiState(
                 uiState.value.copy(
                     hasError = true
@@ -99,7 +99,7 @@ class HomeViewModel (
         try {
             showLoading(true)
             reloadAllTrackingUseCase()
-        } catch (e: Exception) {
+        } catch (ex: Exception) {
             updateUiState(
                 uiState.value.copy(
                     hasError = true

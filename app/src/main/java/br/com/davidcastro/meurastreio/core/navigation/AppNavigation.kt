@@ -13,9 +13,9 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.HomeScreen.route,
+        startDestination = Routes.Home,
     ) {
-        composable(Routes.HomeScreen.route) {
+        composable<Routes.Home> {
             HomeScreen()
         }
     }

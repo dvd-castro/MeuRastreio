@@ -6,6 +6,7 @@ kotlinGradlePlugin = "1.9.23"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
+kotlinxSerializationJson = "1.6.3"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.9.0"
 composeBom = "2024.04.01"
@@ -15,7 +16,7 @@ firebaseBom = "32.8.1"
 firebaseCrashlyticsGradle = "2.9.9"
 googleServices = "4.4.1"
 lottieCompose = "6.4.0"
-navigationCompose = "2.7.7"
+navigationCompose = "2.8.0-beta02"
 perfPlugin = "1.4.2"
 playServicesAds = "23.0.0"
 
@@ -56,6 +57,7 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-bom-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx"}
 firebase-bom-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx"}
 firebase-bom-perf = { group = "com.google.firebase", name = "firebase-perf-ktx"}
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 perf-plugin = { module = "com.google.firebase:perf-plugin", version.ref = "perfPlugin" }
 firebase-crashlytics-gradle = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsGradle" }
@@ -90,3 +92,4 @@ firebaseCrashlytics = { id = "com.google.firebase.crashlytics" }
 firebasePerf = { id = "com.google.firebase.firebase-perf" }
 parcelize = { id = "kotlin-parcelize" }
 ksp = { id = "com.google.devtools.ksp" }
+kotlinSerialization = { id = "kotlinx-serialization" }
