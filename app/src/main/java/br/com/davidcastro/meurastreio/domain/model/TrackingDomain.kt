@@ -2,9 +2,11 @@ package br.com.davidcastro.meurastreio.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
 class EventList: ArrayList<EventDomain>()
 
+@Serializable
 @Parcelize
 data class TrackingDomain(
     var code: String = "",

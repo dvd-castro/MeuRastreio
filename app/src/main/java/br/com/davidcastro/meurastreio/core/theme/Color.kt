@@ -13,8 +13,8 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val White = Color(0xFFFFFBFE)
-
 val Gray = Color(0xFF323C42)
+val Red = Color(0xFFC24343)
 
 @Composable
 fun GetPrimaryColor(): Color {

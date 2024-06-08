@@ -30,6 +30,7 @@ class HomeViewModel (
             is HomeAction.GetAllTracking -> getAllTrackings()
             is HomeAction.UpdateTrackingFilter -> updateTrackingFilter(event.filter)
             is HomeAction.ReloadAllTracking -> reloadAll()
+            is HomeAction.ShowError -> showError(event.enabled)
         }
     }
 
@@ -62,11 +63,7 @@ class HomeViewModel (
                 )
             }
         } catch (ex: Exception) {
-            updateUiState(
-                uiState.value.copy(
-                    hasError = true
-                )
-            )
+            showError(true)
         }
     }
 
@@ -85,11 +82,7 @@ class HomeViewModel (
                 }
             }
         } catch (ex: Exception) {
-            updateUiState(
-                uiState.value.copy(
-                    hasError = true
-                )
-            )
+            showError(true)
         } finally {
             showLoading(false)
         }
@@ -100,14 +93,18 @@ class HomeViewModel (
             showLoading(true)
             reloadAllTrackingUseCase()
         } catch (ex: Exception) {
-            updateUiState(
-                uiState.value.copy(
-                    hasError = true
-                )
-            )
+            showError(true)
         } finally {
             showLoading(false)
         }
+    }
+
+    private fun showError(enabled: Boolean) {
+        updateUiState(
+            uiState.value.copy(
+                hasError = enabled
+            )
+        )
     }
 
     private fun showLoading(enable: Boolean) {

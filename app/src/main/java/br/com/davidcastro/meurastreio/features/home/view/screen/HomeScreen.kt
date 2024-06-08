@@ -13,6 +13,7 @@ import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 import br.com.davidcastro.meurastreio.core.utils.Dimens
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeAction
+import br.com.davidcastro.meurastreio.features.home.view.components.ErrorDialog
 import br.com.davidcastro.meurastreio.features.home.view.components.HomeFilter
 import br.com.davidcastro.meurastreio.features.home.view.components.HomeToolbar
 import br.com.davidcastro.meurastreio.features.home.view.components.Loading
@@ -24,7 +25,6 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     homeViewModel: HomeViewModel = koinViewModel()
 ) {
-
     val items = StateEnum.entries.map { it.value }
     val uiState = homeViewModel.uiState.collectAsStateWithLifecycle().value
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -63,5 +63,15 @@ fun HomeScreen(
         }
     }
 
-    Loading(uiState.hasLoading)
+    if(uiState.hasError) {
+        ErrorDialog(
+            onDismissRequest = {
+                homeViewModel.dispatch(HomeAction.ShowError(false))
+            }
+        )
+    }
+
+    Loading(
+        enabled = uiState.hasLoading
+    )
 }
