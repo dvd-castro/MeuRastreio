@@ -100,7 +100,7 @@ val module = module {
             getTrackingUseCase = get(),
             reloadAllTrackingUseCase = get(),
             getAllTrackingsInDbUseCase = get(),
-            insertTrackingInDbUseCase = get()
+            containsTrackingInDbUseCase = get()
         )
     }
 }

@@ -3,5 +3,5 @@ package br.com.davidcastro.meurastreio.domain.usecase.db.containstrackingindbuse
 import kotlinx.coroutines.flow.Flow
 
 interface ContainsTrackingInDbUseCase {
-    suspend fun contains(code: String): Flow<Boolean>
+    suspend operator fun invoke(code: String): Flow<Boolean>
 }

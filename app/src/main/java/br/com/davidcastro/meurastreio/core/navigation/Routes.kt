@@ -9,6 +9,7 @@ sealed class Routes {
 
     @Serializable
     data class DetailScreen(
-        val tracking: TrackingDomain
+        val tracking: TrackingDomain,
+        val isFromResult: Boolean = false
     ): Routes()
 }

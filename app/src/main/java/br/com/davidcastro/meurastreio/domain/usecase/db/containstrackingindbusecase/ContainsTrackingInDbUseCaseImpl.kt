@@ -7,6 +7,6 @@ class ContainsTrackingInDbUseCaseImpl(
     private val repository: TrackingRepository
     ): ContainsTrackingInDbUseCase {
 
-    override suspend fun contains(code: String): Flow<Boolean> =
+    override suspend fun invoke(code: String): Flow<Boolean> =
         repository.contains(code)
 }

@@ -9,28 +9,50 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
+import br.com.davidcastro.meurastreio.core.navigation.Routes
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 import br.com.davidcastro.meurastreio.core.utils.Dimens
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeAction
+import br.com.davidcastro.meurastreio.features.home.mvi.HomeResult
 import br.com.davidcastro.meurastreio.features.home.view.components.ErrorDialog
 import br.com.davidcastro.meurastreio.features.home.view.components.HomeFilter
 import br.com.davidcastro.meurastreio.features.home.view.components.HomeToolbar
 import br.com.davidcastro.meurastreio.features.home.view.components.Loading
 import br.com.davidcastro.meurastreio.features.home.view.components.TrackingCardList
 import br.com.davidcastro.meurastreio.features.home.viewmodel.HomeViewModel
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
+    navController: NavHostController,
     homeViewModel: HomeViewModel = koinViewModel()
 ) {
     val items = StateEnum.entries.map { it.value }
-    val uiState = homeViewModel.uiState.collectAsStateWithLifecycle().value
     val keyboardController = LocalSoftwareKeyboardController.current
+    val uiState = homeViewModel.uiState.collectAsStateWithLifecycle().value
 
     LaunchedEffect(Unit) {
-        homeViewModel.dispatch(HomeAction.GetAllTracking)
+        homeViewModel.dispatch(
+            HomeAction.GetAllTracking
+        )
+    }
+
+    LaunchedEffect(homeViewModel.result) {
+        homeViewModel.result.collectLatest { result ->
+            when(result) {
+                is HomeResult.OpenDetailScreen -> {
+                    navController.navigate(
+                        Routes.DetailScreen(
+                            tracking = result.tracking,
+                            isFromResult = result.isFromResult
+                        )
+                    )
+                }
+            }
+        }
     }
 
     Scaffold(
@@ -38,11 +60,17 @@ fun HomeScreen(
         topBar = {
             HomeToolbar(
                 onReload = {
-                    homeViewModel.dispatch(HomeAction.ReloadAllTracking)
+                    homeViewModel.dispatch(
+                        HomeAction.ReloadAllTracking
+                    )
                 },
                 onSearch = {
                     keyboardController?.hide()
-                    homeViewModel.dispatch(HomeAction.GetTracking(it))
+                    homeViewModel.dispatch(
+                        HomeAction.CheckIfHasAlreadyInserted(
+                            code = it
+                        )
+                    )
                 }
             )
         }
@@ -54,7 +82,11 @@ fun HomeScreen(
                 .fillMaxWidth()
         ) {
             HomeFilter(items = items) {
-                homeViewModel.dispatch(HomeAction.UpdateTrackingFilter(it))
+                homeViewModel.dispatch(
+                    HomeAction.UpdateTrackingFilter(
+                        filter = it
+                    )
+                )
             }
 
             TrackingCardList(
@@ -66,7 +98,11 @@ fun HomeScreen(
     if(uiState.hasError) {
         ErrorDialog(
             onDismissRequest = {
-                homeViewModel.dispatch(HomeAction.ShowError(false))
+                homeViewModel.dispatch(
+                    HomeAction.ShowError(
+                        enabled = false
+                    )
+                )
             }
         )
     }

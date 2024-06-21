@@ -1,11 +1,13 @@
 package br.com.davidcastro.meurastreio.domain.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<ACTION, RESULT, STATE>: ViewModel() {
     private val _result = MutableSharedFlow<RESULT>()
@@ -20,5 +22,9 @@ abstract class BaseViewModel<ACTION, RESULT, STATE>: ViewModel() {
 
     protected fun updateUiState(uiState: STATE) {
         _uiState.update { uiState }
+    }
+
+    protected fun emitScreenResult(screen: RESULT) = viewModelScope.launch {
+        _result.emit(screen)
     }
 }

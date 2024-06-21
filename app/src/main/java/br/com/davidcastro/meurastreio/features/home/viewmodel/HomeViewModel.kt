@@ -4,21 +4,25 @@ import androidx.lifecycle.viewModelScope
 import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingCompleted
 import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingInProgress
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
+import br.com.davidcastro.meurastreio.domain.usecase.db.containstrackingindbusecase.ContainsTrackingInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCase
-import br.com.davidcastro.meurastreio.domain.usecase.db.inserttrackingindbusecase.InsertTrackingInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.remote.gettrackingusecase.GetTrackingUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCase
 import br.com.davidcastro.meurastreio.domain.viewmodel.BaseViewModel
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeAction
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeResult
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeState
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class HomeViewModel (
     private val getTrackingUseCase: GetTrackingUseCase,
     private val reloadAllTrackingUseCase: ReloadAllTrackingUseCase,
     private val getAllTrackingsInDbUseCase: GetAllTrackingsInDbUseCase,
-    private val insertTrackingInDbUseCase: InsertTrackingInDbUseCase,
+    private val containsTrackingInDbUseCase: ContainsTrackingInDbUseCase
 ): BaseViewModel<HomeAction, HomeResult, HomeState>() {
 
     override val initialState: HomeState
@@ -27,6 +31,7 @@ class HomeViewModel (
     override fun dispatch(event: HomeAction) {
         when (event) {
             is HomeAction.GetTracking -> getTracking(event.code)
+            is HomeAction.CheckIfHasAlreadyInserted -> hasAlreadyInsertedTracking(event.code)
             is HomeAction.GetAllTracking -> getAllTrackings()
             is HomeAction.UpdateTrackingFilter -> updateTrackingFilter(event.filter)
             is HomeAction.ReloadAllTracking -> reloadAll()
@@ -63,39 +68,59 @@ class HomeViewModel (
                 )
             }
         } catch (ex: Exception) {
-            showError(true)
+            showError(enabled = true)
+        }
+    }
+
+    private fun hasAlreadyInsertedTracking(code: String) = viewModelScope.launch {
+        containsTrackingInDbUseCase(code).collect { hasAlreadyInsertedTracking ->
+            if(hasAlreadyInsertedTracking) {
+                updateUiState(
+                    uiState.value.copy(
+                        hasAlreadyInserted = true
+                    )
+                )
+            } else {
+                dispatch(
+                    HomeAction.GetTracking(code = code)
+                )
+            }
         }
     }
 
     private fun getTracking(code: String) = viewModelScope.launch {
-        try {
-            showLoading(true)
-            getTrackingUseCase(code).collect {
-                if(it.events.isNullOrEmpty()) {
-                    updateUiState(
-                        uiState.value.copy(
-                            hasNotEvents = true
-                        )
+        getTrackingUseCase(code).onEach {
+            if(it.events.isNullOrEmpty()) {
+                updateUiState(
+                    uiState.value.copy(
+                        hasNotEvents = true
                     )
-                } else {
-                    insertTrackingInDbUseCase(it)
-                }
+                )
+            } else {
+                emitScreenResult(
+                    HomeResult.OpenDetailScreen(
+                        tracking = it,
+                        isFromResult = true
+                    )
+                )
             }
-        } catch (ex: Exception) {
-            showError(true)
-        } finally {
-            showLoading(false)
+        }.onStart {
+            showLoading(enabled = true)
+        }.onCompletion {
+            showLoading(enabled = false)
+        }.catch {
+            showError(enabled = true)
         }
     }
 
     private fun reloadAll() = viewModelScope.launch {
         try {
-            showLoading(true)
+            showLoading(enabled = true)
             reloadAllTrackingUseCase()
         } catch (ex: Exception) {
-            showError(true)
+            showError(enabled = true)
         } finally {
-            showLoading(false)
+            showLoading(enabled = false)
         }
     }
 
@@ -107,10 +132,10 @@ class HomeViewModel (
         )
     }
 
-    private fun showLoading(enable: Boolean) {
+    private fun showLoading(enabled: Boolean) {
         updateUiState(
             uiState = uiState.value.copy(
-                hasLoading = enable,
+                hasLoading = enabled,
             )
         )
     }
