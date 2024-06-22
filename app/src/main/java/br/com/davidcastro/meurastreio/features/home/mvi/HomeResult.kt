@@ -1,10 +1,7 @@
 package br.com.davidcastro.meurastreio.features.home.mvi
 
-import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
+import br.com.davidcastro.meurastreio.core.navigation.Routes
 
 sealed class HomeResult {
-    data class OpenDetailScreen(
-        val tracking: TrackingDomain,
-        val isFromResult: Boolean = false
-    ): HomeResult()
+    data class NavigateTo(val route: Routes): HomeResult()
 }

@@ -43,14 +43,7 @@ fun HomeScreen(
     LaunchedEffect(homeViewModel.result) {
         homeViewModel.result.collectLatest { result ->
             when(result) {
-                is HomeResult.OpenDetailScreen -> {
-                    navController.navigate(
-                        Routes.DetailScreen(
-                            tracking = result.tracking,
-                            isFromResult = result.isFromResult
-                        )
-                    )
-                }
+                is HomeResult.NavigateTo -> navController.navigate(result.route)
             }
         }
     }
@@ -91,7 +84,11 @@ fun HomeScreen(
 
             TrackingCardList(
                 list = uiState.currentSelectedFilter
-            )
+            ) {
+                homeViewModel.dispatch(
+                    HomeAction.NavigateTo(Routes.DetailScreen)
+                )
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package br.com.davidcastro.meurastreio.features.home.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import br.com.davidcastro.meurastreio.core.navigation.Routes
 import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingCompleted
 import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingInProgress
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
@@ -36,7 +37,12 @@ class HomeViewModel (
             is HomeAction.UpdateTrackingFilter -> updateTrackingFilter(event.filter)
             is HomeAction.ReloadAllTracking -> reloadAll()
             is HomeAction.ShowError -> showError(event.enabled)
+            is HomeAction.NavigateTo -> navigateTo(event.route)
         }
+    }
+
+    private fun navigateTo(routes: Routes) {
+        emitScreenResult(HomeResult.NavigateTo(routes))
     }
 
     private fun updateTrackingFilter(filter: String) {
@@ -97,12 +103,12 @@ class HomeViewModel (
                     )
                 )
             } else {
-                emitScreenResult(
-                    HomeResult.OpenDetailScreen(
-                        tracking = it,
-                        isFromResult = true
-                    )
-                )
+//                emitScreenResult(
+//                    HomeResult.OpenDetailScreen(
+//                        tracking = it,
+//                        isFromResult = true
+//                    )
+//                )
             }
         }.onStart {
             showLoading(enabled = true)

@@ -1,5 +1,6 @@
 package br.com.davidcastro.meurastreio.features.home.view.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,7 +27,8 @@ import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
 
 @Composable
 fun TrackingCardList(
-    list: List<TrackingDomain>
+    list: List<TrackingDomain>,
+    onItemClick: (TrackingDomain) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -42,7 +44,10 @@ fun TrackingCardList(
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = Dimens.dimen16dp),
+                    .padding(bottom = Dimens.dimen16dp)
+                    .clickable {
+                        onItemClick(tracking)
+                    },
                 colors = CardDefaults.cardColors(
                     containerColor = GetCardBackgroundColor()
                 )

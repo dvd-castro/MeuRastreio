@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.davidcastro.meurastreio.features.details.view.screen.DetailsScreen
 import br.com.davidcastro.meurastreio.features.home.view.screen.HomeScreen
 
 @Composable
@@ -18,6 +19,12 @@ fun AppNavigation(
         composable<Routes.HomeScreen> {
             HomeScreen(
                 navController = navController,
+            )
+        }
+
+        composable<Routes.DetailScreen> {
+            DetailsScreen(
+                navController = navController
             )
         }
     }
