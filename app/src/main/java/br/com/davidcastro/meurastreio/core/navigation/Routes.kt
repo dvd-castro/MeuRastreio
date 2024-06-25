@@ -1,6 +1,5 @@
 package br.com.davidcastro.meurastreio.core.navigation
 
-import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
 import kotlinx.serialization.Serializable
 
 sealed class Routes {
@@ -9,7 +8,7 @@ sealed class Routes {
 
     @Serializable
     data class DetailScreen(
-        val tracking: TrackingDomain,
+        val tracking: String,
         val isFromResult: Boolean = false
     ): Routes()
 }

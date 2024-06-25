@@ -13,6 +13,7 @@ import androidx.navigation.NavHostController
 import br.com.davidcastro.meurastreio.core.navigation.Routes
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 import br.com.davidcastro.meurastreio.core.utils.Dimens
+import br.com.davidcastro.meurastreio.core.utils.extensions.toStringArgs
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeAction
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeResult
@@ -86,7 +87,12 @@ fun HomeScreen(
                 list = uiState.currentSelectedFilter
             ) {
                 homeViewModel.dispatch(
-                    HomeAction.NavigateTo(Routes.DetailScreen)
+                    HomeAction.NavigateTo(
+                        Routes.DetailScreen(
+                            tracking = it.toStringArgs(),
+                            isFromResult = false
+                        )
+                    )
                 )
             }
         }

@@ -3,10 +3,10 @@ package br.com.davidcastro.meurastreio.domain.usecase.db.deletetrackingindbuseca
 import br.com.davidcastro.meurastreio.data.repository.TrackingRepository
 
 class DeleteTrackingInDbUseCaseImpl(
-    private val trackingRepository: TrackingRepository
+    private val repository: TrackingRepository
     ): DeleteTrackingInDbUseCase {
 
     override suspend fun deleteTracking(code: String) {
-        trackingRepository.delete(code = code)
+        repository.delete(code = code)
     }
 }
