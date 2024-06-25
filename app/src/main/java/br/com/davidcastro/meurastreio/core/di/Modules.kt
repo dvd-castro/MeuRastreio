@@ -13,6 +13,8 @@ import br.com.davidcastro.meurastreio.data.service.remote.api.TrackingApi
 import br.com.davidcastro.meurastreio.data.service.remote.client.RetrofitClient
 import br.com.davidcastro.meurastreio.domain.usecase.db.containstrackingindbusecase.ContainsTrackingInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.db.containstrackingindbusecase.ContainsTrackingInDbUseCaseImpl
+import br.com.davidcastro.meurastreio.domain.usecase.db.deletetrackingindbusecase.DeleteTrackingInDbUseCase
+import br.com.davidcastro.meurastreio.domain.usecase.db.deletetrackingindbusecase.DeleteTrackingInDbUseCaseImpl
 import br.com.davidcastro.meurastreio.domain.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCaseImpl
 import br.com.davidcastro.meurastreio.domain.usecase.db.inserttrackingindbusecase.InsertTrackingInDbUseCase
@@ -21,6 +23,7 @@ import br.com.davidcastro.meurastreio.domain.usecase.remote.gettrackingusecase.G
 import br.com.davidcastro.meurastreio.domain.usecase.remote.gettrackingusecase.GetTrackingUseCaseImpl
 import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCaseImpl
+import br.com.davidcastro.meurastreio.features.details.viewmodel.DetailsViewModel
 import br.com.davidcastro.meurastreio.features.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +90,12 @@ val module = module {
         )
     }
 
+    single <DeleteTrackingInDbUseCase> {
+        DeleteTrackingInDbUseCaseImpl(
+            repository = get()
+        )
+    }
+
     single <ReloadAllTrackingUseCase> {
         ReloadAllTrackingUseCaseImpl(
             getTrackingUseCase = get(),
@@ -100,7 +109,14 @@ val module = module {
             getTrackingUseCase = get(),
             reloadAllTrackingUseCase = get(),
             getAllTrackingsInDbUseCase = get(),
-            containsTrackingInDbUseCase = get()
+            containsTrackingInDbUseCase = get(),
+        )
+    }
+
+    viewModel {
+        DetailsViewModel(
+            insertTrackingInDbUseCase = get(),
+            deleteTrackingInDbUseCase = get()
         )
     }
 }

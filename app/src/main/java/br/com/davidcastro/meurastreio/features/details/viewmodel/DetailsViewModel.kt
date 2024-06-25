@@ -9,14 +9,12 @@ import br.com.davidcastro.meurastreio.features.details.mvi.DetailsState
 
 class DetailsViewModel(
     private val insertTrackingInDbUseCase: InsertTrackingInDbUseCase,
-    private val deleteTrackingInDbUseCase: DeleteTrackingInDbUseCase
+    private val deleteTrackingInDbUseCase: DeleteTrackingInDbUseCase,
 ): BaseViewModel<DetailsAction, DetailsResult, DetailsState>() {
     override val initialState: DetailsState
         get() = DetailsState()
 
     override fun dispatch(event: DetailsAction) {
-        when(event) {
 
-        }
     }
 }

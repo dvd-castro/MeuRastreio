@@ -8,10 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 import br.com.davidcastro.meurastreio.features.details.view.components.DetailsToolbar
+import br.com.davidcastro.meurastreio.features.details.viewmodel.DetailsViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DetailsScreen(
     navController: NavHostController,
+    detailsViewModel: DetailsViewModel = koinViewModel()
 ) {
     Scaffold(
         containerColor = GetSecondaryColor(),
