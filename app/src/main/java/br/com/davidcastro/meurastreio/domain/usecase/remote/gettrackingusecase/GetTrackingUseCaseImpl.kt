@@ -10,9 +10,7 @@ class GetTrackingUseCaseImpl(
     ): GetTrackingUseCase {
 
     override suspend fun invoke(code: String): Flow<TrackingDomain> {
-        val result = repository.getTracking(code)
-
-        return result.map { tracking ->
+        return repository.getTracking(code).map { tracking ->
             tracking.apply {
                 events?.find { it.status == "Objeto entregue ao destinatário" }?.let {
                     hasCompleted = true

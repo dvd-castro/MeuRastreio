@@ -4,19 +4,17 @@ import androidx.lifecycle.viewModelScope
 import br.com.davidcastro.meurastreio.core.navigation.Routes
 import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingCompleted
 import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingInProgress
+import br.com.davidcastro.meurastreio.core.utils.extensions.toStringArgs
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 import br.com.davidcastro.meurastreio.domain.usecase.db.containstrackingindbusecase.ContainsTrackingInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.remote.gettrackingusecase.GetTrackingUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase.ReloadAllTrackingUseCase
 import br.com.davidcastro.meurastreio.domain.viewmodel.BaseViewModel
+import br.com.davidcastro.meurastreio.features.home.mvi.ErrorType
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeAction
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeResult
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeState
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class HomeViewModel (
@@ -36,9 +34,17 @@ class HomeViewModel (
             is HomeAction.GetAllTracking -> getAllTrackings()
             is HomeAction.UpdateTrackingFilter -> updateTrackingFilter(event.filter)
             is HomeAction.ReloadAllTracking -> reloadAll()
-            is HomeAction.ShowError -> showError(event.enabled)
+            is HomeAction.ShowError -> showError(event.errorType)
             is HomeAction.NavigateTo -> navigateTo(event.route)
         }
+    }
+
+    private fun showError(errorType: ErrorType) {
+        updateUiState(
+            uiState.value.copy(
+                hasError = errorType
+            )
+        )
     }
 
     private fun navigateTo(routes: Routes) {
@@ -74,18 +80,14 @@ class HomeViewModel (
                 )
             }
         } catch (ex: Exception) {
-            showError(enabled = true)
+            showError(ErrorType.ErrorGetInDb)
         }
     }
 
     private fun hasAlreadyInsertedTracking(code: String) = viewModelScope.launch {
         containsTrackingInDbUseCase(code).collect { hasAlreadyInsertedTracking ->
             if(hasAlreadyInsertedTracking) {
-                updateUiState(
-                    uiState.value.copy(
-                        hasAlreadyInserted = true
-                    )
-                )
+                showError(ErrorType.ErrorHasAlreadyInserted)
             } else {
                 dispatch(
                     HomeAction.GetTracking(code = code)
@@ -95,27 +97,22 @@ class HomeViewModel (
     }
 
     private fun getTracking(code: String) = viewModelScope.launch {
-        getTrackingUseCase(code).onEach {
-            if(it.events.isNullOrEmpty()) {
-                updateUiState(
-                    uiState.value.copy(
-                        hasNotEvents = true
+        try {
+            showLoading(enabled = true)
+            getTrackingUseCase(code).collect {
+                emitScreenResult(
+                    HomeResult.NavigateTo(
+                        Routes.DetailScreen(
+                            tracking = it.toStringArgs(),
+                            isFromResult = true
+                        )
                     )
                 )
-            } else {
-//                emitScreenResult(
-//                    HomeResult.OpenDetailScreen(
-//                        tracking = it,
-//                        isFromResult = true
-//                    )
-//                )
             }
-        }.onStart {
-            showLoading(enabled = true)
-        }.onCompletion {
+        } catch (ex: Exception) {
+            showError(ErrorType.ErrorGetInRemote)
+        } finally {
             showLoading(enabled = false)
-        }.catch {
-            showError(enabled = true)
         }
     }
 
@@ -124,18 +121,10 @@ class HomeViewModel (
             showLoading(enabled = true)
             reloadAllTrackingUseCase()
         } catch (ex: Exception) {
-            showError(enabled = true)
+            showError(ErrorType.ErrorGetInRemote)
         } finally {
             showLoading(enabled = false)
         }
-    }
-
-    private fun showError(enabled: Boolean) {
-        updateUiState(
-            uiState.value.copy(
-                hasError = enabled
-            )
-        )
     }
 
     private fun showLoading(enabled: Boolean) {

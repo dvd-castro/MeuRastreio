@@ -9,12 +9,20 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.Red
 import br.com.davidcastro.meurastreio.core.utils.Dimens
 
+data class ErrorMessage(
+    val title: String = "",
+    val body: String = ""
+)
+
 @Composable
 fun ErrorDialog(
+    errorMessage: ErrorMessage,
     onDismissRequest: () -> Unit,
 ) {
     AlertDialog(
@@ -28,17 +36,17 @@ fun ErrorDialog(
             )
         },
         title = {
-            Text(text = "Código não encontrado")
+            Text(text = errorMessage.title)
         },
         text = {
-            Text(text = "Verifique o código, e tente novamente.")
+            Text(text = errorMessage.body)
         },
         onDismissRequest = {
             onDismissRequest()
         },
         confirmButton = {
             Text(
-                text = "Ok, entendi",
+                text = stringResource(R.string.action_ok),
                 modifier = Modifier.clickable {
                     onDismissRequest()
                 }

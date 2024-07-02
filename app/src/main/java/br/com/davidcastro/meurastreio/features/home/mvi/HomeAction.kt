@@ -17,7 +17,7 @@ sealed class HomeAction {
     ): HomeAction()
 
     data class ShowError(
-        val enabled: Boolean
+        val errorType: ErrorType
     ): HomeAction()
 
     data class UpdateTrackingFilter(val filter: String
