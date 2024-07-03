@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.davidcastro.meurastreio.core.utils.extensions.getArgs
 import br.com.davidcastro.meurastreio.core.utils.extensions.getArgsModel
+import br.com.davidcastro.meurastreio.core.utils.extensions.orFalse
 import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
 import br.com.davidcastro.meurastreio.features.details.view.screen.DetailsScreen
 import br.com.davidcastro.meurastreio.features.home.view.screen.HomeScreen
@@ -26,11 +27,13 @@ fun AppNavigation(
         }
 
         composable<Routes.DetailScreen> { backStackEntry ->
-            backStackEntry.getArgs<Boolean>("isFromResult")
-            backStackEntry.getArgsModel<TrackingDomain>("tracking")
-            DetailsScreen(
-                navController = navController
-            )
+            backStackEntry.getArgsModel<TrackingDomain>("tracking")?.let { tracking ->
+                DetailsScreen(
+                    isFromResult = backStackEntry.getArgs<Boolean>("isFromResult").orFalse(),
+                    tracking = tracking,
+                    navController = navController
+                )
+            }
         }
     }
 }

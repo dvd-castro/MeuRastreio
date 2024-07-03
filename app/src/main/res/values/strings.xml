@@ -32,12 +32,14 @@
     <string name="error_rastreio_internacional">Por limitação da Api, algumas informações de encomendas internacionais só estarão disponíveis ao chegar no Brasil!</string>
 
     <!--Actions -->
-    <string name="action_delete">Apagar</string>
     <string name="action_to_share">Compartilhar</string>
     <string name="action_to_add">Adicionar</string>
     <string name="action_to_config">Configurações</string>
     <string name="action_to_cancel">Cancelar</string>
     <string name="action_to_confirm">Confirmar</string>
+    <string name="action_go_bak">Voltar</string>
+    <string name="action_to_delete">Excluir</string>
+    <string name="action_to_save">Salvar</string>
 
     <!-- Titles-->
     <string name="title_adicionar_novo_rastreio">Adicionar um novo rastreio</string>
@@ -74,5 +76,6 @@
     <string name="error_title_ops_be_atention">Ops, atenção!</string>
     <string name="error_body_code_has_already_inserted">Código de rastreio já inserido.</string>
     <string name="title_result">Resultado</string>
-    <string name="action_go_bak">Voltar</string>
+    <string name="title_code">Código:</string>
+
 </resources>

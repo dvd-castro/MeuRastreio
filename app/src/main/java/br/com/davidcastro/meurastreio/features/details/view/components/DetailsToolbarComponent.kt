@@ -27,7 +27,7 @@ import br.com.davidcastro.meurastreio.core.utils.Dimens.size18sp
 
 @Composable
 fun DetailsToolbar(
-    title:String = stringResource(R.string.title_result),
+    title: String,
     onBackPress: () -> Unit
 ) {
     Box(
@@ -71,5 +71,5 @@ fun DetailsToolbar(
 @Preview
 @Composable
 private fun DetailsToolbarPreview() {
-    DetailsToolbar {}
+    DetailsToolbar(stringResource(id = R.string.title_result)) {}
 }
