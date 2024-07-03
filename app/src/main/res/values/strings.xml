@@ -73,4 +73,6 @@
     <string name="error_body_general_error">Problema na rede ou código incorreto, verifique e tente novamente!</string>
     <string name="error_title_ops_be_atention">Ops, atenção!</string>
     <string name="error_body_code_has_already_inserted">Código de rastreio já inserido.</string>
+    <string name="title_result">Resultado</string>
+    <string name="action_go_bak">Voltar</string>
 </resources>

@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.core.theme.GetFontColor
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.utils.Dimens.dimen16dp
@@ -25,6 +27,7 @@ import br.com.davidcastro.meurastreio.core.utils.Dimens.size18sp
 
 @Composable
 fun DetailsToolbar(
+    title:String = stringResource(R.string.title_result),
     onBackPress: () -> Unit
 ) {
     Box(
@@ -50,16 +53,15 @@ fun DetailsToolbar(
                 tint = GetFontColor()
             )
             Text(
-                text = "Voltar",
+                text = stringResource(R.string.action_go_bak),
                 color = GetFontColor(),
                 fontSize = size16sp
             )
         }
 
         Text(
-            modifier = Modifier
-                .align(Alignment.Center),
-            text = "Resultado",
+            modifier = Modifier.align(Alignment.Center),
+            text = title,
             fontWeight = FontWeight.Medium,
             fontSize = size18sp
         )
