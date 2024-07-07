@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
@@ -30,8 +29,6 @@ fun TrackingCardList(
     list: List<TrackingDomain>,
     onItemClick: (TrackingDomain) -> Unit
 ) {
-    val context = LocalContext.current
-
     LazyColumn(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -76,7 +73,6 @@ fun TrackingCardList(
                         fontWeight = FontWeight.Medium,
                         color = Color(
                             getTrackingStatusColor(
-                                context = context,
                                 status = lastEventStatus
                             )
                         )

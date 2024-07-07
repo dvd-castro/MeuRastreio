@@ -7,6 +7,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.text.Spanned
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -43,8 +45,10 @@ object Utils {
         NotificationManagerCompat.from(context).notify(0, builder.build())
     }
 
-    fun getTrackingStatusColor(context: Context, status: String): Int =
-        when(status) {
+    @Composable
+    fun getTrackingStatusColor(status: String): Int {
+        val context = LocalContext.current
+        return when(status) {
             context.getString(R.string.status_encaminhado) -> {
                 context.getColor(R.color.blue)
             }
@@ -55,6 +59,7 @@ object Utils {
                 context.getColor(R.color.orange)
             }
         }
+    }
 
     fun getHtmlString(text: String): Spanned =
         HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
