@@ -28,7 +28,9 @@ class DetailsViewModel(
             }
 
             is DetailsAction.ShareTracking -> {
-
+                emitScreenResult(
+                    DetailsResult.ShareTracking(event.trackingDomain)
+                )
             }
 
             is DetailsAction.ShowSetNameDialog -> {
@@ -48,27 +50,19 @@ class DetailsViewModel(
     private fun deleteTracking(
         code: String
     ) = viewModelScope.launch {
-        try {
-            deleteTrackingInDbUseCase(code)
-            emitScreenResult(
-                DetailsResult.ExitScreen
-            )
-        } catch (ex: Exception) {
-
-        }
+        deleteTrackingInDbUseCase(code)
+        emitScreenResult(
+            DetailsResult.ExitScreen
+        )
     }
 
     private fun saveTracking(
         trackingDomain: TrackingDomain
     ) = viewModelScope.launch {
-        try {
-            insertTrackingInDbUseCase(trackingDomain)
-            showSetNameDialog(false)
-            emitScreenResult(
-                DetailsResult.ExitScreen
-            )
-        } catch (ex: Exception) {
-
-        }
+        insertTrackingInDbUseCase(trackingDomain)
+        showSetNameDialog(false)
+        emitScreenResult(
+            DetailsResult.ExitScreen
+        )
     }
 }

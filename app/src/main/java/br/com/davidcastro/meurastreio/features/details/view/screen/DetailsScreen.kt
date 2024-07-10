@@ -163,9 +163,8 @@ fun DetailsContent(
                     title = stringResource(id = R.string.action_to_share),
                     icon = Icons.Filled.Share
                 ) {
-                    shareLastEvent(
-                        context = context,
-                        tracking = tracking
+                    detailsViewModel.dispatch(
+                        DetailsAction.ShareTracking(tracking)
                     )
                 }
 
