@@ -12,10 +12,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
+import br.com.davidcastro.meurastreio.commons.utils.extensions.toStringArgs
 import br.com.davidcastro.meurastreio.core.navigation.Routes
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
-import br.com.davidcastro.meurastreio.core.utils.Dimens
-import br.com.davidcastro.meurastreio.core.utils.extensions.toStringArgs
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 import br.com.davidcastro.meurastreio.features.home.mvi.ErrorType
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeAction
@@ -24,8 +24,8 @@ import br.com.davidcastro.meurastreio.features.home.view.components.ErrorDialog
 import br.com.davidcastro.meurastreio.features.home.view.components.ErrorMessage
 import br.com.davidcastro.meurastreio.features.home.view.components.HomeFilter
 import br.com.davidcastro.meurastreio.features.home.view.components.HomeToolbar
+import br.com.davidcastro.meurastreio.features.home.view.components.HomeTrackingCardList
 import br.com.davidcastro.meurastreio.features.home.view.components.Loading
-import br.com.davidcastro.meurastreio.features.home.view.components.TrackingCardList
 import br.com.davidcastro.meurastreio.features.home.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -87,7 +87,7 @@ fun HomeScreen(
                 )
             }
 
-            TrackingCardList(
+            HomeTrackingCardList(
                 list = uiState.currentSelectedFilter
             ) {
                 homeViewModel.dispatch(

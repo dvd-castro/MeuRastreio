@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.Red
-import br.com.davidcastro.meurastreio.core.utils.Dimens
 
 data class ErrorMessage(
     val title: String = "",

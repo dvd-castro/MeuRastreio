@@ -24,13 +24,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
-import br.com.davidcastro.meurastreio.core.utils.Dimens
 
 @Composable
 fun HomeToolbar(
@@ -57,14 +59,16 @@ fun HomeToolbar(
                 modifier = Modifier.padding(bottom = Dimens.dimen8dp)
             ) {
                 Text(
-                    text = "Meu Rastreio",
+                    text = stringResource(id = R.string.app_name),
                     fontSize = Dimens.size22sp,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.weight(1f)
                 )
 
                 IconButton(
-                    onClick = { onReload() }
+                    onClick = {
+                        onReload()
+                    }
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Refresh,

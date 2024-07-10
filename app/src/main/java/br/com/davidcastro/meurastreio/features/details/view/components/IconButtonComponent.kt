@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import br.com.davidcastro.meurastreio.core.utils.Dimens
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
 
 @Composable
 fun IconButtonComponent(

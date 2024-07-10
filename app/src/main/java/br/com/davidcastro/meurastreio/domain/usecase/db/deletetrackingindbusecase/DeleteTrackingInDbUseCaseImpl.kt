@@ -6,7 +6,7 @@ class DeleteTrackingInDbUseCaseImpl(
     private val repository: TrackingRepository
     ): DeleteTrackingInDbUseCase {
 
-    override suspend fun deleteTracking(code: String) {
+    override suspend operator fun invoke(code: String) {
         repository.delete(code = code)
     }
 }

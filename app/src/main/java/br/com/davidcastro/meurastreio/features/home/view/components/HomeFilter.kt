@@ -15,8 +15,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
-import br.com.davidcastro.meurastreio.core.utils.Dimens
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 
 @Composable

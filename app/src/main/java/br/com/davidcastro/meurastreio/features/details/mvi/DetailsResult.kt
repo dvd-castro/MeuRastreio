@@ -1,5 +1,5 @@
 package br.com.davidcastro.meurastreio.features.details.mvi
 
-class DetailsResult {
-
+sealed class DetailsResult {
+    data object ExitScreen: DetailsResult()
 }

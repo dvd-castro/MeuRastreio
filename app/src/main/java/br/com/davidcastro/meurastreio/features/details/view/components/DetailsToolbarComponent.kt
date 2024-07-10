@@ -18,12 +18,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.commons.utils.Dimens.dimen16dp
+import br.com.davidcastro.meurastreio.commons.utils.Dimens.dimen52dp
+import br.com.davidcastro.meurastreio.commons.utils.Dimens.size16sp
+import br.com.davidcastro.meurastreio.commons.utils.Dimens.size18sp
 import br.com.davidcastro.meurastreio.core.theme.GetFontColor
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
-import br.com.davidcastro.meurastreio.core.utils.Dimens.dimen16dp
-import br.com.davidcastro.meurastreio.core.utils.Dimens.dimen52dp
-import br.com.davidcastro.meurastreio.core.utils.Dimens.size16sp
-import br.com.davidcastro.meurastreio.core.utils.Dimens.size18sp
 
 @Composable
 fun DetailsToolbar(

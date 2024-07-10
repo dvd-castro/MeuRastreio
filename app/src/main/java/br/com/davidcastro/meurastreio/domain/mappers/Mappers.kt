@@ -1,6 +1,6 @@
 package br.com.davidcastro.meurastreio.domain.mappers
 
-import br.com.davidcastro.meurastreio.core.utils.extensions.orFalse
+import br.com.davidcastro.meurastreio.commons.utils.extensions.orFalse
 import br.com.davidcastro.meurastreio.data.service.db.entity.TrackingEntity
 import br.com.davidcastro.meurastreio.data.service.remote.response.TrackingResponse
 import br.com.davidcastro.meurastreio.domain.model.EventDomain

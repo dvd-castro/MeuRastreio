@@ -1,35 +1,59 @@
 package br.com.davidcastro.meurastreio.features.details.view.screen
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Bookmark
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.navigation.NavHostController
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.commons.components.TrackingCard
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
+import br.com.davidcastro.meurastreio.core.theme.GetFontColor
+import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 import br.com.davidcastro.meurastreio.core.theme.Red
-import br.com.davidcastro.meurastreio.core.utils.Dimens
 import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
+import br.com.davidcastro.meurastreio.features.details.mvi.DetailsAction
+import br.com.davidcastro.meurastreio.features.details.mvi.DetailsResult
 import br.com.davidcastro.meurastreio.features.details.view.components.DetailsToolbar
 import br.com.davidcastro.meurastreio.features.details.view.components.IconButtonComponent
 import br.com.davidcastro.meurastreio.features.details.viewmodel.DetailsViewModel
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -37,7 +61,7 @@ fun DetailsScreen(
     isFromResult: Boolean,
     tracking: TrackingDomain,
     navController: NavHostController,
-    detailsViewModel: DetailsViewModel = koinViewModel()
+    detailsViewModel: DetailsViewModel = koinViewModel(),
 ) {
     Scaffold(
         containerColor = GetSecondaryColor(),
@@ -52,9 +76,82 @@ fun DetailsScreen(
         DetailsContent(
             modifier = Modifier.padding(padding),
             tracking = tracking,
-            isFromResult = isFromResult
+            isFromResult = isFromResult,
+            navController = navController,
+            detailsViewModel = detailsViewModel
         )
     }
+}
+
+@Composable
+fun SetTrackingNameDialog(
+    onDismissRequest: (name: String?) -> Unit,
+) {
+
+    var inputText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+        mutableStateOf(TextFieldValue(""))
+    }
+
+    AlertDialog(
+        containerColor = GetPrimaryColor(),
+        onDismissRequest = {
+            onDismissRequest(null)
+        },
+        title = {
+            Text(text = stringResource(R.string.title_add_name_save_tracking_dialog))
+        },
+        text = {
+            TextField(
+                value = inputText,
+                onValueChange = { inputText = it },
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = stringResource(R.string.text_field_placeholder_save_tracking),
+                        color = Color.Gray
+                    )
+                },
+                shape = ShapeDefaults.Medium,
+                textStyle = TextStyle.Default.copy(
+                    fontSize = Dimens.size16sp,
+                    lineHeight = Dimens.size14sp,
+                ),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = GetSecondaryColor(),
+                    unfocusedContainerColor = GetSecondaryColor(),
+                    disabledContainerColor = GetSecondaryColor(),
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
+                )
+            )
+        },
+        confirmButton = {
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = GetFontColor()
+                ),
+                onClick = {
+                    onDismissRequest(inputText.text)
+                }
+            ) {
+                Text(
+                    text = stringResource(id = R.string.action_to_save),
+                    modifier = Modifier.clickable {
+                        onDismissRequest(null)
+                    }
+                )
+            }
+        },
+        dismissButton = {
+            Text(
+                text = stringResource(id = R.string.action_to_cancel),
+                modifier = Modifier.clickable {
+                    onDismissRequest(null)
+                }
+            )
+        }
+    )
 }
 
 @Composable
@@ -62,76 +159,102 @@ fun DetailsContent(
     modifier: Modifier = Modifier,
     isFromResult: Boolean,
     tracking: TrackingDomain,
+    navController: NavHostController,
+    detailsViewModel: DetailsViewModel,
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .padding(top = Dimens.dimen16dp)
-    ) {
-        Text(
-            text = stringResource(R.string.title_code),
-            fontSize = Dimens.size18sp,
-            modifier = Modifier.padding(bottom = Dimens.dimen8dp)
-        )
-
-        Text(
-            text = tracking.code,
-            fontWeight = FontWeight.Bold,
-            fontSize = Dimens.size22sp
-        )
-
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    top = Dimens.dimen28dp,
-                    end = Dimens.dimen28dp,
-                    start = Dimens.dimen28dp,
-                )
-        ) {
-            IconButtonComponent(
-                color = Color.Black,
-                title = stringResource(id = R.string.action_to_share),
-                icon = Icons.Filled.Share
-            ) {
-
-            }
-
-            Spacer(modifier = Modifier.width(Dimens.dimen52dp))
-
-            if(isFromResult) {
-                IconButtonComponent(
-                    color = Color.Black,
-                    title = stringResource(id = R.string.action_to_save),
-                    icon = Icons.Outlined.Bookmark
-                ) {
-
-                }
-            } else {
-                IconButtonComponent(
-                    color = Red,
-                    title = stringResource(id = R.string.action_to_delete),
-                    icon = Icons.Filled.Delete
-                ) {
-
+    LaunchedEffect(detailsViewModel.result) {
+        detailsViewModel.result.collectLatest {
+            when(it) {
+                is DetailsResult.ExitScreen -> {
+                    navController.popBackStack()
                 }
             }
         }
     }
-}
 
-@Preview(backgroundColor = 0xFFEDEDF0, showBackground = true)
-@Composable
-fun DetailScreenPreview() {
-    DetailsContent(
-        isFromResult = true,
-        tracking = TrackingDomain(
-            code = "OV210496545BR",
-            hasCompleted = false,
-            name = "Shein"
-        )
-    )
+    LazyColumn(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .fillMaxSize()
+            .padding(top = Dimens.dimen16dp)
+            .scrollable(
+                enabled = true,
+                state = rememberScrollState(),
+                orientation = Orientation.Vertical
+            )
+    ) {
+        item {
+            Text(
+                text = stringResource(R.string.title_code),
+                fontSize = Dimens.size18sp,
+                modifier = Modifier.padding(bottom = Dimens.dimen8dp)
+            )
+
+            SelectionContainer {
+                Text(
+                    text = tracking.code,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = Dimens.size22sp
+                )
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = Dimens.dimen28dp,
+                        end = Dimens.dimen28dp,
+                        start = Dimens.dimen28dp,
+                        bottom = Dimens.dimen16dp
+                    )
+            ) {
+                IconButtonComponent(
+                    color = Color.Black,
+                    title = stringResource(id = R.string.action_to_share),
+                    icon = Icons.Filled.Share
+                ) {
+
+                }
+
+                Spacer(modifier = Modifier.width(Dimens.dimen52dp))
+
+                if(isFromResult) {
+                    IconButtonComponent(
+                        color = Color.Black,
+                        title = stringResource(id = R.string.action_to_save),
+                        icon = Icons.Outlined.Bookmark
+                    ) {
+                        detailsViewModel.dispatch(
+                            DetailsAction.SaveTracking(tracking)
+                        )
+                    }
+                } else {
+                    IconButtonComponent(
+                        color = Red,
+                        title = stringResource(id = R.string.action_to_delete),
+                        icon = Icons.Filled.Delete
+                    ) {
+                        detailsViewModel.dispatch(
+                            DetailsAction.DeleteTracking(tracking.code)
+                        )
+                    }
+                }
+            }
+        }
+
+        items(tracking.events.orEmpty()) {
+            TrackingCard(
+                modifier = Modifier.padding(
+                    bottom = Dimens.dimen16dp,
+                    start = Dimens.dimen16dp,
+                    end = Dimens.dimen16dp
+                ),
+                status = it.status.orEmpty(),
+                local = it.subStatus.orEmpty(),
+                date = it.date.orEmpty()
+            )
+        }
+    }
 }

@@ -10,8 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
-import br.com.davidcastro.meurastreio.core.utils.Dimens
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition

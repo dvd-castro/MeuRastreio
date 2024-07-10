@@ -1,10 +1,10 @@
 package br.com.davidcastro.meurastreio.features.home.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import br.com.davidcastro.meurastreio.commons.utils.extensions.getAllTrackingCompleted
+import br.com.davidcastro.meurastreio.commons.utils.extensions.getAllTrackingInProgress
+import br.com.davidcastro.meurastreio.commons.utils.extensions.toStringArgs
 import br.com.davidcastro.meurastreio.core.navigation.Routes
-import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingCompleted
-import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingInProgress
-import br.com.davidcastro.meurastreio.core.utils.extensions.toStringArgs
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 import br.com.davidcastro.meurastreio.domain.usecase.db.containstrackingindbusecase.ContainsTrackingInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCase

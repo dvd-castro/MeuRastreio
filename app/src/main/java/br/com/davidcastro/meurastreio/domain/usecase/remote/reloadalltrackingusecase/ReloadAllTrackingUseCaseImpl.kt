@@ -1,7 +1,7 @@
 package br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackingusecase
 
-import br.com.davidcastro.meurastreio.core.utils.extensions.getAllTrackingInProgress
-import br.com.davidcastro.meurastreio.core.utils.extensions.orZero
+import br.com.davidcastro.meurastreio.commons.utils.extensions.getAllTrackingInProgress
+import br.com.davidcastro.meurastreio.commons.utils.extensions.orZero
 import br.com.davidcastro.meurastreio.domain.usecase.db.getalltrackingsindbusecase.GetAllTrackingsInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.db.inserttrackingindbusecase.InsertTrackingInDbUseCase
 import br.com.davidcastro.meurastreio.domain.usecase.remote.gettrackingusecase.GetTrackingUseCase

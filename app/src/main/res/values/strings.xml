@@ -77,5 +77,7 @@
     <string name="error_body_code_has_already_inserted">Código de rastreio já inserido.</string>
     <string name="title_result">Resultado</string>
     <string name="title_code">Código:</string>
+    <string name="text_field_placeholder_save_tracking">Ex: Blusinha da shein</string>
+    <string name="title_add_name_save_tracking_dialog">Adicione um nome para sua encomenda</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package br.com.davidcastro.meurastreio.core.utils.extensions
+package br.com.davidcastro.meurastreio.commons.utils.extensions
 
 import android.net.Uri
 import androidx.navigation.NavBackStackEntry
