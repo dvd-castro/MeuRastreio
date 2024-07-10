@@ -9,6 +9,7 @@ import br.com.davidcastro.meurastreio.domain.usecase.remote.reloadalltrackinguse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.inject
 
@@ -21,21 +22,21 @@ class AlarmReceiver : BroadcastReceiver() {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun onReceive(context: Context, intent: Intent) {
-        scope.launch {
+        if(intent.action == Intent.ACTION_BOOT_COMPLETED) {
             checkIfHaveUpdates(context)
         }
     }
 
-    private suspend fun checkIfHaveUpdates(context: Context) {
+    private fun checkIfHaveUpdates(context: Context) = scope.launch {
         try {
-            Log.d("###", "Trying to update")
-            if(reloadAllTrackingUseCase()) {
-                Utils.notifyUpdates(context)
+            Log.d("AlarmReceiver", "Checking for tracking updates")
+            reloadAllTrackingUseCase().collectLatest { hasUpdates ->
+                if(true) {
+                    Utils.notifyUpdates(context)
+                }
             }
         } catch (ex: Exception) {
-            ex.localizedMessage?.let { localizedMessage ->
-                Log.e("ERROR -> get update trancking: ", localizedMessage)
-            }
+            Log.e("AlarmReceiver", "Error updating tracking: ${ex.message}")
         }
     }
 }

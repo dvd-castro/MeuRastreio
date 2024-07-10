@@ -15,6 +15,7 @@ import br.com.davidcastro.meurastreio.features.home.mvi.ErrorType
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeAction
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeResult
 import br.com.davidcastro.meurastreio.features.home.mvi.HomeState
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class HomeViewModel (
@@ -119,7 +120,7 @@ class HomeViewModel (
     private fun reloadAll() = viewModelScope.launch {
         try {
             showLoading(enabled = true)
-            reloadAllTrackingUseCase()
+            reloadAllTrackingUseCase().collect()
         } catch (ex: Exception) {
             showError(ErrorType.ErrorGetInRemote)
         } finally {
