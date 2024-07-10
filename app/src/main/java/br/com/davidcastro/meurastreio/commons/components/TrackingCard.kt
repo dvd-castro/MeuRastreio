@@ -16,14 +16,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.commons.utils.Utils.getTrackingStatusColor
 import br.com.davidcastro.meurastreio.core.theme.GetCardBackgroundColor
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.Red
-
 
 @Composable
 fun TrackingCard(
@@ -69,7 +70,7 @@ fun TrackingCard(
                                 .clip(AbsoluteRoundedCornerShape(Dimens.dimen8dp))
                                 .background(Red)
                                 .padding(Dimens.dimen4dp),
-                            text = "Atualizado",
+                            text = stringResource(R.string.state_updated),
                             color = GetPrimaryColor()
                         )
                     }
