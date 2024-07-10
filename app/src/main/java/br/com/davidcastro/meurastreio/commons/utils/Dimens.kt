@@ -1,4 +1,4 @@
-package br.com.davidcastro.meurastreio.core.utils
+package br.com.davidcastro.meurastreio.commons.utils
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
