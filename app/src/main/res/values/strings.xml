@@ -79,5 +79,6 @@
     <string name="title_code">Código:</string>
     <string name="text_field_placeholder_save_tracking">Ex: Blusinha da shein</string>
     <string name="title_add_name_save_tracking_dialog">Adicione um nome para sua encomenda</string>
+    <string name="error_type_a_name">Digite um nome</string>
 
 </resources>

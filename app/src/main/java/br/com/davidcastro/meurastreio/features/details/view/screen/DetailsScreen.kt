@@ -1,6 +1,5 @@
 package br.com.davidcastro.meurastreio.features.details.view.screen
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,33 +17,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Bookmark
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.components.TrackingCard
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
-import br.com.davidcastro.meurastreio.core.theme.GetFontColor
-import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 import br.com.davidcastro.meurastreio.core.theme.Red
 import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
@@ -52,6 +38,7 @@ import br.com.davidcastro.meurastreio.features.details.mvi.DetailsAction
 import br.com.davidcastro.meurastreio.features.details.mvi.DetailsResult
 import br.com.davidcastro.meurastreio.features.details.view.components.DetailsToolbar
 import br.com.davidcastro.meurastreio.features.details.view.components.IconButtonComponent
+import br.com.davidcastro.meurastreio.features.details.view.components.SetTrackingNameDialog
 import br.com.davidcastro.meurastreio.features.details.viewmodel.DetailsViewModel
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
@@ -61,8 +48,10 @@ fun DetailsScreen(
     isFromResult: Boolean,
     tracking: TrackingDomain,
     navController: NavHostController,
-    detailsViewModel: DetailsViewModel = koinViewModel(),
+    detailsViewModel: DetailsViewModel = koinViewModel()
 ) {
+    val uiState = detailsViewModel.uiState.collectAsStateWithLifecycle().value
+
     Scaffold(
         containerColor = GetSecondaryColor(),
         topBar = {
@@ -81,77 +70,22 @@ fun DetailsScreen(
             detailsViewModel = detailsViewModel
         )
     }
-}
 
-@Composable
-fun SetTrackingNameDialog(
-    onDismissRequest: (name: String?) -> Unit,
-) {
-
-    var inputText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue(""))
-    }
-
-    AlertDialog(
-        containerColor = GetPrimaryColor(),
-        onDismissRequest = {
-            onDismissRequest(null)
-        },
-        title = {
-            Text(text = stringResource(R.string.title_add_name_save_tracking_dialog))
-        },
-        text = {
-            TextField(
-                value = inputText,
-                onValueChange = { inputText = it },
-                singleLine = true,
-                placeholder = {
-                    Text(
-                        text = stringResource(R.string.text_field_placeholder_save_tracking),
-                        color = Color.Gray
+    if(uiState.showSetNameDialog) {
+        SetTrackingNameDialog { name ->
+            name?.let {
+                detailsViewModel.dispatch(
+                    DetailsAction.SaveTracking(
+                        trackingDomain = tracking.copy(name = it)
                     )
-                },
-                shape = ShapeDefaults.Medium,
-                textStyle = TextStyle.Default.copy(
-                    fontSize = Dimens.size16sp,
-                    lineHeight = Dimens.size14sp,
-                ),
-                colors = TextFieldDefaults.colors(
-                    focusedContainerColor = GetSecondaryColor(),
-                    unfocusedContainerColor = GetSecondaryColor(),
-                    disabledContainerColor = GetSecondaryColor(),
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent,
                 )
-            )
-        },
-        confirmButton = {
-            Button(
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = GetFontColor()
-                ),
-                onClick = {
-                    onDismissRequest(inputText.text)
-                }
-            ) {
-                Text(
-                    text = stringResource(id = R.string.action_to_save),
-                    modifier = Modifier.clickable {
-                        onDismissRequest(null)
-                    }
+            } ?: run {
+                detailsViewModel.dispatch(
+                    DetailsAction.ShowSetNameDialog(false)
                 )
             }
-        },
-        dismissButton = {
-            Text(
-                text = stringResource(id = R.string.action_to_cancel),
-                modifier = Modifier.clickable {
-                    onDismissRequest(null)
-                }
-            )
         }
-    )
+    }
 }
 
 @Composable
@@ -160,7 +94,7 @@ fun DetailsContent(
     isFromResult: Boolean,
     tracking: TrackingDomain,
     navController: NavHostController,
-    detailsViewModel: DetailsViewModel,
+    detailsViewModel: DetailsViewModel
 ) {
     LaunchedEffect(detailsViewModel.result) {
         detailsViewModel.result.collectLatest {
@@ -227,7 +161,7 @@ fun DetailsContent(
                         icon = Icons.Outlined.Bookmark
                     ) {
                         detailsViewModel.dispatch(
-                            DetailsAction.SaveTracking(tracking)
+                            DetailsAction.ShowSetNameDialog(true)
                         )
                     }
                 } else {

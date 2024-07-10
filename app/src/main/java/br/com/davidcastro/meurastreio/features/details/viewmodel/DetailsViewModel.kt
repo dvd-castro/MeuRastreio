@@ -22,13 +22,27 @@ class DetailsViewModel(
             is DetailsAction.SaveTracking -> {
                 saveTracking(event.trackingDomain)
             }
+
             is DetailsAction.DeleteTracking -> {
                 deleteTracking(event.code)
             }
+
             is DetailsAction.ShareTracking -> {
 
             }
+
+            is DetailsAction.ShowSetNameDialog -> {
+                showSetNameDialog(event.enable)
+            }
         }
+    }
+
+    private fun showSetNameDialog(enable: Boolean) {
+        updateUiState(
+            uiState.value.copy(
+                showSetNameDialog = enable
+            )
+        )
     }
 
     private fun deleteTracking(
@@ -49,6 +63,7 @@ class DetailsViewModel(
     ) = viewModelScope.launch {
         try {
             insertTrackingInDbUseCase(trackingDomain)
+            showSetNameDialog(false)
             emitScreenResult(
                 DetailsResult.ExitScreen
             )

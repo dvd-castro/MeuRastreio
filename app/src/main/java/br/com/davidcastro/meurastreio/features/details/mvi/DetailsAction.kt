@@ -11,5 +11,9 @@ sealed class DetailsAction {
 
     data class SaveTracking(
         val trackingDomain: TrackingDomain
-    ) : DetailsAction()
+    ): DetailsAction()
+
+    data class ShowSetNameDialog(
+        val enable: Boolean
+    ): DetailsAction()
 }
