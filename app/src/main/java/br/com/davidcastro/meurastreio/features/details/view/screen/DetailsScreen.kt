@@ -1,5 +1,7 @@
 package br.com.davidcastro.meurastreio.features.details.view.screen
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +26,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -96,11 +99,20 @@ fun DetailsContent(
     navController: NavHostController,
     detailsViewModel: DetailsViewModel
 ) {
+    val context = LocalContext.current
+
     LaunchedEffect(detailsViewModel.result) {
         detailsViewModel.result.collectLatest {
             when(it) {
                 is DetailsResult.ExitScreen -> {
                     navController.popBackStack()
+                }
+
+                is DetailsResult.ShareTracking -> {
+                    shareLastEvent(
+                        context = context,
+                        tracking = tracking
+                    )
                 }
             }
         }
@@ -110,7 +122,6 @@ fun DetailsContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxSize()
-            .padding(top = Dimens.dimen16dp)
             .scrollable(
                 enabled = true,
                 state = rememberScrollState(),
@@ -121,7 +132,10 @@ fun DetailsContent(
             Text(
                 text = stringResource(R.string.title_code),
                 fontSize = Dimens.size18sp,
-                modifier = Modifier.padding(bottom = Dimens.dimen8dp)
+                modifier = Modifier.padding(
+                    bottom = Dimens.dimen8dp,
+                    top = Dimens.dimen16dp
+                )
             )
 
             SelectionContainer {
@@ -149,7 +163,10 @@ fun DetailsContent(
                     title = stringResource(id = R.string.action_to_share),
                     icon = Icons.Filled.Share
                 ) {
-
+                    shareLastEvent(
+                        context = context,
+                        tracking = tracking
+                    )
                 }
 
                 Spacer(modifier = Modifier.width(Dimens.dimen52dp))
@@ -191,4 +208,14 @@ fun DetailsContent(
             )
         }
     }
+}
+
+private fun shareLastEvent(context: Context, tracking: TrackingDomain) {
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(Intent.EXTRA_TEXT, tracking.getStatusToShare())
+        type = "text/plain"
+    }
+
+    context.startActivity(Intent.createChooser(sendIntent, null))
 }
