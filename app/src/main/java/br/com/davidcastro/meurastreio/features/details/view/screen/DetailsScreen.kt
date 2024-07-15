@@ -202,7 +202,10 @@ fun DetailsContent(
                     end = Dimens.dimen16dp
                 ),
                 status = it.status.orEmpty(),
-                local = it.subStatus.orEmpty(),
+                local = if(it.subStatus?.isEmpty() == true)
+                    listOf(it.local.orEmpty())
+                else
+                    it.subStatus.orEmpty(),
                 date = it.date.orEmpty()
             )
         }
