@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
@@ -34,14 +33,11 @@ class UpdateTrackingWorker(
     )
 
     override suspend fun getForegroundInfo(): ForegroundInfo {
-        return ForegroundInfo(
-            40028922, createNotification()
-        )
+        return ForegroundInfo(40028922, createNotification())
     }
 
     override suspend fun doWork(): Result {
         return try {
-            Log.d("Worker", "Checking for tracking updates")
             reloadAllTrackingUseCase().collectLatest { hasUpdates ->
                 if(hasUpdates) {
                     Utils.notifyUpdates(appContext)
@@ -49,13 +45,11 @@ class UpdateTrackingWorker(
             }
             Result.success()
         } catch (ex: Exception) {
-            Log.e("Worker", "Error updating tracking: ${ex.message}")
             Result.failure()
         }
     }
 
     private fun createNotification() : Notification {
-
         val intent = Intent(appContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -65,7 +59,6 @@ class UpdateTrackingWorker(
         } else {
             0
         }
-
 
         val pendingIntent: PendingIntent =
             PendingIntent.getActivity(appContext, 0, intent, flag)
