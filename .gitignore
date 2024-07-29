@@ -49,4 +49,4 @@ app/src/main/res/values/keys.xml
 app/release/output-metadata.json
 app/release/app-release.aab
 /.idea/
-keystore.jks
+app/keystore.jks

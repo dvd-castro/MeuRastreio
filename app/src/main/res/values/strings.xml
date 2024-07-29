@@ -58,6 +58,8 @@
     <string name="message_empty">Ops, parece que você não tem nenhuma encomenda para acompanhar.</string>
     <string name="message_notification_title">Suas encomendas foram atualizadas!</string>
     <string name="message_notification_text">Clique aqui para ver!</string>
+    <string name="message_notification_update_title">Meu Rastreio está executando</string>
+    <string name="message_notification_update_text">O app está buscando novas atualizações</string>
 
     <string name="notification_channel_id">40028922</string>
     <string name="notification_channel_name">meu_rastreio</string>

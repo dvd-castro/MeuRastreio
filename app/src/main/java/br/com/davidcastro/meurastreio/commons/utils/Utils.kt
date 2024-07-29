@@ -42,7 +42,7 @@ object Utils {
             return
         }
 
-        NotificationManagerCompat.from(context).notify(0, builder.build())
+        NotificationManagerCompat.from(context).notify(40028922, builder.build())
     }
 
     @Composable

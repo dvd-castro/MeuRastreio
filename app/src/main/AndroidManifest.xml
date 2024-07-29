@@ -27,7 +27,7 @@
             android:value="@string/google_ads_key" />
 
         <receiver
-            android:name=".core.receiver.AlarmReceiver"
+            android:name=".core.receiver.AppReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
