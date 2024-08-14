@@ -12,10 +12,10 @@ plugins {
     id(libs.plugins.kotlinSerialization.get().pluginId)
 }
 
-val localPropertiesFile = rootProject.file("local.properties")
+val keysPropertiesFile = rootProject.file("keys.properties")
 
-val localProperties = Properties()
-localProperties.load(FileInputStream(localPropertiesFile))
+val keysProperties = Properties()
+keysProperties.load(FileInputStream(keysPropertiesFile))
 
 android {
 
@@ -25,9 +25,9 @@ android {
     signingConfigs {
         create("release") {
             storeFile = file("keystore.jks")
-            storePassword = localProperties.getProperty("PASSWORD")
-            keyAlias = localProperties.getProperty("KEY_ALIAS")
-            keyPassword = localProperties.getProperty("KEY_PASSWORD")
+            storePassword = keysProperties.getProperty("PASSWORD")
+            keyAlias = keysProperties.getProperty("KEY_ALIAS")
+            keyPassword = keysProperties.getProperty("KEY_PASSWORD")
         }
     }
 
@@ -44,10 +44,10 @@ android {
             useSupportLibrary = true
         }
 
-        buildConfigField("String", "BASE_URL", localProperties["BASE_URL"].toString())
-        buildConfigField("String", "API_USER", localProperties["API_USER"].toString())
-        buildConfigField("String", "API_TOKEN", localProperties["API_TOKEN"].toString())
-        resValue("string", "google_ads_key", localProperties["GOOGLE_ADS_KEY"].toString())
+        buildConfigField("String", "BASE_URL", keysProperties["BASE_URL"].toString())
+        buildConfigField("String", "API_USER", keysProperties["API_USER"].toString())
+        buildConfigField("String", "API_TOKEN", keysProperties["API_TOKEN"].toString())
+        resValue("string", "google_ads_key", keysProperties["GOOGLE_ADS_KEY"].toString())
     }
 
     buildTypes {
@@ -57,9 +57,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            resValue("string", "google_ads_banner1", localProperties["GOOGLE_ADS_BANNER_TEST"].toString())
-            resValue("string", "google_ads_banner2", localProperties["GOOGLE_ADS_BANNER_TEST"].toString())
-            resValue("string", "google_ads_banner3", localProperties["GOOGLE_ADS_BANNER_TEST"].toString())
+            resValue("string", "google_ads_banner1", keysProperties["GOOGLE_ADS_BANNER_TEST"].toString())
+            resValue("string", "google_ads_banner2", keysProperties["GOOGLE_ADS_BANNER_TEST"].toString())
+            resValue("string", "google_ads_banner3", keysProperties["GOOGLE_ADS_BANNER_TEST"].toString())
         }
         release {
             isShrinkResources = true
@@ -68,9 +68,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            resValue("string", "google_ads_banner1", localProperties["GOOGLE_ADS_BANNER_1"].toString())
-            resValue("string", "google_ads_banner2", localProperties["GOOGLE_ADS_BANNER_2"].toString())
-            resValue("string", "google_ads_banner3", localProperties["GOOGLE_ADS_BANNER_3"].toString())
+            resValue("string", "google_ads_banner1", keysProperties["GOOGLE_ADS_BANNER_1"].toString())
+            resValue("string", "google_ads_banner2", keysProperties["GOOGLE_ADS_BANNER_2"].toString())
+            resValue("string", "google_ads_banner3", keysProperties["GOOGLE_ADS_BANNER_3"].toString())
             signingConfig = signingConfigs.getByName("release")
         }
     }
