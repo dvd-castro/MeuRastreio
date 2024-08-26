@@ -18,4 +18,8 @@ sealed class DetailsAction {
     data class ShowSetNameDialog(
         val enable: Boolean
     ): DetailsAction()
+
+    data class UpdateTracking(
+        val trackingDomain: TrackingDomain
+    ): DetailsAction()
 }

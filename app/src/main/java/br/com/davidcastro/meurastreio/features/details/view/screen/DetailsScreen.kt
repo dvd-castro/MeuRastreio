@@ -55,6 +55,18 @@ fun DetailsScreen(
 ) {
     val uiState = detailsViewModel.uiState.collectAsStateWithLifecycle().value
 
+    LaunchedEffect(!isFromResult) {
+        if(tracking.hasUpdated == true) {
+            detailsViewModel.dispatch(
+                DetailsAction.UpdateTracking(
+                    tracking.apply {
+                        hasUpdated = false
+                    }
+                )
+            )
+        }
+    }
+
     Scaffold(
         containerColor = GetSecondaryColor(),
         topBar = {

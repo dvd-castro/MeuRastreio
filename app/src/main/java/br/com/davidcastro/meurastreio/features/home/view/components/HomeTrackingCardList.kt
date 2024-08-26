@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import br.com.davidcastro.meurastreio.commons.components.TrackingCard
 import br.com.davidcastro.meurastreio.commons.utils.Dimens.dimen16dp
 import br.com.davidcastro.meurastreio.commons.utils.extensions.or
+import br.com.davidcastro.meurastreio.commons.utils.extensions.orFalse
 import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
 
 @Composable
@@ -30,11 +31,12 @@ fun HomeTrackingCardList(
                 name = tracking.name,
                 code = tracking.code,
                 status = lastEventStatus,
+                hasUpdate = tracking.hasUpdated.orFalse(),
+                date = tracking.getLastEvent()?.date.orEmpty(),
                 local = if(tracking.getLastEvent()?.subStatus?.isEmpty() == true)
                     listOf(tracking.getLastEvent()?.local.orEmpty())
                 else
-                    tracking.getLastEvent()?.subStatus.orEmpty(),
-                date = tracking.getLastEvent()?.date.orEmpty()
+                    tracking.getLastEvent()?.subStatus.orEmpty()
             ) {
                 onItemClick(tracking)
             }

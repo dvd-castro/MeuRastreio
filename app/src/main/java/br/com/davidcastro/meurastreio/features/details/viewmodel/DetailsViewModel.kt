@@ -36,6 +36,10 @@ class DetailsViewModel(
             is DetailsAction.ShowSetNameDialog -> {
                 showSetNameDialog(event.enable)
             }
+
+            is DetailsAction.UpdateTracking -> {
+                updateTracking(event.trackingDomain)
+            }
         }
     }
 
@@ -64,5 +68,11 @@ class DetailsViewModel(
         emitScreenResult(
             DetailsResult.ExitScreen
         )
+    }
+
+    private fun updateTracking(
+        trackingDomain: TrackingDomain
+    ) = viewModelScope.launch {
+        insertTrackingInDbUseCase(trackingDomain)
     }
 }
