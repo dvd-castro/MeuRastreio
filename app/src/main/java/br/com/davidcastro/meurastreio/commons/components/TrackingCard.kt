@@ -17,7 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
@@ -58,7 +60,7 @@ fun TrackingCard(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = it,
+                        text = it.capitalize(Locale.current),
                         fontSize = Dimens.size16sp,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier.weight(1f)
