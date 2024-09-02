@@ -12,7 +12,7 @@ plugins {
     id(libs.plugins.kotlinSerialization.get().pluginId)
 }
 
-val keysPropertiesFile = rootProject.file("keys.properties")
+val keysPropertiesFile = rootProject.file("local.properties")
 
 val keysProperties = Properties()
 keysProperties.load(FileInputStream(keysPropertiesFile))
