@@ -46,6 +46,8 @@ import br.com.davidcastro.meurastreio.features.details.viewmodel.DetailsViewMode
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
 
+private const val SHARE_TYPE = "text/plain"
+
 @Composable
 fun DetailsScreen(
     isFromResult: Boolean,
@@ -228,7 +230,7 @@ private fun shareLastEvent(context: Context, tracking: TrackingDomain) {
     val sendIntent: Intent = Intent().apply {
         action = Intent.ACTION_SEND
         putExtra(Intent.EXTRA_TEXT, tracking.getStatusToShare())
-        type = "text/plain"
+        type = SHARE_TYPE
     }
 
     context.startActivity(Intent.createChooser(sendIntent, null))
