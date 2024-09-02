@@ -1,5 +1,7 @@
 package br.com.davidcastro.meurastreio.commons.components
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.commons.utils.Utils.getTrackingStatusColor
-import br.com.davidcastro.meurastreio.core.theme.GetCardBackgroundColor
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.Red
 
@@ -41,7 +43,7 @@ fun TrackingCard(
 ) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = GetCardBackgroundColor()
+            containerColor = GetPrimaryColor()
         ),
         modifier = modifier
             .fillMaxWidth()
@@ -71,7 +73,8 @@ fun TrackingCard(
                             modifier = Modifier
                                 .clip(AbsoluteRoundedCornerShape(Dimens.dimen8dp))
                                 .background(Red)
-                                .padding(Dimens.dimen4dp),
+                                .padding(horizontal = Dimens.dimen4dp),
+                            fontSize = Dimens.size12sp,
                             text = stringResource(R.string.state_updated),
                             color = GetPrimaryColor()
                         )
@@ -90,10 +93,10 @@ fun TrackingCard(
             }
 
             Text(
-                modifier = Modifier.padding(top = Dimens.dimen4dp),
+                modifier = Modifier.padding(top = Dimens.dimen2dp),
                 text = status,
                 fontSize = Dimens.size16sp,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Bold,
                 color = Color(
                     getTrackingStatusColor(
                         status = status
@@ -102,20 +105,51 @@ fun TrackingCard(
             )
 
             local.forEach {
-                Text(
-                    text = it,
-                    fontSize = Dimens.size16sp,
-                    modifier = Modifier.padding(top = Dimens.dimen4dp)
-                )
+                GetSubStatusString(it)
             }
 
             Text(
                 text = date,
                 fontSize = Dimens.size16sp,
                 color = Color.Gray,
-                modifier = Modifier.padding(top = Dimens.dimen4dp)
+                modifier = Modifier.padding(top = Dimens.dimen2dp)
             )
         }
+    }
+}
+
+@Composable
+private fun GetSubStatusString(status: String) {
+    if (
+        status.contains(
+            stringResource(R.string.message_acessar_importacoes_contains),
+            ignoreCase = true
+        )
+    ) {
+        val context = LocalContext.current
+        val link = stringResource(id = R.string.message_importacoes_link)
+
+        Text(
+            text = stringResource(id = R.string.message_acessar_importacoes),
+            fontSize = Dimens.size16sp,
+            color = Color.Blue,
+            modifier = Modifier
+                .padding(top = Dimens.dimen2dp)
+                .clickable {
+                    context.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(link)
+                        )
+                    )
+                }
+        )
+    } else {
+        Text(
+            text = status,
+            fontSize = Dimens.size16sp,
+            modifier = Modifier.padding(top = Dimens.dimen2dp)
+        )
     }
 }
 

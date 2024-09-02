@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -41,6 +42,9 @@ fun HomeToolbar(
 ) {
     var inputText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
         mutableStateOf(TextFieldValue(""))
+    }
+    var toClear by rememberSaveable {
+        mutableStateOf(false)
     }
 
     Row(
@@ -102,11 +106,17 @@ fun HomeToolbar(
                 trailingIcon = {
                     IconButton(
                         onClick = {
-                            onSearch(inputText.text)
+                            if(toClear) {
+                                inputText = TextFieldValue("")
+                                toClear = false
+                            } else {
+                                onSearch(inputText.text)
+                                toClear =  true
+                            }
                         }
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.Search,
+                            imageVector = if(toClear) Icons.Filled.Close else Icons.Filled.Search,
                             contentDescription = null,
                         )
                     }

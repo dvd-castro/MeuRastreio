@@ -50,7 +50,9 @@
     <string name="title_carregando">Carregando...</string>
 
     <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
-    <string name="message_acessar_importacoes"><![CDATA[<span class="minhasImportacoes">Acesse o ambiente: <a href="https://apps.correios.com.br/portalimportador/pages/pesquisarRemessaImportador/pesquisarRemessaImportador.jsf" target="_blank">Minhas Importações</a></span>]]></string>
+    <string name="message_importacoes_link">https://meucorreios.correios.com.br/app/index.php</string>
+    <string name="message_acessar_importacoes">Ver minhas importações</string>
+    <string name="message_acessar_importacoes_contains">Minhas importações</string>
     <string name="message_inserido_com_sucesso">Rastreio inserido com sucesso!</string>
     <string name="message_nao_ha_encomendas_concluidas">No momento não há encomendas concluídas!</string>
     <string name="message_nao_ha_encomendas_em_andamento">No momento não há encomendas em andamento!</string>
