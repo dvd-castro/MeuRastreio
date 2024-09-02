@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import br.com.davidcastro.meurastreio.R
+import br.com.davidcastro.meurastreio.commons.components.InfoCard
 import br.com.davidcastro.meurastreio.commons.components.TrackingCard
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
@@ -208,20 +209,29 @@ fun DetailsContent(
             }
         }
 
-        items(tracking.events.orEmpty()) {
-            TrackingCard(
-                modifier = Modifier.padding(
-                    bottom = Dimens.dimen16dp,
-                    start = Dimens.dimen16dp,
-                    end = Dimens.dimen16dp
-                ),
-                status = it.status.orEmpty(),
-                local = if(it.subStatus?.isEmpty() == true)
-                    listOf(it.local.orEmpty())
-                else
-                    it.subStatus.orEmpty(),
-                date = it.date.orEmpty()
-            )
+        if(tracking.events.isNullOrEmpty()) {
+            item {
+                InfoCard(
+                    message = stringResource(R.string.message_empty_events),
+                    modifier = Modifier.padding(Dimens.dimen16dp)
+                )
+            }
+        } else {
+            items(tracking.events.orEmpty()) {
+                TrackingCard(
+                    modifier = Modifier.padding(
+                        bottom = Dimens.dimen16dp,
+                        start = Dimens.dimen16dp,
+                        end = Dimens.dimen16dp
+                    ),
+                    status = it.status.orEmpty(),
+                    local = if(it.subStatus?.isEmpty() == true)
+                        listOf(it.local.orEmpty())
+                    else
+                        it.subStatus.orEmpty(),
+                    date = it.date
+                )
+            }
         }
     }
 }

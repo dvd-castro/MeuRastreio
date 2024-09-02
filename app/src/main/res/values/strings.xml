@@ -85,5 +85,8 @@
     <string name="title_add_name_save_tracking_dialog">Adicione um nome para sua encomenda</string>
     <string name="error_type_a_name">Digite um nome</string>
     <string name="state_updated">Atualizado</string>
+    <string name="message_empty_events">Seu objeto foi postado recentemente e ainda não pode ser rastreado. \nEnquanto isto você pode clicar em SALVAR para ser notificado assim que o status de sua entrega for atualizado.</string>
+    <string name="message_empty_trackings">Nenhum rastreio adicionado no momento!</string>
+    <string name="message_not_updated">"Nenhuma atualização no momento"</string>
 
 </resources>

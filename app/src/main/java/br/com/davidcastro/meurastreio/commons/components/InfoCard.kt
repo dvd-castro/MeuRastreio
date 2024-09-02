@@ -1,0 +1,29 @@
+package br.com.davidcastro.meurastreio.commons.components
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import br.com.davidcastro.meurastreio.commons.utils.Dimens
+import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
+
+@Composable
+fun InfoCard(
+    modifier: Modifier = Modifier,
+    message: String,
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = GetPrimaryColor()
+        ),
+        modifier = modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = message,
+            Modifier.padding(Dimens.dimen16dp)
+        )
+    }
+}

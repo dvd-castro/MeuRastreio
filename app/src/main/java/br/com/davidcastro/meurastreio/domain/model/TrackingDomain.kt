@@ -15,7 +15,7 @@ data class TrackingDomain(
     var hasUpdated: Boolean? = false,
     var hasCompleted: Boolean? = false,
 ) : Parcelable {
-    fun getLastEvent(): EventDomain? = events?.first()
+    fun getLastEvent(): EventDomain? = events?.firstOrNull()
 
     fun getStatusToShare(): String {
         var status = "Codigo: $code \nStatus: ${getLastEvent()?.status}"

@@ -37,7 +37,7 @@ fun TrackingCard(
     code: String? = null,
     status: String,
     local: List<String>,
-    date: String,
+    date: String?,
     hasUpdate: Boolean = false,
     onItemClick: () -> Unit = {}
 ) {
@@ -108,12 +108,14 @@ fun TrackingCard(
                 GetSubStatusString(it)
             }
 
-            Text(
-                text = date,
-                fontSize = Dimens.size16sp,
-                color = Color.Gray,
-                modifier = Modifier.padding(top = Dimens.dimen2dp)
-            )
+            date?.let {
+                Text(
+                    text = it,
+                    fontSize = Dimens.size16sp,
+                    color = Color.Gray,
+                    modifier = Modifier.padding(top = Dimens.dimen2dp)
+                )
+            }
         }
     }
 }
