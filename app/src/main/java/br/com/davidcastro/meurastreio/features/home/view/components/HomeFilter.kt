@@ -16,7 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
-import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
+import br.com.davidcastro.meurastreio.core.theme.GetCardBackgroundColor
 import br.com.davidcastro.meurastreio.domain.model.StateEnum
 
 @Composable
@@ -36,9 +36,9 @@ fun HomeFilter(
                 selected = selectedItem == it,
                 border = null,
                 colors = if(selectedItem == it)
-                    InputChipDefaults.inputChipColors(containerColor = GetPrimaryColor())
+                    InputChipDefaults.inputChipColors()
                 else
-                    InputChipDefaults.inputChipColors(containerColor = GetPrimaryColor()),
+                    InputChipDefaults.inputChipColors(containerColor = GetCardBackgroundColor()),
                 label = {
                     Text(
                         text = it,

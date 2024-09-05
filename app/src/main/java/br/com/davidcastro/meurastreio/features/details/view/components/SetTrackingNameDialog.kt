@@ -18,8 +18,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
+import br.com.davidcastro.meurastreio.core.theme.GetCardBackgroundColor
 import br.com.davidcastro.meurastreio.core.theme.GetFontColor
-import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 
 @Composable
@@ -34,7 +34,7 @@ fun SetTrackingNameDialog(
     }
 
     AlertDialog(
-        containerColor = GetPrimaryColor(),
+        containerColor = GetCardBackgroundColor(),
         onDismissRequest = {
             onDismissRequest(null)
         },
@@ -93,7 +93,7 @@ fun SetTrackingNameDialog(
         dismissButton = {
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = GetPrimaryColor()
+                    containerColor = Color.Transparent
                 ),
                 onClick = {
                     onDismissRequest(null)

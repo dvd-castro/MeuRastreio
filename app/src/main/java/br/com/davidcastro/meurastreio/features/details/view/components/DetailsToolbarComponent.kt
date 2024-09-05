@@ -65,7 +65,8 @@ fun DetailsToolbar(
             modifier = Modifier.align(Alignment.Center),
             text = title,
             fontWeight = FontWeight.Medium,
-            fontSize = size18sp
+            fontSize = size18sp,
+            color = GetFontColor(),
         )
     }
 }

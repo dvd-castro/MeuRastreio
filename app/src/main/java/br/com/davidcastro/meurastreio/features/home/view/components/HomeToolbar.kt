@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
+import br.com.davidcastro.meurastreio.core.theme.GetFontColor
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 
@@ -66,6 +67,7 @@ fun HomeToolbar(
                     text = stringResource(id = R.string.app_name),
                     fontSize = Dimens.size22sp,
                     fontWeight = FontWeight.Medium,
+                    color = GetFontColor(),
                     modifier = Modifier.weight(1f)
                 )
 
@@ -77,6 +79,7 @@ fun HomeToolbar(
                     Icon(
                         imageVector = Icons.Filled.Refresh,
                         contentDescription = null,
+                        tint = GetFontColor()
                     )
                 }
             }

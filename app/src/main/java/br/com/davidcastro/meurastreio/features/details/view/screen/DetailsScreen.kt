@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +34,7 @@ import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.components.InfoCard
 import br.com.davidcastro.meurastreio.commons.components.TrackingCard
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
+import br.com.davidcastro.meurastreio.core.theme.GetFontColor
 import br.com.davidcastro.meurastreio.core.theme.GetSecondaryColor
 import br.com.davidcastro.meurastreio.core.theme.Red
 import br.com.davidcastro.meurastreio.domain.model.TrackingDomain
@@ -150,14 +150,16 @@ fun DetailsContent(
                 modifier = Modifier.padding(
                     bottom = Dimens.dimen8dp,
                     top = Dimens.dimen16dp
-                )
+                ),
+                color = GetFontColor(),
             )
 
             SelectionContainer {
                 Text(
                     text = tracking.code,
                     fontWeight = FontWeight.Bold,
-                    fontSize = Dimens.size18sp
+                    fontSize = Dimens.size18sp,
+                    color = GetFontColor(),
                 )
             }
 
@@ -174,7 +176,7 @@ fun DetailsContent(
                     )
             ) {
                 IconButtonComponent(
-                    color = Color.Black,
+                    color = GetFontColor(),
                     title = stringResource(id = R.string.action_to_share),
                     icon = Icons.Filled.Share
                 ) {
@@ -187,7 +189,7 @@ fun DetailsContent(
 
                 if(isFromResult) {
                     IconButtonComponent(
-                        color = Color.Black,
+                        color = GetFontColor(),
                         title = stringResource(id = R.string.action_to_save),
                         icon = Icons.Outlined.Bookmark
                     ) {

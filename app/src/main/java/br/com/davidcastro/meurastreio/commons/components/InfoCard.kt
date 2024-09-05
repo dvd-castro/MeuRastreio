@@ -8,7 +8,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
-import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
+import br.com.davidcastro.meurastreio.core.theme.GetCardBackgroundColor
+import br.com.davidcastro.meurastreio.core.theme.GetFontColor
 
 @Composable
 fun InfoCard(
@@ -17,13 +18,15 @@ fun InfoCard(
 ) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = GetPrimaryColor()
+            containerColor = GetCardBackgroundColor()
         ),
         modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = message,
-            Modifier.padding(Dimens.dimen16dp)
+            fontSize = Dimens.size14sp,
+            color = GetFontColor(),
+            modifier = Modifier.padding(Dimens.dimen16dp)
         )
     }
 }

@@ -27,7 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.utils.Dimens
 import br.com.davidcastro.meurastreio.commons.utils.Utils.getTrackingStatusColor
-import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
+import br.com.davidcastro.meurastreio.core.theme.GetCardBackgroundColor
+import br.com.davidcastro.meurastreio.core.theme.GetFontColor
 import br.com.davidcastro.meurastreio.core.theme.Red
 
 @Composable
@@ -43,7 +44,7 @@ fun TrackingCard(
 ) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = GetPrimaryColor()
+            containerColor = GetCardBackgroundColor()
         ),
         modifier = modifier
             .fillMaxWidth()
@@ -64,7 +65,8 @@ fun TrackingCard(
                     Text(
                         text = it.capitalize(Locale.current),
                         fontSize = Dimens.size16sp,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f),
+                        color = GetFontColor(),
                     )
 
                     if(hasUpdate) {
@@ -75,7 +77,7 @@ fun TrackingCard(
                                 .padding(horizontal = Dimens.dimen4dp),
                             fontSize = Dimens.size12sp,
                             text = stringResource(R.string.state_updated),
-                            color = GetPrimaryColor()
+                            color = Color.White
                         )
                     }
                 }
@@ -85,7 +87,8 @@ fun TrackingCard(
                 SelectionContainer {
                     Text(
                         text = it,
-                        fontSize = Dimens.size16sp
+                        fontSize = Dimens.size16sp,
+                        color = GetFontColor(),
                     )
                 }
             }
@@ -146,7 +149,8 @@ private fun GetSubStatusString(status: String) {
         Text(
             text = status,
             fontSize = Dimens.size16sp,
-            modifier = Modifier.padding(top = Dimens.dimen2dp)
+            modifier = Modifier.padding(top = Dimens.dimen2dp),
+            color = GetFontColor(),
         )
     }
 }
