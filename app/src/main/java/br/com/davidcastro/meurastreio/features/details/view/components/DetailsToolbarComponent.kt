@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
@@ -19,8 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import br.com.davidcastro.meurastreio.R
 import br.com.davidcastro.meurastreio.commons.utils.Dimens.dimen16dp
+import br.com.davidcastro.meurastreio.commons.utils.Dimens.dimen28dp
 import br.com.davidcastro.meurastreio.commons.utils.Dimens.dimen52dp
-import br.com.davidcastro.meurastreio.commons.utils.Dimens.size16sp
 import br.com.davidcastro.meurastreio.commons.utils.Dimens.size18sp
 import br.com.davidcastro.meurastreio.core.theme.GetFontColor
 import br.com.davidcastro.meurastreio.core.theme.GetPrimaryColor
@@ -50,12 +51,13 @@ fun DetailsToolbar(
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                 contentDescription = null,
-                tint = GetFontColor()
+                tint = GetFontColor(),
+                modifier = Modifier.size(dimen28dp)
             )
             Text(
                 text = stringResource(R.string.action_go_bak),
                 color = GetFontColor(),
-                fontSize = size16sp
+                fontSize = size18sp
             )
         }
 
