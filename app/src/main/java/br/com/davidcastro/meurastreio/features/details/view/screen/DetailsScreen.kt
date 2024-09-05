@@ -229,7 +229,7 @@ fun DetailsContent(
                         listOf(it.local.orEmpty())
                     else
                         it.subStatus.orEmpty(),
-                    date = it.date
+                    date = it.getDateAndHour()
                 )
             }
         }

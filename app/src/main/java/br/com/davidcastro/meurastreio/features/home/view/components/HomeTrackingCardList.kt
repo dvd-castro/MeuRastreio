@@ -38,7 +38,7 @@ fun HomeTrackingCardList(
                     code = tracking.code,
                     status = lastEventStatus,
                     hasUpdate = tracking.hasUpdated.orFalse(),
-                    date = tracking.getLastEvent()?.date,
+                    date = tracking.getLastEvent()?.getDateAndHour().orEmpty(),
                     local = if(tracking.getLastEvent()?.subStatus?.isEmpty() == true)
                         listOf(tracking.getLastEvent()?.local.orEmpty())
                     else
