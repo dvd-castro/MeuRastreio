@@ -9,6 +9,6 @@ data class TrackingEntity (
     var codigo : String = "",
     var nome : String = "",
     var eventos : String = "",
-    var hasUpdated: Boolean = false,
-    var hasCompleted: Boolean = false,
+    var hasUpdated: Boolean? = false,
+    var hasCompleted: Boolean? = false,
 )
