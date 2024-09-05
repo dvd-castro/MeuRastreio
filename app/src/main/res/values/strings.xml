@@ -1,77 +1,37 @@
 <resources>
     <string name="app_name">Meu Rastreio</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="menu_title">Refresh</string>
-
-    <!-- Tabs -->
-    <string name="title_item_em_andamento">Em andamento</string>
-    <string name="title_itens_concluidos">Concluídos</string>
-
-    <!-- Descriptions -->
-    <string name="description_fab">Clicar para adicionar uma nova encomenda a ser rastreada</string>
-
     <!-- Status rastreio -->
-    <string name="status_postado_apos_horario_limite">Objeto postado após o horário limite da unidade</string>
     <string name="status_encaminhado">Objeto encaminhado</string>
     <string name="status_entregue">Objeto entregue ao destinatário</string>
-    <string name="status_saiu_para_entrega">Objeto saiu para entrega ao destinatário</string>
-
-    <!-- Hints -->
-    <string name="hint_nome">Nome</string>
-    <string name="hint_codigo">Código de rastreio</string>
-
-    <!-- Erros -->
-    <string name="error_server">Deu ruim, algum problema na busca, ou código inválido, tente novamente!</string>
-    <string name="error_rastreio_ja_inserido">Código de rastreio já foi inserido anteriormente!</string>
-    <string name="error_campo_vazio">Insira o código de rastreio!</string>
-    <string name="error_deletar">Ocorreu um erro ao deletar, por favor tente novamente!</string>
-    <string name="error_endereco">Não foi possível carregar o mapa!</string>
-    <string name="error_network">Sem conexão com a internet!</string>
-    <string name="error_rastreio_internacional">Por limitação da Api, algumas informações de encomendas internacionais só estarão disponíveis ao chegar no Brasil!</string>
 
     <!--Actions -->
     <string name="action_to_share">Compartilhar</string>
-    <string name="action_to_add">Adicionar</string>
     <string name="action_to_config">Configurações</string>
     <string name="action_to_cancel">Cancelar</string>
-    <string name="action_to_confirm">Confirmar</string>
     <string name="action_go_bak">Voltar</string>
     <string name="action_to_delete">Excluir</string>
     <string name="action_to_save">Salvar</string>
 
     <!-- Titles-->
-    <string name="title_adicionar_novo_rastreio">Adicionar um novo rastreio</string>
-    <string name="title_encomenda">Encomenda</string>
-    <string name="title_map_pin">Última localização da encomenda</string>
-    <string name="title_atencao">Atenção!</string>
     <string name="title_permissao_iniciar">Permissão de início automático necessária!</string>
-    <string name="title_carregando">Carregando...</string>
-
-    <string name="message_deseja_excluir_o_item">Deseja excluir o item?</string>
     <string name="message_importacoes_link">https://meucorreios.correios.com.br/app/index.php</string>
     <string name="message_acessar_importacoes">Ver minhas importações</string>
     <string name="message_acessar_importacoes_contains">Minhas importações</string>
-    <string name="message_inserido_com_sucesso">Rastreio inserido com sucesso!</string>
-    <string name="message_nao_ha_encomendas_concluidas">No momento não há encomendas concluídas!</string>
-    <string name="message_nao_ha_encomendas_em_andamento">No momento não há encomendas em andamento!</string>
     <string name="message_permissao_iniciar">Em dispositivos Xiaomi, precisamos dessa permissão para buscar atualizações em segundo plano, por favor ativar!</string>
-    <string name="message_empty">Ops, parece que você não tem nenhuma encomenda para acompanhar.</string>
     <string name="message_notification_title">Suas encomendas foram atualizadas!</string>
     <string name="message_notification_text">Clique aqui para ver!</string>
     <string name="message_notification_update_title">Meu Rastreio está executando</string>
     <string name="message_notification_update_text">O app está buscando novas atualizações</string>
+    <string name="message_empty_events">Seu objeto foi postado recentemente e ainda não pode ser rastreado. \nEnquanto isto você pode clicar em SALVAR para ser notificado assim que o status de sua entrega for atualizado.</string>
+    <string name="message_empty_trackings">Nenhum rastreio adicionado no momento!</string>
+    <string name="message_not_updated">"Nenhuma atualização no momento"</string>
 
     <string name="notification_channel_id">40028922</string>
     <string name="notification_channel_name">meu_rastreio</string>
     <string name="notification_channel_description">Notificações de atualizações de encomendas</string>
 
     <string name="xiaomi_manufacturer">Xiaomi</string>
-    <string name="message_clique_no_botao">Clique no botão</string>
-    <string name="message_acima_e_adicione">acima e adicione</string>
-    <string name="message_alert_tracking">Lembrando que o rastreio da encomenda só estará disponível quando estiver rastreável na base de dados dos Correios, então caso tenha comprado um produto recentemente e já recebeu o código de rastreio, possa ser que ele ainda não esteja disponível para ser rastreado, então recomendamos tentar novamente em alguns dias.</string>
-    <string name="message_not_show">Não mostrar novamente</string>
     <string name="action_ok">Ok, entendi</string>
     <string name="error_title_ops_we_have_a_problem">Ops, temos um problema!</string>
     <string name="error_body_dont_load_data">Não foi possível carregar os dados.</string>
@@ -85,8 +45,4 @@
     <string name="title_add_name_save_tracking_dialog">Adicione um nome para sua encomenda</string>
     <string name="error_type_a_name">Digite um nome</string>
     <string name="state_updated">Atualizado</string>
-    <string name="message_empty_events">Seu objeto foi postado recentemente e ainda não pode ser rastreado. \nEnquanto isto você pode clicar em SALVAR para ser notificado assim que o status de sua entrega for atualizado.</string>
-    <string name="message_empty_trackings">Nenhum rastreio adicionado no momento!</string>
-    <string name="message_not_updated">"Nenhuma atualização no momento"</string>
-
 </resources>
