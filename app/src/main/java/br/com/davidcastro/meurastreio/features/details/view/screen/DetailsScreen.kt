@@ -146,7 +146,7 @@ fun DetailsContent(
         item {
             Text(
                 text = stringResource(R.string.title_code),
-                fontSize = Dimens.size18sp,
+                fontSize = Dimens.size16sp,
                 modifier = Modifier.padding(
                     bottom = Dimens.dimen8dp,
                     top = Dimens.dimen16dp
@@ -157,7 +157,7 @@ fun DetailsContent(
                 Text(
                     text = tracking.code,
                     fontWeight = FontWeight.Bold,
-                    fontSize = Dimens.size22sp
+                    fontSize = Dimens.size18sp
                 )
             }
 

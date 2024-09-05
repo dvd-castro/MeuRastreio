@@ -41,14 +41,14 @@ fun IconButtonComponent(
     ) {
         Icon(
             imageVector = icon,
-            modifier = Modifier.size(Dimens.dimen28dp),
+            modifier = Modifier.size(Dimens.dimen22dp),
             tint = color,
             contentDescription = null
         )
 
         Text(
             text = title,
-            fontSize = Dimens.size18sp,
+            fontSize = Dimens.size16sp,
             color = color,
             modifier = Modifier.padding(start = Dimens.dimen8dp)
         )
